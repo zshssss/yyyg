@@ -1,0 +1,83 @@
+#exportorder.exportorder {
+  min-height: 100vh;
+  background-color: #fff;
+}
+#exportorder.exportorder .top_title {
+  height: 1.76rem;
+  background-color: #FB3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+  overflow: hidden;
+}
+#exportorder.exportorder .top_title span.back {
+  width: 3rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#exportorder.exportorder .top_title span.exit {
+  width: 3rem;
+  font-size: 0.52rem;
+  color: #ffffff;
+  position: relative;
+  top: 0.3rem;
+  line-height: 1.76rem;
+}
+#exportorder.exportorder .userins {
+  margin-top: 0.6rem;
+}
+#exportorder.exportorder .userins .user_tel {
+  height: 1.6rem;
+  width: 14.2rem;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid #CCCCCC;
+  border-radius: 0.12rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#exportorder.exportorder .userins .user_tel input {
+  height: 100%;
+  border: none;
+}
+#exportorder.exportorder .userins .bn {
+  border-top: none;
+}
+#exportorder.exportorder .login_button {
+  height: 1.6rem;
+  width: 14.2rem;
+  background-color: #FB3812;
+  margin: 0.4rem auto 0;
+  border-radius: 0.12rem;
+  text-align: center;
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+}
+#exportorder.exportorder .other_info {
+  height: 1.7rem;
+  width: 100%;
+  font-size: 0.48rem;
+  color: #999999;
+  line-height: 1.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#exportorder.exportorder .other_info span {
+  padding: 0 1.3rem;
+  background-image: linear-gradient(#999, #999999);
+  background-position: right center;
+  background-size: 1px 0.5rem;
+  background-repeat: no-repeat;
+}
+#exportorder.exportorder .other_info span:nth-child(2) {
+  background-image: none;
+}

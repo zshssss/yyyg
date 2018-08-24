@@ -1,0 +1,105 @@
+
+@r: 50rem;
+#exportorder.exportorder {
+  min-height: 100vh;
+  background-color: #EFEFEF;
+  .top_title {
+    height: 88 / @r;
+    background-color: #FB3812;
+    line-height: 88 / @r;
+    font-size: 36 / @r;
+    color: #ffffff;
+    padding: 0 20 / @r;
+    border-bottom: 1px solid #dfdfdf;
+    overflow: hidden;
+    span.back {
+      width: 3rem;
+      height: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+      }
+    }
+    span.exit {
+      width: 3rem;
+      font-size: 26/@r;
+      color: #ffffff;
+      position: relative;
+      top: 15/@r; 
+      line-height: 88/@r;
+    }
+  }
+  .write_export{
+      height: 300/@r;
+      width: 710/@r;
+      border: 1px solid #DFDFDF;
+      margin: 25/@r auto 0;
+      background-color: #ffffff;
+      border-radius: 10/@r;
+      box-sizing: border-box;
+      padding: 20/@r 35/@r;
+      textarea{
+          height: 100%;
+          width: 100%;
+          border: none;
+          outline: none;
+          font-size: 30/@r;
+          color: #666666;
+      }
+  }
+  .addimg{
+      height: auto;
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 0 20/@r;
+      margin: 20/@r auto;
+      .addbu{
+          height: 110/@r;
+          width: 85/@r;
+          box-sizing: border-box;
+           
+          border: 1px solid #cccccc;
+          background-color: #ffffff;
+          text-align: center;
+          font-size: 24/@r;
+          color: #666666;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          .add{
+              height: 35/@r;
+              width: 35/@r;
+              box-sizing: border-box;
+              border: 1px solid #FB3913;
+              border-radius: 50%;
+              background-image: linear-gradient(#FB3913,#FB3913),linear-gradient(#FB3913,#FB3913);
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: 2/@r 15/@r,15/@r 2/@r;
+              font-size: 24/@r;
+              margin-bottom: 5/@r;
+          }
+          .name{
+               line-height: 100%;
+               margin-top: 5/@r;
+          }
+
+      }
+  }
+  .send_indo{
+      height: 80/@r;
+      width: 710/@r;
+      margin: 0 auto;
+      background-color: #FB3812;
+      border-radius: 6/@r;
+      text-align: center;
+      line-height: 80/@r;
+      font-size: 36/@r;
+      color: #ffffff;
+  }
+
+}

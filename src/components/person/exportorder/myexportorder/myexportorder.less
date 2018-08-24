@@ -1,0 +1,110 @@
+
+@r: 50rem;
+#exportorder.exportorder {
+  min-height: 100vh;
+  background-color: #EFEFEF;
+  .top_title {
+    height: 88 / @r;
+    background-color: #FB3812;
+    line-height: 88 / @r;
+    font-size: 36 / @r;
+    color: #ffffff;
+    padding: 0 20 / @r;
+    border-bottom: 1px solid #dfdfdf;
+    overflow: hidden;
+    span.back {
+      width: 3rem;
+      height: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+      }
+    }
+    span.exit {
+      width: 3rem;
+      font-size: 26/@r;
+      color: #ffffff;
+      position: relative;
+      top: 15/@r; 
+      line-height: 88/@r;
+    }
+  }
+ .export_list{
+     overflow: hidden;
+     ul{
+        li{
+            margin-top: 20/@r;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            box-sizing: border-box;
+            .export_ico{
+                width: 120/@r;
+                height: auto;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                img{
+                    border-radius: 50%;
+                }
+            }
+            .export_box{
+                width: 610/@r;
+                background-color: #ffffff;
+                min-height: 260/@r;
+                border-radius: 8/@r;
+                box-sizing: border-box;
+                padding-left: 35/@r;
+                .title{
+                    font-size: 24/@r;
+                    color: #000000;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                    white-space:nowrap;
+                    line-height: 100%;
+                    padding: 13/@r 0;
+                }
+                .tel{
+                    font-size: 24/@r;
+                    color: #fb3812;
+                    line-height: 100%;
+                    padding: 5/@r 0;
+                }
+                .order_detail{
+                    height: auto;
+                    width: 100%;
+                    .order_ico{
+                        height: 145/@r;
+                        width: 115/@r;
+                    }
+                    .order_inf{
+                        width: 450/@r;
+                        height: auto;
+                        min-height: 145/@r;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        flex-direction: column;
+                        box-sizing: border-box;
+                        padding-left: 35/@r;
+                        .order_name{
+                            font-size: 24/@r;
+                            color: #333333;
+                        }
+                        .price{
+                            font-size: 18/@r;
+                            color: #666666;
+                            span:nth-child(1){
+                                padding-right: 80/@r;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+     }
+ }
+
+}

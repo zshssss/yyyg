@@ -1,0 +1,76 @@
+#extension.extension {
+  min-height: 100vh;
+  background-color: #efefef;
+}
+#extension.extension .top_title {
+  height: 1.76rem;
+  background-color: #fb3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+}
+#extension.extension .top_title span.back {
+  width: 2rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#extension.extension .top_title span.exit {
+  width: 2rem;
+}
+#extension.extension .extension_info {
+  width: 100%;
+  line-height: 1.8rem;
+  color: #666666;
+  overflow: hidden;
+}
+#extension.extension .extension_info .extension_num {
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+  margin-top: 0.4rem;
+  font-size: 0.6rem;
+  color: #666666;
+  background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+}
+#extension.extension .extension_info .extension_detail {
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+  margin-top: 0.2rem;
+  background: #ffffff;
+  line-height: 1rem;
+  box-sizing: border-box;
+  padding: 0 0.4rem 1rem;
+}
+#extension.extension .extension_in {
+  height: 1.6rem;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.6rem;
+}
+#extension.extension .extension_in span {
+  height: 100%;
+  width: 6.4rem;
+  border-radius: 0.16rem;
+  background: #FB3812;
+  line-height: 1.6rem;
+  text-align: center;
+  font-size: 0.6rem;
+  color: #ffffff;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+#extension.extension .extension_in span:nth-child(2) {
+  background-color: #FF7800;
+}

@@ -1,0 +1,61 @@
+#customerservice.customerservice {
+  min-height: 100vh;
+  background-color: #EFEFEF;
+}
+#customerservice.customerservice .top_title {
+  height: 1.76rem;
+  background-color: #fb3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+}
+#customerservice.customerservice .top_title span.back {
+  width: 2rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#customerservice.customerservice .top_title span.exit {
+  width: 2rem;
+}
+#customerservice.customerservice .myextension_nikename {
+  height: 2.4rem;
+  width: 100%;
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+  margin-top: 0.5rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 0.4rem;
+}
+#customerservice.customerservice .myextension_nikename img {
+  border-radius: 50%;
+}
+#customerservice.customerservice .myextension_nikename .nike {
+  font-size: 0.72rem;
+  color: #666666;
+  padding-left: 0.8rem;
+}
+#customerservice.customerservice .infosection {
+  height: 1.8rem;
+  width: 100%;
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+  margin-top: 0.1rem;
+  background-color: #ffffff;
+  line-height: 1.8rem;
+  font-size: 0.6rem;
+  color: #666666;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

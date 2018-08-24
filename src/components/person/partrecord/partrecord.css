@@ -1,0 +1,122 @@
+#partrecord.partrecord {
+  min-height: 100vh;
+  background-color: #EFEFEF;
+}
+#partrecord.partrecord .top_title {
+  height: 1.76rem;
+  background-color: #FB3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+}
+#partrecord.partrecord .top_title span.back {
+  width: 2rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#partrecord.partrecord .top_title span.exit {
+  width: 2rem;
+}
+#partrecord.partrecord .parrlist {
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-top: 0.4rem;
+}
+#partrecord.partrecord .parrlist ul li {
+  height: 6rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+}
+#partrecord.partrecord .parrlist ul li .take_ico {
+  width: 4.4rem;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#partrecord.partrecord .parrlist ul li .take_info {
+  height: 100%;
+  width: 9.8rem;
+  box-sizing: border-box;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+#partrecord.partrecord .parrlist ul li .take_info .pro_name {
+  font-size: 0.48rem;
+  color: #333333;
+  line-height: 0.7rem;
+}
+#partrecord.partrecord .parrlist ul li .take_info .Model {
+  font-size: 0.48rem;
+  color: #999999;
+  line-height: 100%;
+  padding: 0.2rem 0;
+}
+#partrecord.partrecord .parrlist ul li .take_info .size {
+  font-size: 0.48rem;
+  color: #999999;
+  line-height: 100%;
+  padding: 0.2rem 0;
+}
+#partrecord.partrecord .parrlist ul li .take_info .pay_info {
+  display: flex;
+  justify-content: flex-start;
+}
+#partrecord.partrecord .parrlist ul li .take_info .pay_info p:nth-child(1) {
+  font-size: 0.48rem;
+  color: #999999;
+  padding-right: 1.3rem;
+}
+#partrecord.partrecord .parrlist ul li .take_info .pay_info p:nth-child(1) span {
+  font-size: 0.4rem;
+}
+#partrecord.partrecord .parrlist ul li .take_info .pay_info p:nth-child(2) {
+  font-size: 0.4rem;
+  color: #999999;
+}
+#partrecord.partrecord .part_kf {
+  height: 1.6rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  margin-top: 0.2rem;
+  padding-right: 0.4rem;
+}
+#partrecord.partrecord .part_kf p {
+  height: 100%;
+  width: 14.2rem;
+  box-sizing: border-box;
+  border: 1px solid #CCCCCC;
+  background-color: #ffffff;
+  border-radius: 0.16rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#partrecord.partrecord .part_kf p span {
+  width: 4.3rem;
+  height: 1rem;
+  background-color: #FB3812;
+  font-size: 0.6rem;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1rem;
+  border-radius: 0.1rem;
+  margin-right: 0.48rem;
+}

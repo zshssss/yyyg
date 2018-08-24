@@ -1,0 +1,64 @@
+#extensiondetail.extensiondetail {
+  min-height: 100vh;
+  background-color: #efefef;
+}
+#extensiondetail.extensiondetail .top_title {
+  height: 1.76rem;
+  background-color: #fb3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+}
+#extensiondetail.extensiondetail .top_title span.back {
+  width: 2rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#extensiondetail.extensiondetail .top_title span.exit {
+  width: 2rem;
+}
+#extensiondetail.extensiondetail .detail_list {
+  height: auto;
+  overflow: hidden;
+}
+#extensiondetail.extensiondetail .detail_list ul li .time {
+  height: 1.2rem;
+  overflow: hidden;
+  font-size: 0.48rem;
+  color: #666666;
+  box-sizing: border-box;
+  padding-left: 0.4rem;
+  padding-top: 0.2rem;
+  line-height: 1rem;
+}
+#extensiondetail.extensiondetail .detail_list ul li .detail_info {
+  height: 3.44rem;
+  width: 100%;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+}
+#extensiondetail.extensiondetail .detail_list ul li .detail_info .item_ico {
+  height: 2.8rem;
+  width: 3.4rem;
+  overflow: hidden;
+}
+#extensiondetail.extensiondetail .detail_list ul li .detail_info .item_info {
+  width: 10rem;
+  line-height: 0.8rem;
+}
+#extensiondetail.extensiondetail .detail_list ul li .detail_info .item_info p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,69 @@
+#balance.balance .top_title {
+  height: 1.76rem;
+  background-color: #fff;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #333333;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+}
+#balance.balance .top_title span.back {
+  width: 2rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#balance.balance .top_title span.exit {
+  width: 2rem;
+}
+#balance.balance .chage_list {
+  overflow: hidden;
+  box-sizing: border-box;
+}
+#balance.balance .chage_list ul li {
+  height: 1.6rem;
+  width: 14.2rem;
+  border: 1px solid #CCCCCC;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  margin: 0.6rem auto 0;
+  line-height: 1.6rem;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6rem;
+  color: #666;
+}
+#balance.balance .chage_list ul li input {
+  display: block;
+  height: 100%;
+  border: none;
+}
+#balance.balance .chage_list ul li .input_yzm {
+  display: block;
+  height: 100%;
+  border: none;
+}
+#balance.balance .chage_list ul li .get_yzm {
+  color: #fb3812;
+  font-size: 0.52rem;
+}
+#balance.balance .complete,
+#balance.balance .trans {
+  height: 1.6rem;
+  width: 14.2rem;
+  margin: 0.6rem auto;
+  background-color: #FB3812;
+  border-radius: 0.2rem;
+  text-align: center;
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #fff;
+}
+#balance.balance .trans {
+  background-color: #FF7800;
+}

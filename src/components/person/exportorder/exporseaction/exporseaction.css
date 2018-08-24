@@ -1,0 +1,98 @@
+#exportorder.exportorder {
+  min-height: 100vh;
+  background-color: #EFEFEF;
+}
+#exportorder.exportorder .top_title {
+  height: 1.76rem;
+  background-color: #FB3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+  overflow: hidden;
+}
+#exportorder.exportorder .top_title span.back {
+  width: 3rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#exportorder.exportorder .top_title span.exit {
+  width: 3rem;
+  font-size: 0.52rem;
+  color: #ffffff;
+  position: relative;
+  top: 0.3rem;
+  line-height: 1.76rem;
+}
+#exportorder.exportorder .write_export {
+  height: 6rem;
+  width: 14.2rem;
+  border: 1px solid #DFDFDF;
+  margin: 0.5rem auto 0;
+  background-color: #ffffff;
+  border-radius: 0.2rem;
+  box-sizing: border-box;
+  padding: 0.4rem 0.7rem;
+}
+#exportorder.exportorder .write_export textarea {
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.6rem;
+  color: #666666;
+}
+#exportorder.exportorder .addimg {
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+  margin: 0.4rem auto;
+}
+#exportorder.exportorder .addimg .addbu {
+  height: 2.2rem;
+  width: 1.7rem;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 0.48rem;
+  color: #666666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#exportorder.exportorder .addimg .addbu .add {
+  height: 0.7rem;
+  width: 0.7rem;
+  box-sizing: border-box;
+  border: 1px solid #FB3913;
+  border-radius: 50%;
+  background-image: linear-gradient(#FB3913, #FB3913), linear-gradient(#FB3913, #FB3913);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 0.04rem 0.3rem, 0.3rem 0.04rem;
+  font-size: 0.48rem;
+  margin-bottom: 0.1rem;
+}
+#exportorder.exportorder .addimg .addbu .name {
+  line-height: 100%;
+  margin-top: 0.1rem;
+}
+#exportorder.exportorder .send_indo {
+  height: 1.6rem;
+  width: 14.2rem;
+  margin: 0 auto;
+  background-color: #FB3812;
+  border-radius: 0.12rem;
+  text-align: center;
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+}

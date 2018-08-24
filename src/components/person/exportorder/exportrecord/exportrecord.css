@@ -1,0 +1,103 @@
+#exportorder.exportorder {
+  min-height: 100vh;
+  background-color: #EFEFEF;
+}
+#exportorder.exportorder .top_title {
+  height: 1.76rem;
+  background-color: #FB3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+  overflow: hidden;
+}
+#exportorder.exportorder .top_title span.back {
+  width: 3rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#exportorder.exportorder .top_title span.exit {
+  width: 3rem;
+  font-size: 0.52rem;
+  color: #ffffff;
+  position: relative;
+  top: 0.3rem;
+  line-height: 1.76rem;
+}
+#exportorder.exportorder .export_list {
+  overflow: hidden;
+}
+#exportorder.exportorder .export_list ul li {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+#exportorder.exportorder .export_list ul li .export_ico {
+  width: 2.4rem;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+#exportorder.exportorder .export_list ul li .export_ico img {
+  border-radius: 50%;
+}
+#exportorder.exportorder .export_list ul li .export_box {
+  width: 12.2rem;
+  background-color: #ffffff;
+  min-height: 5.2rem;
+  border-radius: 0.16rem;
+  box-sizing: border-box;
+  padding-left: 0.7rem;
+}
+#exportorder.exportorder .export_list ul li .export_box .title {
+  font-size: 0.48rem;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 100%;
+  padding: 0.26rem 0;
+}
+#exportorder.exportorder .export_list ul li .export_box .tel {
+  font-size: 0.48rem;
+  color: #fb3812;
+  line-height: 100%;
+  padding: 0.1rem 0;
+}
+#exportorder.exportorder .export_list ul li .export_box .order_detail {
+  height: auto;
+  width: 100%;
+}
+#exportorder.exportorder .export_list ul li .export_box .order_detail .order_ico {
+  height: 2.9rem;
+  width: 2.3rem;
+}
+#exportorder.exportorder .export_list ul li .export_box .order_detail .order_inf {
+  width: 9rem;
+  height: auto;
+  min-height: 2.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-left: 0.7rem;
+}
+#exportorder.exportorder .export_list ul li .export_box .order_detail .order_inf .order_name {
+  font-size: 0.48rem;
+  color: #333333;
+}
+#exportorder.exportorder .export_list ul li .export_box .order_detail .order_inf .price {
+  font-size: 0.36rem;
+  color: #666666;
+}
+#exportorder.exportorder .export_list ul li .export_box .order_detail .order_inf .price span:nth-child(1) {
+  padding-right: 1.6rem;
+}
