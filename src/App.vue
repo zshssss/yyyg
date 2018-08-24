@@ -2,7 +2,6 @@
   <div id="app">
     <!-- {{this.$store.state.show}} -->
     <router-view/>
-    
   </div>
 </template>
 

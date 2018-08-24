@@ -156,11 +156,12 @@ export default {
   },
 
   created: function() {
-   this.$ajax({
-      method: "GET",
-      url: "/api/Index/advert",
+   axios({
+      method: "POST",
+      url: "/apis/api/register",
       data: {
-        seatnum: 1,
+        phone: 18037472380,
+        password:'123'
       },
        header: {
         'content-type': 'application/json',
