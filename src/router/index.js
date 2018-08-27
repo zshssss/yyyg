@@ -62,6 +62,8 @@ import Login from '@/components/login/login'
 import PassForgot from '@/components/login/forgot'
 //用户注册
 import Rigiter from '@/components/login/rigister'
+// 用户协议
+import Agreement from '@/components/login/agreement'
 
 Vue.use(Router)
 
@@ -243,7 +245,12 @@ export default new Router({
       name: 'paycenter',
       component: Paycenter
     },
-
+     //用户协议
+     {
+      path: '/login/agreement',
+      name: 'agreement',
+      component: Agreement
+    },
 
   ]
 })

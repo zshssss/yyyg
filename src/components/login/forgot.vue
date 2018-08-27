@@ -38,7 +38,7 @@
 </template>
 <script>
 export default {
-  name: "exportforgot",
+  name: "forgot",
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
