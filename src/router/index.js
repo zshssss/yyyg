@@ -17,6 +17,10 @@ import Prolist from '@/components/product/prolist'
 import Prodetail from '@/components/product/prodetail'
 // 支付中心
 import Paycenter from '@/components/pay/paycenter'
+// 充值
+import Recharge from '@/components/pay/recharge/recharge'
+// 佣金转余额||提现
+import Reflect from '@/components/pay/reflect/reflect'
 
 import Order from '@/components/order'
 // 个人中心
@@ -111,6 +115,18 @@ export default new Router({
       path: '/person/balance',
       name: 'balance',
       component: Balance
+    },
+    // 充值
+    {
+      path: '/person/recharge',
+      name: 'recharge',
+      component: Recharge
+    },
+    // 佣金转余额||提现
+    {
+      path: '/person/reflect',
+      name: 'reflect',
+      component: Reflect
     },
     // 参与记录
     {

@@ -1,0 +1,97 @@
+#paycenter.reflect {
+  overflow: hidden;
+}
+#paycenter.reflect .top_title {
+  background-color: #ffffff;
+  color: #666666;
+}
+#paycenter.reflect .top_title .back {
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+#paycenter.reflect .top_swich {
+  height: 2.9rem;
+  width: 14.2rem;
+  margin: 0.4rem auto 0;
+  border-radius: 0.16rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+#paycenter.reflect .top_swich .ico {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 0.4rem;
+}
+#paycenter.reflect .top_swich .ico img {
+  margin-right: 0.9rem;
+}
+#paycenter.reflect .top_swich .ico span {
+  font-size: 0.72rem;
+  color: #666666;
+}
+#paycenter.reflect .top_swich .chose_more {
+  padding-right: 0.5rem;
+}
+#paycenter.reflect .swich_tit {
+  height: 1.6rem;
+  color: #666666;
+  font-size: 0.72rem;
+  line-height: 1.6rem;
+  width: 14.2rem;
+  margin: 0.4rem auto 0;
+  background-color: #ffffff;
+  text-indent: 0.44rem;
+  border-radius: 0.12rem;
+}
+#paycenter.reflect .swich_nums {
+  height: 2.7rem;
+  width: 14.2rem;
+  margin: 0.06rem auto 0;
+  border-radius: 0.16rem;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#paycenter.reflect .swich_nums .left_tit {
+  font-size: 0.96rem;
+  color: #666666;
+  text-indent: 0.7rem;
+}
+#paycenter.reflect .swich_nums .fill_nums {
+  padding-right: 0.5rem;
+}
+#paycenter.reflect .swich_nums .fill_nums input {
+  border: none;
+  font-size: 0.72rem;
+  color: #333333;
+  text-align: right;
+}
+#paycenter.reflect .reflect_info {
+  height: 1.6rem;
+  width: 14.2rem;
+  background-color: #ffffff;
+  margin: 0.08rem auto 0;
+  border-radius: 0.16rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 0.2rem;
+  line-height: 1.6rem;
+}
+#paycenter.reflect .reflect_info p:nth-child(1) {
+  font-size: 0.6rem;
+  color: #666666;
+}
+#paycenter.reflect .reflect_info p:nth-child(2) {
+  font-size: 0.72rem;
+  color: #fb3812;
+}

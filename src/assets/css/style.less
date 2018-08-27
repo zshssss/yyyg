@@ -394,6 +394,20 @@ input,input:focus { outline: none; border-radius: 0;}
         justify-content: space-between;
         align-items: center;
         border-bottom: 1px solid #fb3812;
+        position: relative;
+        .cus_tip{
+          position: absolute;
+          left: -50/@r;
+          top: 30/@r;
+          width: 200/@r;
+          height: 40/@r;
+          background-color: #FB3812;
+          transform: rotate(-45deg);
+          color: #fff;
+          font-size: 24/@r;
+          line-height: 40/@r;
+          text-align: center;
+        }
         .creent_ico {
           height: 100%;
           width: 220 / @r;
@@ -1937,5 +1951,88 @@ input,input:focus { outline: none; border-radius: 0;}
     line-height: 80/@r;
     font-size: 36/@r;
     color: #fff;
+  }
+}
+.conf_num{
+  // position: relative;
+  .closes{
+    position: absolute;
+    right: -26/@r;
+   
+    border-radius: 50%;
+    overflow: hidden;
+    height: 55/@r;
+    width: 55/@r;
+    top: -26/@r;
+    img{
+      background-color: #fff;
+      line-height: 100%;
+      font-size: 0px;
+      border-radius: 50%;
+    }
+  }
+  .el-dialog {
+    .el-dialog__header {
+      padding: 0;
+       
+         
+        height: 70/@r;
+       
+        width: 545/@r;
+        border-bottom: 1px solid #CCCCCC;
+        margin: 0 auto;
+        .el-dialog__title{
+          font-size: 30/@r;
+          color: #333;
+          line-height: 70/@r;
+        }
+      
+    }
+    .el-dialog__body{
+      padding: 0;
+    
+    .num_tot{
+      height: 100/@r;
+      line-height: 100/@r;
+      color: #fb3812;
+      font-size: 36/@r;
+      text-align: center;
+      margin-bottom: 20/@r;
+    }
+    .pay_method{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+     
+      font-size: 24/@r;
+      width: 545/@r;
+      margin: 0 auto;
+        color: #333;
+        height: 60/@r;
+        line-height: 60/@r;
+        border-top: 1px solid #cccccc;
+        border-bottom: 1px solid #cccccc;
+      .changem{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img{
+          margin-left: 60/@r;
+        }
+      }
+    }
+    .pay_confirm{
+      height: 70/@r;
+      width: 515/@r;
+      border-radius: 10/@r;
+      background-color: #FB3812;
+      font-size: 30/@r;
+      color: #fff;
+      line-height: 70/@r;
+      margin: 45/@r auto 35/@r;
+      text-align: center;
+    }
+  }
   }
 }

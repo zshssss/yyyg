@@ -6,6 +6,7 @@
     <div class="currents">
       <ul>
         <li>
+          <p class="cus_tip">正在揭晓</p>
           <div class="flex js_center al_center creent_ico">
             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem" alt="">
           </div>

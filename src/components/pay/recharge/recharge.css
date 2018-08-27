@@ -1,0 +1,162 @@
+.recharge {
+  overflow: hidden;
+}
+.recharge .banlance {
+  height: 1.6rem;
+  width: 14.2rem;
+  border: 1px solid #bfbfbf;
+  border-radius: 0.12rem;
+  margin: 0.4rem auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+}
+.recharge .banlance p:nth-child(1) {
+  font-size: 0.72rem;
+  color: #666666;
+}
+.recharge .banlance p:nth-child(1) span {
+  color: #fb3812;
+}
+.recharge .banlance p.to_banlance {
+  font-size: 0.48rem;
+  color: #fb3812;
+  border: 1px solid #cacaca;
+  padding: 0.2rem 0.66rem;
+  border-radius: 0.2rem;
+}
+.recharge .charge_tot {
+  height: 3.3rem;
+  width: 14.2rem;
+  background-color: #ffffff;
+  border-radius: 0.16rem;
+  margin: 0.3rem auto 0;
+  overflow: hidden;
+}
+.recharge .charge_tot .title {
+  height: auto;
+  line-height: 100%;
+  font-size: 0.72rem;
+  color: #666666;
+  padding-top: 0.42rem;
+  text-indent: 0.4rem;
+}
+.recharge .charge_tot .nums {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
+  margin-top: 0.6rem;
+}
+.recharge .charge_tot .nums .num_l {
+  font-size: 1.2rem;
+  color: #666666;
+  line-height: 100%;
+}
+.recharge .charge_tot .nums .num_r input {
+  border: none;
+  width: auto;
+  text-align: right;
+  font-size: 0.6rem;
+  color: #666666;
+}
+.recharge .costom {
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+.recharge .costom ul {
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 0.4rem 0.6rem;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+}
+.recharge .costom ul li {
+  height: 1rem;
+  width: 4.4rem;
+  border-radius: 0.1rem;
+  line-height: 1rem;
+  font-size: 0.6rem;
+  color: #fb3812;
+  text-align: center;
+  border: 1px solid #fb3812;
+  margin-right: 0.5rem;
+  box-sizing: border-box;
+  margin-top: 0.4rem;
+}
+.recharge .costom ul li:nth-child(3n) {
+  margin-right: 0;
+}
+.recharge .costom ul li.on {
+  background-color: #fb3812;
+  color: #ffffff;
+}
+.recharge .recharge_list {
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 0.6rem;
+}
+.recharge .recharge_list ul li {
+  height: 1.6rem;
+  width: 14.2rem;
+  margin: 0 auto;
+  border-radius: 0.16rem;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #cccccc;
+}
+.recharge .recharge_list ul li .name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.recharge .recharge_list ul li .name img {
+  line-height: 100%;
+}
+.recharge .recharge_list ul li .name span {
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #666666;
+}
+.recharge .recharge_list ul li .checked {
+  height: 0.52rem;
+  width: 0.52rem;
+  border-radius: 1rem;
+  border: 1px solid #fb3d18;
+  margin-right: 0.6rem;
+}
+.recharge .recharge_list ul li.on .checked {
+  background-color: #fb3812;
+}
+.recharge .rechar_confirm {
+  height: 1.6rem;
+  width: 14.2rem;
+  background-color: #ffffff;
+  font-size: 0.72rem;
+  line-height: 1.6rem;
+  color: #ffffff;
+  text-align: center;
+  background: #fb3812;
+  margin: 0 auto;
+  border-radius: 0.16rem;
+  margin-top: 1rem;
+}
+.conf_num {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.conf_num .el-dialog .el-dialog__header {
+  padding: 0;
+}

@@ -10,8 +10,7 @@
     </div>
 
     <div class="chage_list">
-        <ul>
-             
+        <ul> 
             <li>
                 <span>余额</span>
                 <span class="get_yzm">￥0.00</span>
@@ -19,8 +18,8 @@
         </ul>
     </div>
     
-    <p class="complete">充值</p>
-    <p class="trans">佣金转余额</p>
+    <p v-on:click="routerGo('recharge')" class="complete">充值</p>
+    <p v-on:click="routerGo('reflect')" class="trans">佣金转余额</p>
   </div>
 </template>
 
@@ -29,8 +28,8 @@ export default {
   name: "nikename",
   data() {
     return {
-      baseImgUrl: this.$store.state.baseImgUrl, 
-      yzm:''
+      baseImgUrl: this.$store.state.baseImgUrl,
+      yzm: ""
     };
   },
   created: function() {},
@@ -41,11 +40,10 @@ export default {
     },
     routerGo: function(path) {
       this.$router.push({ name: path });
-    }, 
-    clear:function(){
-        this.nikeNme='';    
+    },
+    clear: function() {
+      this.nikeNme = "";
     }
-
   }
 };
 </script>
@@ -54,5 +52,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-@import 'balance.css';
+@import "balance.css";
 </style>
