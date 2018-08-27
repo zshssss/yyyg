@@ -1,0 +1,209 @@
+#exportrigister.exportrigister {
+  min-height: 100vh;
+  background-color: #fff;
+}
+#exportrigister.exportrigister .top_title {
+  height: 1.76rem;
+  background-color: #FB3812;
+  line-height: 1.76rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+  padding: 0 0.4rem;
+  border-bottom: 1px solid #dfdfdf;
+  overflow: hidden;
+}
+#exportrigister.exportrigister .top_title span.back {
+  width: 3rem;
+  height: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#exportrigister.exportrigister .top_title span.exit {
+  width: 3rem;
+  font-size: 0.52rem;
+  color: #ffffff;
+  position: relative;
+  top: 0.3rem;
+  line-height: 1.76rem;
+}
+#exportrigister.exportrigister .userins {
+  margin-top: 0.6rem;
+}
+#exportrigister.exportrigister .userins .pass_inner{
+  display: flex;
+  padding: 0 0.4rem;
+  margin-bottom: 0.64rem;
+}
+
+
+#exportrigister.exportrigister .userins .pass_inner .pass_label{
+  height: 1.6rem;
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #999999;
+}
+
+#exportrigister.exportrigister .userins .user_tel {
+  height: 1.6rem;
+  width: 14.2rem;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #ffffff;
+  border: 1px solid #CCCCCC;
+  border-radius: 0.12rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#exportrigister.exportrigister .userins .user_tel input {
+  height: 100%;
+  border: none;
+}
+#exportrigister.exportrigister .userins .bn {
+  border-top: none;
+}
+#exportrigister.exportrigister .login_button {
+  height: 1.6rem;
+  width: 14.2rem;
+  background-color: #FB3812;
+  margin: 0.4rem auto 0;
+  border-radius: 0.12rem;
+  text-align: center;
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #ffffff;
+}
+#exportrigister.exportrigister .other_info {
+  height: 1.7rem;
+  width: 100%;
+  font-size: 0.48rem;
+  color: #999999;
+  line-height: 1.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#exportrigister.exportrigister .other_info span {
+  padding: 0 1.3rem;
+  background-image: linear-gradient(#999, #999999);
+  background-position: right center;
+  background-size: 1px 0.5rem;
+  background-repeat: no-repeat;
+}
+#exportrigister.exportrigister .other_info span:nth-child(2) {
+  background-image: none;
+}
+
+
+.extend_code{
+    flex: 1;
+}
+
+.write-input {
+  height: 100%;
+  width: 100%; 
+  position: relative;
+  }
+.write-input li{
+  float: left;
+  height:1.2rem;
+  width: 29px; 
+  margin: 0 4px; 
+  border-bottom:1px solid #888888;
+  }
+.write-input li input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  width:100%;
+  resize: none;
+  outline: none;
+  border:0;
+  line-height: 1.2rem;
+  text-align: center;
+  height: 1.2rem;
+  font-size:.64rem;
+  }
+.realInput{
+/* Keyword values */
+-webkit-appearance: none;
+-moz-appearance: none;
+-ms-appearance: none;
+resize: none;
+outline: none;
+border: 0;
+z-index: 3;
+position: absolute;
+width: 100%;
+height: 1.2rem;
+line-height: 1.2rem;
+background: none;
+display: block;
+left: 0;
+top:0px;
+opacity: 0;
+text-indent: -10em;
+font-size: 1.2rem;
+
+}
+input[type="tel"]:disabled{background-color: #fff;}
+
+
+/* user_cheack */
+
+.user_cheack{
+display: inline-block;
+margin-right: .2rem;
+background-color: #FFF;
+width: .72rem;
+height: .72rem;
+line-height: .72rem;
+padding: .1rem;
+border-radius: .1rem;
+position: relative;
+overflow: hidden;
+box-sizing: border-box;
+border: 1px solid #888;
+
+}
+.user_cheack.checked{
+ background-color: #FB3812;
+ border-color: transparent;
+}
+.user_cheack.checked::before{
+content: '';
+display: block;
+position: absolute;
+height: .15rem;
+top: 0.15rem;
+left: 0.15rem;
+width: .3rem;
+border-left: 0.05rem solid #fff;
+border-bottom: 0.05rem solid #fff;
+background-color: #FB3812;
+transform: rotateZ(-45deg);
+}
+
+.cheack_maind{
+display: inline-block;
+color: #888;
+}
+
+.cheack_maind a{
+color: #0143ff;
+}
+
+.btn_validefy{
+ background-color:#FB3812;
+ color:#fff;
+ padding: 0 .5rem;
+ line-height: 1.6rem;
+ height: 1.6rem;
+ border-radius:0.1rem;
+ margin-left:0.2rem;
+ font-size:0.64rem;
+ width:3.6rem;
+ text-align:center;
+}

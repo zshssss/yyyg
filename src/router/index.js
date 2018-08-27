@@ -58,7 +58,10 @@ import Exporseaction from '@/components/person/exportorder/exporseaction/exporse
 import Exportrecord from '@/components/person/exportorder/exportrecord/exportrecord'
 // 登录
 import Login from '@/components/login/login'
-
+//忘记密码
+import PassForgot from '@/components/login/forgot'
+//用户注册
+import Rigiter from '@/components/login/rigister'
 
 Vue.use(Router)
 
@@ -101,6 +104,20 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+
+    //忘记密码
+    {
+      path: '/login/forgot',
+      name: 'forgot',
+      component: PassForgot
+    },
+
+    //注册用户
+    {
+      path: '/login/rigister',
+      name: 'rigister',
+      component: Rigiter
     },
 
     // 个人中心

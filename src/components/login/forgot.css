@@ -1,0 +1,110 @@
+#exportforgot.exportforgot {
+    min-height: 100vh;
+    background-color: #fff;
+  }
+  #exportforgot.exportforgot .top_title {
+    height: 1.76rem;
+    background-color: #FB3812;
+    line-height: 1.76rem;
+    font-size: 0.72rem;
+    color: #ffffff;
+    padding: 0 0.4rem;
+    border-bottom: 1px solid #dfdfdf;
+    overflow: hidden;
+  }
+  #exportforgot.exportforgot .top_title span.back {
+    cursor: pointer;
+    width: 3rem;
+    height: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  #exportforgot.exportforgot .top_title span.exit {
+    width: 3rem;
+    font-size: 0.52rem;
+    color: #ffffff;
+    position: relative;
+    top: 0.3rem;
+    line-height: 1.76rem;
+  }
+  #exportforgot.exportforgot .userins {
+    margin-top: 0.6rem;
+  }
+
+  #exportforgot.exportforgot .userins .pass_inner{
+    display: flex;
+    padding: 0 0.4rem;
+    margin-bottom: 0.64rem;
+  }
+
+  
+  #exportforgot.exportforgot .userins .pass_inner .pass_label{
+    height: 1.6rem;
+    line-height: 1.6rem;
+    font-size: 0.72rem;
+    color: #999999;
+  }
+  #exportforgot.exportforgot .userins .user_tel {
+    height: 1.6rem;
+    /* width: 14.2rem; */
+    flex: 1;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid #CCCCCC;
+    border-radius: 0.12rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #exportforgot.exportforgot .userins .user_tel input {
+    height: 100%;
+    border: none;
+  }
+
+  #exportforgot.exportforgot .login_button {
+    height: 1.6rem;
+    width: 14.2rem;
+    background-color: #FB3812;
+    margin: 0.4rem auto 0;
+    border-radius: 0.12rem;
+    text-align: center;
+    line-height: 1.6rem;
+    font-size: 0.72rem;
+    color: #ffffff;
+  }
+  #exportforgot.exportforgot .other_info {
+    height: 1.7rem;
+    width: 100%;
+    font-size: 0.48rem;
+    color: #999999;
+    line-height: 1.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #exportforgot.exportforgot .other_info span {
+    padding: 0 1.3rem;
+    background-image: linear-gradient(#999, #999999);
+    background-position: right center;
+    background-size: 1px 0.5rem;
+    background-repeat: no-repeat;
+  }
+  #exportforgot.exportforgot .other_info span:nth-child(2) {
+    background-image: none;
+  }
+  
+  .btn_validefy{
+    background-color:#FB3812;
+    color:#fff;
+    line-height: 1.6rem;
+    height: 1.6rem;
+    border-radius:0.1rem;
+    margin-left:0.2rem;
+    font-size:0.64rem;
+    width:3.6rem;
+    text-align:center;
+   }
