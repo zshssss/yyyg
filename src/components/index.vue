@@ -3,9 +3,9 @@
 
     <!-- 头部搜索 -->
     <div class="flex js_center al_center topsea">
-      <div class="box flex js_start al_center seach">
+      <div class="box flex js_start al_center seach" v-on:click="showSea">
         <img :src="baseImgUrl+'index_sea_32_30.png'" style="width:.64rem;height:.6rem;" alt="">
-        <input class="seakey" placeholder="请输入您想要的宝贝" type="text">
+        <input class="seakey" disabled placeholder="请输入您想要的宝贝" type="text">
       </div>
     </div>
     <!-- 首页轮播 -->
@@ -130,6 +130,38 @@
     <div class="tab_posi">
       <TabBar :nth='0'></TabBar>
     </div>
+    <mt-popup class="seach_wrap" v-model="show" position="right">
+      <div class="search">
+        <div class="topti">
+          <div class="index_back" v-on:click="seaBack">
+            <img :src="baseImgUrl+'left_red_21_37.png'" style="width:.42rem;height:.74rem;" alt="" srcset="">
+          </div>
+          <div class="fillkey">
+            <img :src="baseImgUrl+'pop_sea_32_30.png'" style="width:.64rem;height:.60rem;" alt="" srcset="">
+            <input type="text" maxlength="11" placeholder="请输入你想要寻找的宝贝..." />
+            <span class="clear">
+              <img :src="baseImgUrl+'delete_32_32.png'" style="width:.64rem;height:.64rem;" alt="" srcset="">
+            </span>
+            
+          </div>
+          <div class="seachbuttom">搜索</div>
+          
+        </div>
+        <div class="hot_sea">
+          <p class="tit">热门搜索</p>
+          <div class="hot_keys">
+            <ul>
+              <li>口红</li>
+              <li>面包</li>
+              <li>罗小黑</li>
+              <li>罗小白</li>
+              <li>小米8 64GB 骁龙845</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </mt-popup>
+
   </div>
 </template>
 
@@ -149,36 +181,44 @@ export default {
   heh: "",
   data() {
     return {
+      show: false,
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
       recom: [0, 0]
     };
   },
 
-  created: function() {
-   axios({
+  created: function() {    
+    axios({
       method: "POST",
       url: "/apis/api/register",
       data: {
         phone: 18037472380,
-        password:'123'
+        password: "123"
       },
-       header: {
-        'content-type': 'application/json',
-    },
+      header: {
+        "content-type": "application/json"
+      }
     })
-    .then(function(res){
-      console.log(res)
-    })
-    .catch(function(ers){
-      console.log(ers)
-    })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function(ers) {
+        console.log(ers);
+      });
   },
   computed: {},
   methods: {
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName });
+    },
+    seaBack:function(){
+      this.show=false
+    },
+    showSea:function(){
+       this.show=true
     }
+
   }
 };
 </script>
@@ -188,9 +228,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.lay {
-  height: 100px;
-  width: 100px;
-  background-color: red;
-}
+@import "index/index.css";
 </style>

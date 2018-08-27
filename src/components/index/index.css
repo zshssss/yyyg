@@ -1,0 +1,77 @@
+.lay {
+  height: 100px;
+  width: 100px;
+  background-color: red;
+}
+.seach_wrap .search {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #EFEFEF;
+}
+.seach_wrap .search .topti {
+  height: 1.66rem;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.4rem;
+}
+.seach_wrap .search .fillkey {
+  height: 1.2rem;
+  width: 11.54rem;
+  border-radius: 0.6rem;
+  background-color: #EFEFEF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 0.34rem;
+}
+.seach_wrap .search .fillkey input {
+  background-color: #EFEFEF;
+  border: none;
+  width: 9rem;
+}
+.seach_wrap .search .seachbuttom {
+  font-size: 0.56rem;
+  color: #fb3812;
+  line-height: 1.6rem;
+}
+.seach_wrap .search .hot_sea {
+  height: auto;
+  width: 100%;
+  overflow: hidden;
+}
+.seach_wrap .search .hot_sea .tit {
+  font-size: 0.48rem;
+  color: #666666;
+  line-height: 1.2rem;
+  box-sizing: border-box;
+  padding-left: 0.4rem;
+}
+.seach_wrap .search .hot_sea .hot_keys {
+  overflow: hidden;
+}
+.seach_wrap .search .hot_sea .hot_keys ul {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 0 0.8rem;
+}
+.seach_wrap .search .hot_sea .hot_keys ul li {
+  height: 1rem;
+  width: auto;
+  padding: 0 1rem;
+  line-height: 1rem;
+  text-align: center;
+  font-size: 0.6rem;
+  color: #fb3812;
+  background-color: #FFFFFF;
+  margin-right: 0.7rem;
+  margin-bottom: 0.4rem;
+  border-radius: 0.1rem;
+}
