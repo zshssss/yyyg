@@ -1,5 +1,8 @@
 
+
+
 const tool = {
+
 }
 tool.say=function(){
     alert(1);
