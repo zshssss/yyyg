@@ -20,14 +20,10 @@
     </div>
     
     <p class="login_button">登录</p>
-    <p class="other_info">
-<<<<<<< HEAD
-      <span v-on:click="routerGo('forgot')">忘记密码</span>
-      <span v-on:click="routerGo('rigister')">新用户注册</span>
-=======
+    <p class="other_info"> 
       <span @click="routerGo('forgot')">忘记密码</span>
       <span @click="routerGo('rigister')">新用户注册</span>
->>>>>>> 6ffa12af7caa4ff3e679e6cef398b72969a13cb9
+ 
     </p>
  
   </div>
