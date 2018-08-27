@@ -19,7 +19,8 @@
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
                 <input type="number" value=""  placeholder="请输入验证码"  maxlength="11">
             </p>
-            <span class="btn_validefy" >获取验证码</span>
+            <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
+            <span class="btn_validefy" v-else> {{timercount}}s</span>
         </div>
         <div class="pass_inner">
             <p class="user_tel">
@@ -47,18 +48,23 @@
   </div>
 </template>
 <script>
+import { MessageBox } from 'mint-ui';
 export default {
   name: "exportrigister",
   data(){
     return{
         baseImgUrl: this.$store.state.baseImgUrl,
-      messagepacket:false,
-      packets:[
+        messagepacket:false,
+        packets:[
 
-      ],
-      disInputs:[{value:''},{value:''},{value:''},{value:''},{value:''},{value:''}],
-      realInput:'',
-      isChecked:false
+        ],
+        disInputs:[{value:''},{value:''},{value:''},{value:''},{value:''},{value:''}],
+        realInput:'',
+        isChecked:false,
+        notvalided:true,
+        timercount:'',
+        timer:null,
+        code:''
     }
   },
   mounted(){
@@ -99,7 +105,31 @@ export default {
     handleChecked(){
         const cheack = this.isChecked;
         this.isChecked = !cheack;
+    },
+    // 生成随机码
+    createdCode(){
+    const TIME_COUNT = 60
+    if(!this.timer){
+      this.timercount = TIME_COUNT;
+      this.timer = setInterval(()=>{
+         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
+         this.timercount--;
+        } else {
+         this.notvalided = true;
+         clearInterval(this.timer);
+         this.timer = null;
+        }
+       }, 1000)
     }
+    this.notvalided = false;
+    const parten = ['0','1','2','3','4','5','6','7','8','9'];
+    const code='';
+    this.code = code;
+    for(let i = 0;i<6;i++){
+      let ran = parseInt(Math.random()*parten.length);
+      this.code += parten[ran];
+    }
+  }
   }
 };
 </script>
