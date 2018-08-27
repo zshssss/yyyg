@@ -64,6 +64,8 @@ import PassForgot from '@/components/login/forgot'
 import Rigiter from '@/components/login/rigister'
 // 用户协议
 import Agreement from '@/components/login/agreement'
+// 商品搜索
+import Search from '@/components/search'
 
 Vue.use(Router)
 
@@ -251,6 +253,11 @@ export default new Router({
       name: 'agreement',
       component: Agreement
     },
-
+    //搜索页
+    {
+      path: '/search',
+      name: 'search',
+      component: Search
+    },
   ]
 })
