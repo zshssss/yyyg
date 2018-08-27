@@ -21,8 +21,8 @@
     
     <p class="login_button">登录</p>
     <p class="other_info">
-      <span>忘记密码</span>
-      <span>新用户注册</span>
+      <span @click="routerGo('forgot')">忘记密码</span>
+      <span @click="routerGo('rigister')">新用户注册</span>
     </p>
  
   </div>

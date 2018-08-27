@@ -40,7 +40,7 @@
         <p class="login_button" style="marginBottom:.4rem;">注册</p>
         <div class="pass_inner">
             <span class="user_cheack" v-bind:class="{'checked':isChecked}" @click="handleChecked"></span>
-            <span class="cheack_maind">我已经阅读并同意<a href="">用户服务协议</a></span>
+            <span class="cheack_maind">我已经阅读并同意<a @click="routerGo($event,'agreement')">用户服务协议</a></span>
         </div>
     </div>
         
@@ -50,7 +50,7 @@
 <script>
 import { MessageBox } from 'mint-ui';
 export default {
-  name: "exportrigister",
+  name: "rigister",
   data(){
     return{
         baseImgUrl: this.$store.state.baseImgUrl,
@@ -73,6 +73,10 @@ export default {
   methods:{
     back: function() {
       this.$router.back()
+    },
+    routerGo: function(e,path) {
+        e.preventDefault();
+        this.$router.push({ name: path });
     },
     getNum(){
         if(this.realInput.length ===6){
