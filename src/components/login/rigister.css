@@ -31,6 +31,20 @@
 #exportrigister.exportrigister .userins {
   margin-top: 0.6rem;
 }
+#exportrigister.exportrigister .userins .pass_inner{
+  display: flex;
+  padding: 0 0.4rem;
+  margin-bottom: 0.64rem;
+}
+
+
+#exportrigister.exportrigister .userins .pass_inner .pass_label{
+  height: 1.6rem;
+  line-height: 1.6rem;
+  font-size: 0.72rem;
+  color: #999999;
+}
+
 #exportrigister.exportrigister .userins .user_tel {
   height: 1.6rem;
   width: 14.2rem;
@@ -113,6 +127,7 @@
   font-size:.64rem;
   }
 .realInput{
+/* Keyword values */
 -webkit-appearance: none;
 -moz-appearance: none;
 -ms-appearance: none;
