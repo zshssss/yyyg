@@ -57,18 +57,16 @@
       </router-link>
       <div class="jiexiao_list">
         <ul>
-          <template v-for="(item, index) in 4">
-            <li>
-              <img :src="baseImgUrl+'jiexiao_ico_160_147.png'" style="width:3.2rem;height:2.94rem" alt="">
+            <li  v-for="(item, index) in comeSoon" :key="index">
+              <img :src="baseImgUrl+item.name" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
-                <span>00:</span>
-                <span>28:</span>
-                <span>30</span>
+                <span>{{hh}}:</span>
+                <span>{{mm}}:</span>
+                <span>{{ss}}</span>
               </p>
             </li>
-          </template>
-        </ul>
+          </ul>
       </div>
     </div>
 
@@ -179,15 +177,27 @@ export default {
   components: { TabBar },
   name: "index",
   heh: "",
+  houer:null,
+  minut:null,
+  second:null,
   data() {
     return {
       show: false,
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
-      recom: [0, 0]
+      recom: [0, 0],
+      dd:0,
+      hh:0,
+      mm:0,
+      ss:0,
+      comeSoon:[
+        {name:'jiexiao_01_ico_160_147.png'},
+        {name:'jiexiao_02_ico_160_147.png'},
+        {name:'jiexiao_03_ico_160_147.png'},
+        {name:'jiexiao_04_ico_160_147.png'}
+      ]
     };
   },
-
   created: function() {    
     axios({
       method: "POST",
@@ -206,6 +216,16 @@ export default {
       .catch(function(ers) {
         console.log(ers);
       });
+  },
+  mounted(){
+    const _this = this;
+    var ts= new Date(2018, 8, 30, 10, 0, 0)
+    this.timer = setInterval(()=>{
+     _this.dd = '0'+parseInt(ts / 1000 / 60 / 60 / 24, 10);//计算剩余的天数  
+      _this.hh = parseInt(ts / 1000 / 60 / 60 % 24, 10);//计算剩余的小时数  
+      _this.mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数  
+      _this.ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数  
+    },1000)
   },
   computed: {},
   methods: {

@@ -11,8 +11,7 @@
 
     <div class="addrdetail_list">
         <ul>
-            <template v-for="(item, index) in 3">
-            <li>
+            <li  v-for="(item, index) in 3" :key="index">
                <div class="flex js_between al_center add_top">
                    <section class="deindo">
                        <p class="concat">
@@ -35,7 +34,6 @@
                    <p class="bjin" v-on:click="edishow=true">编辑</p>
                </div>
             </li>
-           </template> 
         </ul>
     </div>
 
@@ -52,8 +50,8 @@
      <input type="text" placeholder="张某某" />
      <input type="number" placeholder="1752557577" />
    </section>
-  <section class="addrsss">
-    <span>河南省 郑州市 管城区</span>
+  <section class="addrsss n-rewrite" >
+    <p> 河南省 郑州市 管城区<p/>
     <img :src="baseImgUrl+'right.png'" style="width:.54rem;height:.74rem" alt="">
   </section>
   <section class="addrdetail">
@@ -61,8 +59,8 @@
   </section>
   <p class="saveinfo">保存</p>
   </el-dialog>
-
-
+ 
+  
   </div>
 </template>
 
@@ -72,8 +70,8 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
-      edishow:false
-    };
+      edishow:false,
+    }
   },
   created: function() {},
   computed: {},
@@ -84,7 +82,7 @@ export default {
     routerGo: function(path) {
       this.$router.push({ name: path });
     },
-     
+
   }
 };
 </script>

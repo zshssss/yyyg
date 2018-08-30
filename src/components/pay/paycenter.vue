@@ -40,9 +40,9 @@
             <p class="model">型号：A1863</p>
             <p class="nums">共1件</p>
             <p class="flex js_start al_center numchange">
-              <span></span>
-              <span>1</span>
-              <span></span>
+               <span @click="redProdCount()"></span>
+                <span>{{haveBuy}}</span>
+                <span @click="addProdCount()"></span>
             </p>
           </div>
         </li>
@@ -81,6 +81,7 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
+      haveBuy:1,
       payMethod: [
         {
           name: "余额",
@@ -109,7 +110,21 @@ export default {
     },
     swichPayStyle: function(index) {
       this.payNth = index;
-    }
+    },
+    redProdCount(){
+      if(this.haveBuy<=1){
+        alert('不得小于1')
+        return;
+      }
+      this.haveBuy --;
+    },
+    addProdCount(){
+       if(this.haveBuy>=5){
+        alert('不得多于5 ');
+        return;
+      }
+      this.haveBuy ++;
+    },
   }
 };
 </script>
