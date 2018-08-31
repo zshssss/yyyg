@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        baseImgUrl:"http://192.168.1.112/yi/"
+        baseImgUrl:"http://service.ruizhixue.cn/ceshi/video/yi/"
         //  baseImgUrl:"http://192.168.1.108/yi/"
     },
     mutations: function(){
