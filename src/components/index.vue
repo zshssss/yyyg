@@ -57,18 +57,16 @@
       </router-link>
       <div class="jiexiao_list">
         <ul>
-          <template v-for="(item, index) in 4">
-            <li>
-              <img :src="baseImgUrl+'jiexiao_ico_160_147.png'" style="width:3.2rem;height:2.94rem" alt="">
+            <li  v-for="(item, index) in comeSoon" :key="index" v-on:click="routerGo('prodetail')">
+              <img :src="baseImgUrl+item.name" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
-                <span>00:</span>
-                <span>28:</span>
-                <span>30</span>
+                <span>{{hour}}:</span>
+                <span>{{minu}}:</span>
+                <span>{{second}}</span>
               </p>
             </li>
-          </template>
-        </ul>
+          </ul>
       </div>
     </div>
 
@@ -83,8 +81,7 @@
       <div class="recommend_list">
         <ul>
           <!-- <template v-for="(item, index) in recom" :key="index"> -->
-           <template v-for="(val, key, index) in recom"> 
-            <li>
+            <li  v-for="(val, index) in recom" :key="index">
               
               <div class="recom_left" v-on:click="routerGo('prodetail')">
                 <img :src="baseImgUrl+'recom_300_240.png'" style="width:6rem;height:4.8rem;" alt="">
@@ -122,7 +119,6 @@
                 </div>
               </div>
             </li>
-          </template>
         </ul>
       </div>
     </div>
@@ -178,16 +174,23 @@ import TabBar from "./publicfile/tabbar";
 export default {
   components: { TabBar },
   name: "index",
-  heh: "",
   data() {
     return {
       show: false,
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
-      recom: [0, 0]
+      recom: [0, 0],
+      hour:null,
+      minu:null,
+      second:null,
+      comeSoon:[
+        {name:'jiexiao_01_ico_160_147.png'},
+        {name:'jiexiao_02_ico_160_147.png'},
+        {name:'jiexiao_03_ico_160_147.png'},
+        {name:'jiexiao_04_ico_160_147.png'}
+      ]
     };
   },
-
   created: function() {    
     // axios({
     //   method: "POST",
@@ -207,8 +210,25 @@ export default {
     //     console.log(ers);
     //   });
   },
+  mounted(){
+ 
+    this.formatDate()
+  },
   computed: {},
   methods: {
+    formatDate(formatStr,timep) {
+     setInterval(()=>{
+       var endPoin= new Date('2018-09-01').getTime();
+      var leftTime = endPoin - new Date().getTime();
+      var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
+      var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
+      var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
+      this.hour = (hours>9) ? hours :'0'+ hours;
+      this.minu = (minutes>9) ? minutes :'0'+ minutes;
+      this.second = (seconds>9) ? seconds :'0'+ seconds;
+
+    },1000)
+    },
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName });
     },

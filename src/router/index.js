@@ -64,14 +64,19 @@ import PassForgot from '@/components/login/forgot'
 import Rigiter from '@/components/login/rigister'
 // 用户协议
 import Agreement from '@/components/login/agreement'
-// 商品搜索
-import Search from '@/components/search'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   routes: [
+    //HelloWorld
+    {
+      path: '/helloworld',
+      name: 'helloworld',
+      component: HelloWorld
+    },
+
     // 首页
     {
       path: '/',
@@ -253,6 +258,7 @@ export default new Router({
       name: 'agreement',
       component: Agreement
     },
+<<<<<<< HEAD
     //搜索页
     {
       path: '/search',
@@ -263,5 +269,7 @@ export default new Router({
       path: '*',
       redirect: { name: 'index' }
     },
+=======
+>>>>>>> 4dc5f5b01f3abdb26977dfb385c0bab8b3e787ed
   ]
 })

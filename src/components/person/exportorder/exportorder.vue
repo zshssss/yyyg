@@ -5,8 +5,8 @@
         <span class="back" v-on:click="back(1)">
            <img :src="baseImgUrl+'left_21_37.png'" style="width:.42rem;height:.74rem;" alt="">
         </span>
-       <span>我的晒单</span>
-      <span class="exit">我要晒单</span>
+        <span>我的晒单</span>
+        <span class="exit">我要晒单</span>
        
     </div>
     <div class="export_list">

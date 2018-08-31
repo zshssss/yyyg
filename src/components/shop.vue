@@ -4,28 +4,29 @@
     <!-- 购物车内容 -->
     <div v-if="shopShow" class="shop_list">
       <ul>
-        <template v-for="(item, index) in 3">
-        <li>
+        <li  v-for="(cartItem, index) in shopCart" :key="index">
           <div class="flex js_center al_center shop_detail_ico">
-            <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem;" alt="">
+            <img :src="baseImgUrl+cartItem.prodImg" style="width:3.74rem;height:4.7rem;" alt="">
           </div>
           <div class="shop_detail_r">
-            <p class="shop_name">（第333期）Apple iPhone 8(A1863)64G移动 剩余 <span>120</span> 人次</p>
-            <p class="shop_nums">总共抢购:<span>5</span>人次</p>
+            <p class="shop_name">
+              <!-- （第333期）Apple iPhone 8(A1863)64G移动  -->
+              {{cartItem.prodKeyword}}
+              剩余 <span>{{cartItem.restcount}}</span> 人次</p>
+            <p class="shop_nums">总共抢购:<span>{{cartItem.haveWrap}}</span>人次</p>
             
             <div class="flex js_between al_center box numschange">
               <p class="flex js_between al_center shop_numc">
-                <span></span>
-                <span>5</span>
-                <span></span>
+                <span @click="redProdCount(index)"></span>
+                <span>{{haveBuy}}</span>
+                <span @click="addProdCount(index)"></span>
               </p>
-              <p class="flex js_center al_center shop_del">
+              <p class="flex js_center al_center shop_del" @click="handleDele(index)">
                 <img :src="baseImgUrl+'del-28_34.png'" style="width:.56rem;height:.68rem" alt="">
               </p>
             </div>
           </div>
-        </li>
-      </template>    
+        </li>  
       </ul>
       <div class="tc topay" v-on:click="routeGo('paycenter')">立即支付</div>
     </div>
@@ -59,6 +60,16 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
+      limit:5,
+      haveBuy:1,
+      shopCart:[
+        {
+          prodImg:'jiexiao_ico_187_235.png',
+          prodKeyword:'（第122期）Apple iPhone 8 Plus 64GB红色 特别版 移动联通电信4G手机',
+          restcount:120,
+          haveWrap:5
+        }
+      ],
       shopShow:true
     };
   },
@@ -68,6 +79,26 @@ export default {
   methods: {
     routeGo:function(pathName){
       this.$router.push({ name: pathName });
+    },
+    redProdCount(id){
+      if(this.haveBuy<=1){
+        alert('不得小于1')
+        return;
+      }
+      this.haveBuy --;
+      this.shopCart[id].restcount ++
+    },
+    addProdCount(id){
+       if(this.haveBuy>=5){
+        alert('不得多于5 ');
+        return;
+      }
+      this.haveBuy ++;
+      this.shopCart[id].restcount --
+    },
+    handleDele(id){
+      this.shopShow = false;
+      this.shopCart.splice(id,1);
     }
   }
 };
