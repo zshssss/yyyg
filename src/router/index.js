@@ -258,18 +258,9 @@ export default new Router({
       name: 'agreement',
       component: Agreement
     },
-<<<<<<< HEAD
-    //搜索页
-    {
-      path: '/search',
-      name: 'search',
-      component: Search
-    },
     {
       path: '*',
       redirect: { name: 'index' }
     },
-=======
->>>>>>> 4dc5f5b01f3abdb26977dfb385c0bab8b3e787ed
   ]
 })
