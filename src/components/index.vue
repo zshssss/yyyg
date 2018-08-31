@@ -61,9 +61,9 @@
               <img :src="baseImgUrl+item.name" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
-                <span>{{hh}}:</span>
-                <span>{{mm}}:</span>
-                <span>{{ss}}</span>
+                <span>{{hour}}:</span>
+                <span>{{minu}}:</span>
+                <span>{{second}}</span>
               </p>
             </li>
           </ul>
@@ -176,20 +176,15 @@ import TabBar from "./publicfile/tabbar";
 export default {
   components: { TabBar },
   name: "index",
-  heh: "",
-  houer:null,
-  minut:null,
-  second:null,
   data() {
     return {
       show: false,
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
       recom: [0, 0],
-      dd:0,
-      hh:0,
-      mm:0,
-      ss:0,
+      hour:null,
+      minu:null,
+      second:null,
       comeSoon:[
         {name:'jiexiao_01_ico_160_147.png'},
         {name:'jiexiao_02_ico_160_147.png'},
@@ -218,17 +213,24 @@ export default {
       });
   },
   mounted(){
-    const _this = this;
-    var ts= new Date(2018, 8, 30, 10, 0, 0)
-    this.timer = setInterval(()=>{
-     _this.dd = '0'+parseInt(ts / 1000 / 60 / 60 / 24, 10);//计算剩余的天数  
-      _this.hh = parseInt(ts / 1000 / 60 / 60 % 24, 10);//计算剩余的小时数  
-      _this.mm = parseInt(ts / 1000 / 60 % 60, 10);//计算剩余的分钟数  
-      _this.ss = parseInt(ts / 1000 % 60, 10);//计算剩余的秒数  
-    },1000)
+ 
+    this.formatDate()
   },
   computed: {},
   methods: {
+    formatDate(formatStr,timep) {
+     setInterval(()=>{
+       var endPoin= new Date('2018-09-01').getTime();
+      var leftTime = endPoin - new Date().getTime();
+      var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
+      var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
+      var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
+      this.hour = (hours>9) ? hours :'0'+ hours;
+      this.minu = (minutes>9) ? minutes :'0'+ minutes;
+      this.second = (seconds>9) ? seconds :'0'+ seconds;
+
+    },1000)
+    },
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName });
     },
