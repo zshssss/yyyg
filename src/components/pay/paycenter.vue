@@ -40,7 +40,7 @@
             <p class="model">型号：A1863</p>
             <p class="nums">共1件</p>
             <p class="flex js_start al_center numchange">
-               <span @click="redProdCount()"></span>
+                <span @click="redProdCount()" style="background-image"></span>
                 <span>{{haveBuy}}</span>
                 <span @click="addProdCount()"></span>
             </p>

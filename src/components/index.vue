@@ -57,7 +57,7 @@
       </router-link>
       <div class="jiexiao_list">
         <ul>
-            <li  v-for="(item, index) in comeSoon" :key="index">
+            <li  v-for="(item, index) in comeSoon" :key="index" v-on:click="routerGo('prodetail')">
               <img :src="baseImgUrl+item.name" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
@@ -81,8 +81,7 @@
       <div class="recommend_list">
         <ul>
           <!-- <template v-for="(item, index) in recom" :key="index"> -->
-           <template v-for="(val, key, index) in recom"> 
-            <li>
+            <li  v-for="(val, index) in recom" :key="index">
               
               <div class="recom_left" v-on:click="routerGo('prodetail')">
                 <img :src="baseImgUrl+'recom_300_240.png'" style="width:6rem;height:4.8rem;" alt="">
@@ -120,7 +119,6 @@
                 </div>
               </div>
             </li>
-          </template>
         </ul>
       </div>
     </div>

@@ -27,8 +27,7 @@
     <!-- 已经揭晓 -->
     <div class="currents history">
       <ul>
-         <template v-for="(item, index) in history"> 
-        <li>
+        <li v-for="(item, index) in history" :key="index">
           <div class="flex js_center al_center creent_ico">
             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem" alt="">
           </div>
@@ -49,7 +48,6 @@
              </div>
           </div>
         </li>
-         </template>
       </ul>
     </div>
 

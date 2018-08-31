@@ -3,18 +3,17 @@
     <section class="showChose" v-show="showChose">
       <section class="address">
         <section class="title">
-          <h4>居住地址</h4>
-          <span @click="closeAdd()">×</span>
-        </section>
-        <section class="title">
-          <div class="area" @click="provinceSelected()">{{Province?Province:info[province-1].name}}</div>
-          <div class="area" @click="citySelected()" :class="City?'':'active'">{{City?City:'请选择'}}</div>
-          <div class="area" @click="districtSelected()" :class="District?'':'active'" v-show="City">{{District?District:'请选择'}}</div>
+          <div class="area active" @click="provinceSelected()">{{Province?Province:info[province-1].name}}</div>
+          <!-- <div class="area" @click="citySelected()" :class="City?'':'active'">{{City?City:'请选择'}}</div>
+          <div class="area" @click="districtSelected()" :class="District?'':'active'" v-show="City">{{District?District:'请选择'}}</div> -->
+           <div class="area" @click="citySelected()" :class="showCityList?'active':''">{{City?City:''}}</div>
+          <div class="area" @click="districtSelected()" :class="showDistrictList?'active':''" v-show="City">{{District?District:''}}</div>
+          <span @click="closeAdd()">取消</span>
         </section>
         <ul>
-          <li class="addList" v-for="(v,k) in info" @click="getProvinceId(v.id, v.name, k)" v-show="showProvince" :class="v.selected ? 'active' : ''">{{v.name}}</li>
-          <li class="addList" v-for="(v,k) in showCityList" @click="getCityId(v.id, v.name, k)" v-show="showCity" :class="v.selected ? 'active' : ''">{{v.name}}</li>
-          <li class="addList" v-for="(v,k) in showDistrictList" @click="getDistrictId(v.id, v.name, k)" v-show="showDistrict" :class="v.selected ? 'active' : ''">{{v.name}}</li>
+          <li class="addList" v-for="(v,k) in info"  @click="getProvinceId(v.id, v.name, k)" v-show="showProvince" :class="v.selected ? 'active' : ''">{{v.name}}</li>
+          <li class="addList" v-for="(v,k) in showCityList"  @click="getCityId(v.id, v.name, k)" v-show="showCity" :class="v.selected ? 'active' : ''">{{v.name}}</li>
+          <li class="addList" v-for="(v,k) in showDistrictList"   @click="getDistrictId(v.id, v.name, k)" v-show="showDistrict" :class="v.selected ? 'active' : ''">{{v.name}}</li>
         </ul>
       </section>
     </section>
@@ -32,13 +31,13 @@ export default {
       showDistrict: false,
       showCityList: false,
       showDistrictList: false,
-      province: 5,
-      city: 3,
-      district: 57,
+      province: 16,
+      city: 1,
+      district: 3,
       GetProvinceId: 2,
-      District: false,
-      Province: false,
-      City: false,
+      District: '管城区',
+      Province: '河南省',
+      City: '郑州市',
       // v-for循环判断是否为当前
       selected: false,
       info: [
@@ -3687,8 +3686,8 @@ export default {
       this.showCityList = false;
       this.showDistrictList = false;
       // 清除市级和区级选项
-      this.City = false;
-      this.District = false;
+      this.City = null;
+      this.District = null;
       // 选项页面的切换
       this.showProvince = true;
       this.showCity = false;
@@ -3734,7 +3733,7 @@ export default {
   width: 100%;
   background-color: white;
   border-top: 4px solid rgba(245,245,245,1);
-  color:#333;
+  color:#666;
 }
 .myAddress .cont{
   border-bottom: 1px solid rgba(245,245,245,0.8);
@@ -3742,7 +3741,7 @@ export default {
 .myAddress .cont span{
   display: inline-block;
   font-size: 0.56rem;
-  color: #333;
+  color: #666;
   line-height: 1.76rem;
   margin-left: 0.64rem;
 }
@@ -3772,7 +3771,7 @@ export default {
   top:0;
   left:0;
   z-index:120;
-  background:#5f5f5f;
+  background:#5f5f5f6e;
 }
 .address{
   position:absolute;
@@ -3782,49 +3781,46 @@ export default {
   background:#fff;
   width:100%;
 }
-.title h4{
-  display:inline-block;
-  margin-left:6.4rem;
-  font-size:0.64rem;
-  line-height:1.76rem;
-  font-weight:normal;
-  color:#999;
+.title{
+    position: relative;
+    border-bottom: 1px solid #aea9a9;
 }
 .title span{
-  margin:0.8.4rem 0 0 4.4rem;
-  font-size:0.9rem;
-  line-height:0.68rem;
-  color:#D8D8D8;
+  display:inline-block;
+  position: absolute;
+  right: 40px;
+  font-size:0.8rem;
+  line-height:40px;
+  color:#999;
 }
+
 .area{
   display:inline-block;
-  font-size:0.48rem;
+  font-size:0.8rem;
   line-height:1.76rem;
   margin-left:0.84rem;
-  color:#333;
+  color:#666666;
 }
 .addList{
   width:100%;
   padding-left:0.64rem;
   font-size:0.68rem;
-  line-height:1.76rem;
-  color:#333;
+  box-sizing: border-box;
+  line-height: 2rem;
+  color:#666666;
+  border-bottom: 1px solid #dfdfdf;
 }
 /* 修改的格式 */
 .address ul{
-  width:95%;
-  height:100%;
-  max-height: 8.8rem;
+  width:100%;
+  height:345px;
   overflow:auto;
 }
-.address ul li{
-  margin-left:5%;
-}
+
 .address .title .active{
-  color:#0071B8;
-  border-bottom:0.04rem solid #0071B8;
+  color:#fb3812;
 }
 .address ul .active{
-  color:#0071B8;
+  color:#fb3812;
 }
 </style>
