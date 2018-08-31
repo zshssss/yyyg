@@ -189,23 +189,23 @@ export default {
   },
 
   created: function() {    
-    axios({
-      method: "POST",
-      url: "/apis/api/register",
-      data: {
-        phone: 18037472380,
-        password: "123"
-      },
-      header: {
-        "content-type": "application/json"
-      }
-    })
-      .then(function(res) {
-        console.log(res);
-      })
-      .catch(function(ers) {
-        console.log(ers);
-      });
+    // axios({
+    //   method: "POST",
+    //   url: "/apis/api/register",
+    //   data: {
+    //     phone: 18037472380,
+    //     password: "123"
+    //   },
+    //   header: {
+    //     "content-type": "application/json"
+    //   }
+    // })
+    //   .then(function(res) {
+    //     console.log(res);
+    //   })
+    //   .catch(function(ers) {
+    //     console.log(ers);
+    //   });
   },
   computed: {},
   methods: {

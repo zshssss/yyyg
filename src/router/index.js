@@ -70,7 +70,7 @@ import Search from '@/components/search'
 Vue.use(Router)
 
 export default new Router({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     // 首页
     {
@@ -258,6 +258,10 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: Search
+    },
+    {
+      path: '*',
+      redirect: { name: 'index' }
     },
   ]
 })

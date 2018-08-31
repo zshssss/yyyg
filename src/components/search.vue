@@ -12,7 +12,7 @@
             <span class="exit">搜索</span>
         </div>
         <!-- 搜索列表 -->
-        <ul class="search-list">
+        <!-- <ul class="search-list">
             <li class="search-item">
                 <a href="">
                     <span>男士手表</span>
@@ -40,7 +40,7 @@
                     </span>
                 </a>
             </li>
-        </ul>
+        </ul> -->
         <!-- 热门推荐 -->
         <dl class="auto-commend">
             <dt class="commend-label">热门搜索</dt>
