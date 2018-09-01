@@ -11,7 +11,7 @@
     </div>
     <div class="export_list">
         <ul>
-            <li v-for="(item, index) in 3" :key="index">
+            <li v-for="(item, index) in 3" :key="index"  @click="routerGo('prodetail')">
                 <div class="export_ico">
                     <img :src="baseImgUrl+'rxport_ico_66_66.png'" style="width:1.32rem;heigth:1.32rem;" alt="">
                 </div>
