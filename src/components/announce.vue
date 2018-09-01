@@ -25,7 +25,7 @@
     </div>
 
     <!-- 已经揭晓 -->
-    <div class="currents history">
+    <div class="history">
       <ul>
         <li v-for="(item, index) in history" :key="index"  v-on:click="routerGo('prodetail')">
           <div class="flex js_center al_center creent_ico">

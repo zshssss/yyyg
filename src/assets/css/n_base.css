@@ -1,0 +1,48 @@
+.n_flex{
+    display: -webkit-flex;  /* 新版本语法: Chrome 21+ */
+    display: flex;          /* 新版本语法: Opera 12.1, Firefox 22+ */
+    display: -webkit-box;   /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box;      /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox;   /* 混合版本语法: IE 10 */   
+
+}
+
+.n_fd_row {
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: column;
+}
+
+.n_fd_col {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-box-orient: vertical;
+}
+
+.n_flex_1{           
+    -webkit-flex: 1;        /* Chrome */  
+    -ms-flex: 1;             /* IE 10 */  
+    flex: 1;                /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-box-flex: 1;     /* OLD - iOS 6-, Safari 3.1-6 */  
+    -moz-box-flex: 1;       /* OLD - Firefox 19- */       
+}
+
+.n_flex_jc_sa{           
+    -webkit-justify-content: space-between;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+}
+
+.n_flex_jc_c {
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-pack: center;
+    -moz-box-pack:center;
+    -ms-flex-pack: center;
+}
