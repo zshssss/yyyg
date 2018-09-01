@@ -37,7 +37,7 @@
                 </ul>
             </div>
         </div>
-        <p class="login_button" style="marginBottom:.4rem;">注册</p>
+        <p class="login_button" style="marginBottom:.4rem;"  @click="routerGo('login')">注册</p>
         <div class="pass_inner">
             <span class="user_cheack" v-bind:class="{'checked':isChecked}" @click="handleChecked"></span>
             <span class="cheack_maind">我已经阅读并同意<a @click="routerGo($event,'agreement')">用户服务协议</a></span>
@@ -74,9 +74,8 @@ export default {
     back: function() {
       this.$router.back()
     },
-    routerGo: function(e,path) {
-        e.preventDefault();
-        this.$router.push({ name: path });
+    routerGo: function(pathName, params) {
+        this.$router.push({ name: pathName });
     },
     getNum(){
         if(this.realInput.length ===6){

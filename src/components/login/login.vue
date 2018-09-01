@@ -19,7 +19,7 @@
         </p>
     </div>
     
-    <p class="login_button">登录</p>
+    <p class="login_button" @click="routerGo('index')">登录</p>
     <p class="other_info"> 
       <span @click="routerGo('forgot')">忘记密码</span>
       <span @click="routerGo('rigister')">新用户注册</span>
@@ -43,6 +43,7 @@ export default {
       this.$router.go(-1);
     },
     routerGo: function(path) {
+      sessionStorage.setItem('user', {name:'admin'})
       this.$router.push({ name: path });
     }
   }

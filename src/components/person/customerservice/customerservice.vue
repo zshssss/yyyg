@@ -14,9 +14,14 @@
     </div>
 
     <div class="kf_list">
+      
         <div class="item">
+          <a href="javascript:window.open('http://wpa.qq.com/msgrd?v=3&amp;uin=2900361850&amp;site=qq&amp;menu=yes')">
             <img :src="baseImgUrl+'kf_ico_115_115.png'" style="width:2.3reml;height:2.3rem;" alt="">
-            <p>在线客服</p>
+            <p>
+              在线客服
+              </p>
+          </a>
         </div>
         <div class="item">
            <a href="tel:778899">

@@ -34,7 +34,7 @@
         <input type="file" @change="getFile" ref="fileupload" id="fileupload" multiple="multiple">
     </div>
 
-    <p class="send_indo">发布</p>
+    <p class="send_indo" v-on:click="back(1)">发布</p>
   </div>
 
 </template>

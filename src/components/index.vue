@@ -3,19 +3,17 @@
 
     <!-- 头部搜索 -->
     <div class="flex js_center al_center topsea">
-      <div class="box flex js_start al_center seach" v-on:click="showSea">
+      <div class="box flex js_start al_center seach" v-on:click="visiable = !visiable">
         <img :src="baseImgUrl+'index_sea_32_30.png'" style="width:.64rem;height:.6rem;" alt="">
         <input class="seakey" disabled placeholder="请输入您想要的宝贝" type="text">
       </div>
     </div>
     <!-- 首页轮播 -->
-    <div class="index_banner">
+    <div class="index_banner" v-on:click="routerGo('prodetail')">
       <mt-swipe :auto="0">
-        <template v-for="(val, key, index) in banners"> 
-          <mt-swipe-item>
+          <mt-swipe-item  v-for="(val, key) in banners" :key="key">
             <img :src="baseImgUrl+'banner1.png'" style="width:15rem;height:6rem" alt="">
-          </mt-swipe-item>
-        </template>  
+          </mt-swipe-item> 
       </mt-swipe>
     </div>
     <!--  -->
@@ -88,7 +86,7 @@
               </div>
               
               <div class="recom_right">
-                <div class="flex js_start al_center recom_r_top" v-on:click="routerGo('prodetail')">
+                <div class="flex js_start al_center recom_r_top" >
                   <div class="ico">
                     <img :src="baseImgUrl+'recom_ico_36_39.png'" style="width:.72rem;height:.78rem;" alt="">
                   </div>
@@ -114,8 +112,8 @@
                   </div>
                 </div>
                 <div class="box flex js_center al_center take_in">
-                  <p class="tc buy" v-on:click="routerGo('paycenter')">￥1.00抢购</p>
-                  <p class="tc buy" v-on:click="routerGo('paycenter')">全包价买</p>
+                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">￥1.00抢购</p>
+                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">全包价买</p>
                 </div>
               </div>
             </li>
@@ -126,36 +124,28 @@
     <div class="tab_posi">
       <TabBar :nth='0'></TabBar>
     </div>
-    <mt-popup class="seach_wrap" v-model="show" position="right">
-      <div class="search">
-        <div class="topti">
-          <div class="index_back" v-on:click="seaBack">
-            <img :src="baseImgUrl+'left_red_21_37.png'" style="width:.42rem;height:.74rem;" alt="" srcset="">
-          </div>
-          <div class="fillkey">
-            <img :src="baseImgUrl+'pop_sea_32_30.png'" style="width:.64rem;height:.60rem;" alt="" srcset="">
-            <input type="text" maxlength="11" placeholder="请输入你想要寻找的宝贝..." />
-            <span class="clear">
-              <img :src="baseImgUrl+'delete_32_32.png'" style="width:.64rem;height:.64rem;" alt="" srcset="">
+    <mt-popup class="seach_wrap"  v-model="visiable" position="right">
+
+           <div id="search" class="search" >
+        <!-- 顶部标题 -->
+        <div class="tc box rel flex js_between al_center top_title">
+            <span class="back"  v-on:click="closeProp">
             </span>
-            
-          </div>
-          <div class="seachbuttom">搜索</div>
-          
+            <div class="input-inner">
+                <i class="el-icon-search"></i>
+                <input type="text" v-model="searchName" placeholder="请输入你想要寻找的宝贝...">
+                <i class="el-icon-circle-close-outline" @click="deleTeName"></i>
+            </div>
+            <span class="exit" @click="setSearch()">搜索</span>
         </div>
-        <div class="hot_sea">
-          <p class="tit">热门搜索</p>
-          <div class="hot_keys">
-            <ul>
-              <li>口红</li>
-              <li>面包</li>
-              <li>罗小黑</li>
-              <li>罗小白</li>
-              <li>小米8 64GB 骁龙845</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <!-- 热门推荐 -->
+        <dl class="auto-commend">
+            <dt class="commend-label">热门搜索</dt>
+            <dd class="commend-list">
+                <span v-for="(item,index) in hotList" :key="index" @click="setSearch(item)">{{item}}</span>
+            </dd>
+        </dl>
+    </div>
     </mt-popup>
 
   </div>
@@ -176,7 +166,6 @@ export default {
   name: "index",
   data() {
     return {
-      show: false,
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
       recom: [0, 0],
@@ -188,7 +177,13 @@ export default {
         {name:'jiexiao_02_ico_160_147.png'},
         {name:'jiexiao_03_ico_160_147.png'},
         {name:'jiexiao_04_ico_160_147.png'}
-      ]
+      ],
+       prodlist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],
+      proShow:false,
+      visiable:false,
+      searchName:null,
+      hotList:['口红','手机','耳机'],
+      showSlide: false
     };
   },
   created: function() {    
@@ -216,27 +211,44 @@ export default {
   },
   computed: {},
   methods: {
-    formatDate(formatStr,timep) {
+  formatDate(formatStr,timep) {
+     var leftTime =  3*60*60*1000
+      // var ho = '23:23:23'.split(':')[0];
+      // var min = '23:23:23'.split(':')[1];
+      // var ss = '23:23:23'.split(':')[2];
+      // leftTime =  parseInt(ho , 10) * 60 * 60 + parseInt(min , 10) * 60 + parseInt(ss , 10);
+      
      setInterval(()=>{
-       var endPoin= new Date('2018-09-01').getTime();
-      var leftTime = endPoin - new Date().getTime();
+      //  var endPoin= new Date('2018-09-01').getTime();
+      // var leftTime = endPoin - new Date().getTime();
+      leftTime =  leftTime - 1000
+     
       var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
       var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
       var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
       this.hour = (hours>9) ? hours :'0'+ hours;
       this.minu = (minutes>9) ? minutes :'0'+ minutes;
       this.second = (seconds>9) ? seconds :'0'+ seconds;
-
     },1000)
     },
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName });
     },
-    seaBack:function(){
-      this.show=false
+     handleSearch(name){
+      if(name){
+        this.visiable = false,
+        this.searchName= name
+      }
     },
-    showSea:function(){
-       this.show=true
+    closeProp(){
+       this.visiable = false;
+    },
+    setSearch(prodname){
+        this.searchName = prodname ? prodname : this.searchName;
+        this.visiable = false;
+    },
+    deleTeName(){
+        this.searchName = ''
     }
 
   }

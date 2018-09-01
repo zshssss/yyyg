@@ -28,12 +28,12 @@
                            {{location.location.join(' ')}}
                        </p>
                    </section>
-                   <section class="tc chose" :class="[index==0?'on':'']">
+                   <section class="tc chose" :class="[index==activeIndex?'on':'']" @click="activeIndex = index">
                     使用
                    </section>
                </div> 
                <div class="addr_edit">
-                   <p class="addr_default" :class="[index==0?'on':'']">
+                   <p class="addr_default" :class="[index==activeIndex?'on':'']">
                        <span></span>
                        <span>设为默认</span>
                    </p>
@@ -100,6 +100,7 @@ export default {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
       showDialog:false,
+      activeIndex:0,
       userLocationInfo:[
         {
           name:'张某某',

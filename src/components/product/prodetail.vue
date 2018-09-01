@@ -5,7 +5,7 @@
         <span class="back" v-on:click="back(1)">
            <img :src="baseImgUrl+'left_21_37.png'" style="width:.42rem;height:.74rem;" alt="">
         </span>
-       <span>笔记本</span>
+       <span>产品详情</span>
       <span class="exit"></span>
     </div>
 
@@ -52,13 +52,13 @@
       </div>
       <div class="box over flex js_between al_center buy">
         <p v-on:click="routerGo('shop')">加入购物车</p>
-        <p>一元抢购</p>
-        <p>立即购买</p>
+        <p v-on:click="routerGo('paycenter')">一元抢购</p>
+        <p v-on:click="routerGo('paycenter')">立即购买</p>
       </div>
     </div>
 
     <div class="take_record">
-      <p class="flex js_between al_center sunburn">
+      <p class="flex js_between al_center sunburn"  v-on:click="routerGo('exportrecord')">
         <span>晒单</span>
         <span><img :src="baseImgUrl+'right.png'" style="width:.42rem;height:.74rem;" alt=""></span>
       </p>

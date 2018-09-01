@@ -25,7 +25,7 @@
         </ul>
     </div>
     
-    <p class="complete">修改密码</p>
+    <p class="complete" v-on:click="back(1)">修改密码</p>
   </div>
 </template>
 

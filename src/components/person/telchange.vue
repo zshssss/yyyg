@@ -22,7 +22,7 @@
         </ul>
     </div>
     
-    <p class="complete">完成</p>
+    <p class="complete" v-on:click="back(1)">验证</p>
   </div>
 </template>
 

@@ -22,7 +22,7 @@
       </div>
       <div class="sorttypelist" v-if="proShow">
         <ul>
-            <li v-for="(item, index) in prodlist" :class="[0===index ? 'on':'']" :key="index">{{item}}</li>
+            <li v-for="(item, index) in prodlist" :class="[0===index ? 'on':'']" :key="index" v-on:click="proShow=!proShow" >{{item}}</li>
         </ul>
       </div>
     </div>
@@ -30,10 +30,7 @@
 
     <div class="box prolist">
       <ul>
-        <template v-for="(item, index) in 10">
-          
-        
-        <li>
+        <li v-for="(item, index) in 10" :key="index" v-on:click="routerGo('prodetail')">
           <div class="pro_ico">
             <img :src="baseImgUrl+'ty_pro_ico_335_160.png'" style="width:6.7rem;height:3.2rem;" alt="">
           </div>
@@ -47,14 +44,12 @@
             <span>100</span>
           </p>
           <div class="takein flex js_start al_center">
-            <p class="box tc take"  @click="routerGo('prodetail')">立即抢购</p>
-            <p class="che_ico" @click="routerGo('shop')">
+            <p class="box tc take"  @click.stop="routerGo('paycenter')">立即抢购</p>
+            <p class="che_ico" @click.stop="routerGo('shop')">
               <img :src="baseImgUrl+'ty_che_32_30.png'" style="width:.64rem;height:.60rem;" alt="">
             </p>
           </div>
-        </li>
-         </template>
-         
+        </li>         
       </ul>
     </div>
 

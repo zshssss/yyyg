@@ -31,7 +31,7 @@
 
     <div class="pay_proinfo">
       <ul>
-        <li>
+        <li v-on:click="routerGo('prodetail')">
           <div class="pro_ico">
             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="" alt="">
           </div>
@@ -40,9 +40,9 @@
             <p class="model">型号：A1863</p>
             <p class="nums">共1件</p>
             <p class="flex js_start al_center numchange">
-                <span @click="redProdCount()" style="background-image"></span>
+                <span @click.stop.prevent="redProdCount()" style="background-image"></span>
                 <span>{{haveBuy}}</span>
-                <span @click="addProdCount()"></span>
+                <span @click.stop.prevent="addProdCount()"></span>
             </p>
           </div>
         </li>
@@ -52,15 +52,13 @@
     <!-- 支付方式选择 -->
     <div class="paymethod">
       <ul>
-        <template v-for="(item, index) in payMethod"> 
-        <li v-on:click="swichPayStyle(index)">
+        <li v-for="(item, index) in payMethod" :key="index" v-on:click="swichPayStyle(index)">
           <p class="ico">
             <img :src="baseImgUrl+item.ico" alt="">
             <span>{{item.name}}</span>
           </p>
           <p class="check" v-bind:class="[index==payNth?'on':'']"></p>
         </li>
-      </template>
       </ul>
     </div>
 
@@ -70,8 +68,24 @@
       <span>实付款：</span>
       <span>￥1（免运费）</span>
     </p>
-    <p>立即支付</p>
+    <p @click="ToPayOrder()">立即支付</p>
   </div>
+
+  <!-- 弹窗 -->
+
+    <div class="n_dailog_box" v-show="showDialog">
+      <div class="n_dailog">
+      <p class="close" v-on:click="showDialog=false">
+          <img :src="baseImgUrl+'close_56_56.png'" style="width:1.12rem;height:1.12rem;" alt="">
+        </p>
+      <p class="addr_edit_title">余额不足请充值</p>
+      <div class="cell">
+        <p class="n_btn"  v-on:click="routerGo('recharge')">确定</p>
+        <p class="n_btn"  v-on:click="showDialog = !showDialog">取消</p>
+      </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -82,6 +96,7 @@ export default {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
       haveBuy:1,
+      showDialog:false,
       payMethod: [
         {
           name: "余额",
@@ -125,10 +140,71 @@ export default {
       }
       this.haveBuy ++;
     },
+    ToPayOrder(){
+      this.showDialog = true
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+
+/* 重写dilog */
+.n_dailog_box{
+  position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    background: rgba(0,0,0,0.5);
+}
+.n_dailog{
+    padding: 0 26px 26px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    display: flex;
+    width: 325px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    flex-direction: column;
+    position: relative;
+    color: #333333;
+}
+.n_dailog .close{
+    position: absolute;
+    right: -8px;
+    top: -8px;
+}
+.n_dailog .addr_edit_title{
+  font-size: 15px;
+  text-align: center;
+  line-height: 35px;
+  margin-bottom: 20px;
+}
+.n_dailog .cell{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  line-height: 50px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.n_dailog  .cell .n_btn{
+  text-align: center;
+    padding: 15px 10px;
+    width: 100px;
+    line-height: 16px;
+    font-size: 16px;
+    height: 16px;
+    background-color: #fb3812;
+    border-radius: 4px;
+    color: #fff;
+}
+
 </style>

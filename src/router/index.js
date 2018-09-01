@@ -67,8 +67,8 @@ import Agreement from '@/components/login/agreement'
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
+const router = new Router({
+  // mode: 'history',
   routes: [
     //HelloWorld
     {
@@ -112,12 +112,18 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
+      meta: {
+        Auth: false,
+      },
       component: Login
     },
 
     //忘记密码
     {
       path: '/login/forgot',
+      meta: {
+        Auth: false,
+      },
       name: 'forgot',
       component: PassForgot
     },
@@ -125,6 +131,9 @@ export default new Router({
     //注册用户
     {
       path: '/login/rigister',
+      meta: {
+        Auth: false,
+      },
       name: 'rigister',
       component: Rigiter
     },
@@ -260,7 +269,26 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: { name: 'index' }
+      redirect: { name: '/login' }
     },
   ]
 })
+
+router.beforeEach(({
+  meta,
+  path
+}, before, next) => {
+  var {
+    Auth = true
+  } = meta
+  var isLogin = Boolean(false);
+  if (Auth && isLogin && path !== '/login') {
+    return next({
+      path: '/login'
+    })
+  } else {
+    next()
+  }
+})
+
+export default router;
