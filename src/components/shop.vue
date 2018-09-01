@@ -38,7 +38,7 @@
         <img :src="baseImgUrl+'warm_114.png'" style="width:2.28rem;height:2.28rem;" alt="">
       </div>
       <p class="tip">抱歉，您的购物车没有商品记录！</p>
-      <p class="tc topay">马上去购物</p>
+      <p class="tc topay" v-on:click="routerGo('index')">马上去购物</p>
     </div>
      
 
