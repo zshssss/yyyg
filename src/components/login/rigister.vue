@@ -50,7 +50,7 @@
 </template>
 <script>
 import { MessageBox } from 'mint-ui';
-import drawCode from '../drawCode'
+import drawCode from './drawCode'
 export default {
   name: "rigister",
   components:{
@@ -66,7 +66,7 @@ export default {
         disInputs:[{value:''},{value:''},{value:''},{value:''},{value:''},{value:''}],
         realInput:'',
         isChecked:false,
-        notvalided:true,
+        // notvalided:true,
         timercount:'',
         timer:null,
         code:[]

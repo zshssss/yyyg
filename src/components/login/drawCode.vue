@@ -73,6 +73,19 @@ export default {
 
     // 随机线
     drawline(canvasEle, context) {
+       
+        context.beginPath();
+        // 画曲线
+         context.bezierCurveTo(
+            5-Math.floor(Math.random() *20), 25-Math.floor(Math.random() *20),
+            30-Math.floor(Math.random() *30), 45-Math.floor(Math.random() *30),
+            50, 20);
+
+        context.bezierCurveTo(
+            50, 20,
+            80-Math.floor(Math.random() *20),5-Math.floor(Math.random() *20), 
+            105-Math.floor(Math.random() *20), 25-Math.floor(Math.random() *20));
+
         context.moveTo(Math.floor(Math.random() * canvasEle.width), Math.floor(Math.random() * canvasEle.height));             //随机线的起点x坐标是画布x坐标0位置，y坐标是画布高度的随机数
         context.lineTo(Math.floor(Math.random() * canvasEle.width), Math.floor(Math.random() * canvasEle.height));  //随机线的终点x坐标是画布宽度，y坐标是画布高度的随机数
         context.lineWidth = 0.5;                                                  //随机线宽
