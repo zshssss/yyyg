@@ -19,9 +19,9 @@
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
                 <input type="tel" value=""  placeholder="请输入验证码"  maxlength="11">
             </p>
-            <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
-            <span class="btn_validefy" v-else> {{timercount}}s</span>
-            <!-- <hello-world :my-code="code" v-on:rawRandomCode="createdCode"></hello-world> -->
+            <!-- <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
+            <span class="btn_validefy" v-else> {{timercount}}s</span> -->
+            <draw-code :my-code="code" v-on:rawRandomCode="createdCode"></draw-code>
         </div>
         <div class="pass_inner">
             <p class="user_tel">
@@ -50,11 +50,11 @@
 </template>
 <script>
 import { MessageBox } from 'mint-ui';
-import helloWorld from '../HelloWorld'
+import drawCode from '../drawCode'
 export default {
   name: "rigister",
   components:{
-       'hello-world': helloWorld,
+       'drawCode': drawCode,
   },
   data(){
     return{
@@ -69,7 +69,7 @@ export default {
         notvalided:true,
         timercount:'',
         timer:null,
-        code:''
+        code:[]
     }
   },
   mounted(){
@@ -116,26 +116,14 @@ export default {
     },
     // 生成随机码
     createdCode(){
-    const TIME_COUNT = 60
-    if(!this.timer){
-      this.timercount = TIME_COUNT;
-      this.timer = setInterval(()=>{
-         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
-         this.timercount--;
-        } else {
-         this.notvalided = true;
-         clearInterval(this.timer);
-         this.timer = null;
-        }
-       }, 1000)
-    }
-    this.notvalided = false;
-    const parten = ['0','1','2','3','4','5','6','7','8','9'];
-    const code='';
+    const parten =  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+        'y', 'z'];
+    const code=[];
     this.code = code;
     for(let i = 0;i<6;i++){
-      let ran = parseInt(Math.random()*parten.length);
-      this.code += parten[ran];
+      let ran = parten[Math.floor(Math.random() * parten.length)]
+      this.code.push(parten[ran]);
     }
   },
   handleRegister(){

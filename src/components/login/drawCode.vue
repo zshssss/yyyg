@@ -34,7 +34,6 @@ export default {
         this.$nextTick(function () {
         var canvasEle = this.$refs.verifyCanvas;  //获取HTML端画布
          if(!canvasEle) return;
-        console.log(this.$refs.verifyCanvas);
        
         var context = canvasEle.getContext("2d");                 //获取画布2D上下文
         context.fillStyle = "#fb38126e";                  //画布填充色
@@ -44,7 +43,7 @@ export default {
        
         // var rand = new Array();
         var rand = this.myCode
-        console.log(rand)
+        // console.log(rand)
         var x = new Array();
         var y = new Array();
        
