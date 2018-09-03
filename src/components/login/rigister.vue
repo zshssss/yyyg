@@ -21,7 +21,7 @@
             </p>
             <!-- <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
             <span class="btn_validefy" v-else> {{timercount}}s</span> -->
-            <draw-code :my-code="code" v-on:rawRandomCode="createdCode"></draw-code>
+            <draw-code  v-on:rawRandomCode="createdCode"></draw-code>
         </div>
         <div class="pass_inner">
             <p class="user_tel">
@@ -115,16 +115,8 @@ export default {
         this.isChecked = !cheack;
     },
     // 生成随机码
-    createdCode(){
-    const parten =  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
-        'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-        'y', 'z'];
-    const code=[];
-    this.code = code;
-    for(let i = 0;i<6;i++){
-      let ran = parten[Math.floor(Math.random() * parten.length)]
-      this.code.push(parten[ran]);
-    }
+    createdCode(code){
+        this.code = code;
   },
   handleRegister(){
       if(this.isChecked){

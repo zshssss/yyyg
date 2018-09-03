@@ -9,17 +9,14 @@
 <script>
 export default {
   name: 'myCode',
-  props:['myCode'],
   data () {
     return {
-     nums:["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+    nums:["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
         'y', 'z'],
+        myCode:[],
     myCodeChange:true
     }
-  },
-  watch:{
-      myCode:'drawCode'
   },
     mounted(){
         this.drawCode()
@@ -46,16 +43,14 @@ export default {
         // console.log(rand)
         var x = new Array();
         var y = new Array();
-       
-        for (var i = 0; i < 5; i++) {
-
-            
+        for (let i = 0; i < 5; i++) {
             rand[i] = this.nums[Math.floor(Math.random() * this.nums.length)]
             x[i] = i * 16 + 10;
             y[i] = Math.random() * 20 + 20;
             context.fillText(rand[i], x[i], y[i]);
             
         }
+         console.log(rand)
         //画3条随机线
         for (var i = 0; i < 3; i++) {
             this.drawline(canvasEle, context);
@@ -67,8 +62,11 @@ export default {
         }
         this.convertCanvasToImage(canvasEle)
           })
-        
-
+        this.$nextTick(function(){
+            const rand = this.myCode.join('');
+            this.$emit('rawRandomCode',rand)
+        })
+       
     },
 
     // 随机线
