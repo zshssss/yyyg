@@ -1592,11 +1592,27 @@ input:focus {
   border: 1px solid #DADADA;
   margin-right: 0.4rem;
 }
+.addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default span:nth-child(1):hover {
+  border-color: #FB3812;
+}
 .addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default.on {
   color: #FB3812;
 }
 .addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default.on span:nth-child(1) {
-  border: 1px solid #FB3812;
+  position: relative;
+  border: 0.04rem solid #FB3812;
+}
+.addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default.on span:nth-child(1)::after {
+  content: '';
+  position: absolute;
+  border-radius: 100%;
+  width: 0.16rem;
+  height: 0.16rem;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.15s ease-in;
 }
 .addrlist#addrlist .addrdetail_list ul li .addr_edit .bjin {
   font-size: 0.48rem;

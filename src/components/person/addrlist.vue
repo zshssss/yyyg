@@ -83,9 +83,14 @@
           <span @click="closeAdd()">取消</span>
         </section>
         <ul>
-          <li class="addList" v-for="(v,k) in info"  @click="getProvinceId(v.id, v.name, k)" v-show="showProvince" :class="v.selected ? 'active' : ''">{{v.name}}</li>
-          <li class="addList" v-for="(v,k) in showCityList"  @click="getCityId(v.id, v.name, k)" v-show="showCity" :class="v.selected ? 'active' : ''">{{v.name}}</li>
-          <li class="addList" v-for="(v,k) in showDistrictList"   @click="getDistrictId(v.id, v.name, k)" v-show="showDistrict" :class="v.selected ? 'active' : ''">{{v.name}}</li>
+          <li class="addList" v-for="(v,k) in info"  @click="getProvinceId(v.id, v.name, k)" v-show="showProvince" :class="v.id==province ? 'active' : ''">{{v.name}}
+              <span class="right-icon"></span>
+          </li>
+          <li class="addList" v-for="(v,k) in showCityList"  @click="getCityId(v.id, v.name, k)" v-show="showCity" :class="v.id==city ? 'active' : ''">{{v.name}}
+              <span class="right-icon"></span>
+          </li>
+          <li class="addList" v-for="(v,k) in showDistrictList"   @click="getDistrictId(v.id, v.name, k)" v-show="showDistrict" :class="v.id== district? 'active' : ''">{{v.name}}
+          </li>
         </ul>
       </section>
     </section>
@@ -127,8 +132,8 @@ export default {
       showCityList: false,
       showDistrictList: false,
       province: 16,
-      city: 1,
-      district: 3,
+      city: 152,
+      district: 1366,
       GetProvinceId: 2,
       District: '管城区',
       Province: '河南省',
@@ -4006,14 +4011,27 @@ export default {
   color:#666666;
 }
 .addList{
+  position: relative;
   width:100%;
-  padding-left:0.64rem;
+  padding:0 0.64rem;
   font-size:0.68rem;
   box-sizing: border-box;
   line-height: 2rem;
   color:#666666;
   border-bottom: 1px solid #dfdfdf;
 }
+.addList .right-icon{
+    position: absolute;
+    transform: rotate(45deg);
+    top: 14px;
+    right: 20px;
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    border-right: 1px solid #666666;
+    border-top: 1px solid #666666;
+}
+
 /* 修改的格式 */
 .address ul{
   width:100%;

@@ -1681,15 +1681,33 @@ input,input:focus { outline: none; border-radius: 0;}
               border: 1px solid #DADADA;
               margin-right: 20/@r;
             }
-            
+            span:nth-child(1):hover{
+              border-color: #FB3812;
+            }
           }
+         
           .addr_default.on{
             color: #FB3812;
             span:nth-child(1){
-              border: 1px solid #FB3812;
+              position: relative;
+              border: 2/@r solid #FB3812;
+              // background-color: #FB3812;
+            }
+            span:nth-child(1)::after{
+              content: '';
+              position: absolute;
+              border-radius: 100%;
+              width: 8/@r;
+              height: 8/@r;
+              top: 50%;
+              left: 50%;
+              background-color: #fff;
+              transform: translate(-50%,-50%) scale(1);
+              // transform: translate(-50%,-50%) scale(0);
+               transition: transform .15s ease-in;
             }
           }
-
+          
           .bjin{
             font-size: 24/@r;
             color: #999999;
