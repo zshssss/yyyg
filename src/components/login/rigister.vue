@@ -11,21 +11,22 @@
         <div class="pass_inner">
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_tel_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="phone-icon">
-                <input type="number" value="" placeholder="请输入手机号" maxlength="11">
+                <input type="tel" value="" placeholder="请输入手机号" maxlength="11">
             </p>
         </div>
         <div class="pass_inner">
             <p class="user_tel" style="flex:1">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="number" value=""  placeholder="请输入验证码"  maxlength="11">
+                <input type="tel" value=""  placeholder="请输入验证码"  maxlength="11">
             </p>
             <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
             <span class="btn_validefy" v-else> {{timercount}}s</span>
+            <!-- <hello-world :my-code="code" v-on:rawRandomCode="createdCode"></hello-world> -->
         </div>
         <div class="pass_inner">
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="number" value=""  placeholder="请输入密码" maxlength="11">
+                <input type="tel" value=""  placeholder="请输入密码" maxlength="11">
             </p>
         </div>
         <div class="pass_inner">
@@ -37,7 +38,7 @@
                 </ul>
             </div>
         </div>
-        <p class="login_button" style="marginBottom:.4rem;"  @click="routerGo('login')">注册</p>
+        <p class="login_button" v-bind:class="{'disable':!isChecked}" style="marginBottom:.4rem;"  @click="handleRegister">注册</p>
         <div class="pass_inner">
             <span class="user_cheack" v-bind:class="{'checked':isChecked}" @click="handleChecked"></span>
             <span class="cheack_maind">我已经阅读并同意<a @click="routerGo($event,'agreement')">用户服务协议</a></span>
@@ -49,8 +50,12 @@
 </template>
 <script>
 import { MessageBox } from 'mint-ui';
+import helloWorld from '../HelloWorld'
 export default {
   name: "rigister",
+  components:{
+       'hello-world': helloWorld,
+  },
   data(){
     return{
         baseImgUrl: this.$store.state.baseImgUrl,
@@ -132,6 +137,11 @@ export default {
       let ran = parseInt(Math.random()*parten.length);
       this.code += parten[ran];
     }
+  },
+  handleRegister(){
+      if(this.isChecked){
+          this.routerGo('login')
+      }
   }
   }
 };

@@ -1,14 +1,15 @@
 <template>
   <div class="myCode">
-      <canvas  width="100" height="40" ref="verifyCanvas"></canvas>
-    <img  src="" alt="" ref="code_img" style="width: 100px;height: 40px;cursor: pointer;vertical-align: top;">
+      {{myCode}}
+    <canvas  width="100" height="40" ref="verifyCanvas"></canvas>
+    <img  src="" alt="" ref="code_img" style="width: 100px;height: 40px;cursor: pointer;vertical-align: top;" @click="$emit('rawRandomCode')">
   </div>
 </template>
 
 <script>
 export default {
   name: 'myCode',
-//   props:[myCode],
+  props:['myCode'],
   data () {
     return {
      nums:["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
@@ -19,8 +20,13 @@ export default {
   watch:{
       myCode:'drawCode'
   },
-
+    mounted(){
+        this.drawCode()
+    },
     methods: {
+        piblishEmit(){
+
+        },  
     // 绘制验证码
     drawCode() {
         var canvasEle = this.$refs.verifyCanvas;  //获取HTML端画布
@@ -31,7 +37,8 @@ export default {
         context.fillStyle = "white";                           //设置字体颜色
         context.font = "25px Arial";                           //设置字体
        
-        var rand = new Array();
+        // var rand = new Array();
+        var rand = this.myCode.split('')
         var x = new Array();
         var y = new Array();
        
@@ -52,7 +59,7 @@ export default {
         for (var i = 0; i < 30; i++) {
             this.drawDot(canvasEle, context);
         }
-        // this.convertCanvasToImage(canvasEle)
+        this.convertCanvasToImage(canvasEle)
     },
 
     // 随机线
@@ -74,12 +81,12 @@ export default {
 
     },
     // 绘制图片
-//    convertCanvasToImage(canvasEle) {
-//         this.$refs.verifyCanvas.style.display = "none";
-//         var image = this.$refs.code_img;
-//         image.src = canvasEle.toDataURL("image/png");
-//         return image;
-//     },
+   convertCanvasToImage(canvasEle) {
+        this.$refs.verifyCanvas.style.display = "none";
+        var image = this.$refs.code_img;
+        image.src = canvasEle.toDataURL("image/png");
+        return image;
+    },
 
   }
 }
