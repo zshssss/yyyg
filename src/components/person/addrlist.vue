@@ -68,9 +68,6 @@
       <p class="n_btn" @click="handleSave()">保存</p>
       </div>
     </div>
-
-
-
    <div class="myAddress">
     <section class="showChose" v-show="showChose">
       <section class="address">
@@ -3873,11 +3870,11 @@ export default {
     background: rgba(0,0,0,0.5);
 }
 .n_dailog{
-    padding: 0 26px;
+    padding: 0 1.04rem;
     background-color: #ffffff;
-    border-radius: 4px;
+    border-radius: .16rem;
     display: flex;
-    width: 325px;
+    width: 13rem;
     margin: 0 auto;
     box-sizing: border-box;
     flex-direction: column;
@@ -3886,47 +3883,47 @@ export default {
 }
 .n_dailog .close{
     position: absolute;
-    right: -8px;
-    top: -8px;
+    right: -0.32rem;
+    top: -0.32rem;
 }
 .n_dailog .addr_edit_title{
-  font-size: 15px;
+  font-size: .6rem;
   text-align: center;
-  line-height: 35px;
+  line-height: 1.4rem;
 }
 .n_dailog .cell{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: 12px;
-  border-top: 1px solid #cccccc;
-  line-height: 30px;
-  height: 30px;
+  font-size: 0.48rem;
+  border-top: 0.04rem solid #cccccc;
+  line-height: 1.2rem;
+  height: 1.2rem;
   box-sizing: border-box;
 }
 .n_dailog .cell .text_lf{
 
 }
 .n_dailog .cell img{
-  height: 20px;
+  height: 0.8rem;
   /* box-sizing: border-box; */
-  padding: 5px 12px ;
+  padding: 5px 0.48rem ;
 }
 .n_dailog .n_btn{
-  margin: 22.5px 8px 16px;
-  line-height: 35px;
-  height: 35px;
+  margin: 0.9rem .32rem 1.04rem;
+  line-height: 1.4rem;
+  height: 1.4rem;
   text-align: center;
   background-color: #fb3812;
-  border-radius: 4px;
+  border-radius: .16rem;
   color: #fff;
 }
 
 .n_dailog input{
   border: none;
-  line-height: 30px;
-  height: 30px;
-  font-size: 12px;
+  line-height: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.48rem;
   width: 50%;
   /* color: #333333; */
 }
@@ -3941,11 +3938,11 @@ export default {
   height: 100%; */
   width: 100%;
   background-color: white;
-  border-top: 4px solid rgba(245,245,245,1);
+  border-top: .16rem solid rgba(245,245,245,1);
   color:#666;
 }
 .myAddress .cont{
-  border-bottom: 1px solid rgba(245,245,245,0.8);
+  border-bottom: 0.04rem solid rgba(245,245,245,0.8);
 }
 .myAddress .cont span{
   display: inline-block;
@@ -3992,14 +3989,14 @@ export default {
 }
 .title{
     position: relative;
-    border-bottom: 1px solid #aea9a9;
+    border-bottom: 0.04rem solid #aea9a9;
 }
 .title span{
   display:inline-block;
   position: absolute;
-  right: 40px;
+  right: 1.6rem;
   font-size:0.8rem;
-  line-height:40px;
+  line-height:1.6rem;
   color:#999;
 }
 
@@ -4018,24 +4015,24 @@ export default {
   box-sizing: border-box;
   line-height: 2rem;
   color:#666666;
-  border-bottom: 1px solid #dfdfdf;
+  border-bottom: 0.04rem solid #dfdfdf;
 }
 .addList .right-icon{
     position: absolute;
     transform: rotate(45deg);
-    top: 14px;
-    right: 20px;
-    width: 16px;
-    height: 16px;
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 0.52rem;
+    height: 0.52rem;
     box-sizing: border-box;
-    border-right: 1px solid #666666;
-    border-top: 1px solid #666666;
+    border-right: 0.04rem solid #666666;
+    border-top: 0.04rem solid #666666;
 }
 
 /* 修改的格式 */
 .address ul{
   width:100%;
-  height:345px;
+  height:13.8rem;
   overflow:auto;
 }
 
