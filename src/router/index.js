@@ -265,7 +265,6 @@ const router = new Router({
      {
       path: '/login/agreement',
       name: 'agreement',
-<<<<<<< HEAD
       component: Agreement},
  
     //搜索页
@@ -274,18 +273,11 @@ const router = new Router({
     //   name: 'search',
     //   component: Search
     // },
-=======
-      component: Agreement
-    },
->>>>>>> 62e16b7ac66156355dae1a022add6f3b35793cbc
     {
       path: '*',
       redirect: { name: '/login' }
     },
-<<<<<<< HEAD
  
-=======
->>>>>>> 62e16b7ac66156355dae1a022add6f3b35793cbc
   ]
 })
 

@@ -103,11 +103,7 @@ export default {
         this.searchName = ''
     },
 
-    loadMore:function(){
-      // Indicator.open({
-      //   spinnerType:'fading-circle'
-      // })
-    }
+   
 
   
 
