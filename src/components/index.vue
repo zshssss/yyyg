@@ -1,9 +1,11 @@
 <template>
-  <div class="index">
+  <div class="index" v-infinite-scroll="loadMore"
+  infinite-scroll-disabled="loading"
+  infinite-scroll-distance="10">
 
     <!-- 头部搜索 -->
     <div class="flex js_center al_center topsea">
-      <div class="box flex js_start al_center seach" v-on:click="showSea">
+      <div class="box flex js_start al_center seach" v-on:click="visiable = !visiable">
         <img :src="baseImgUrl+'index_sea_32_30.png'" style="width:.64rem;height:.6rem;" alt="">
         <input class="seakey" disabled placeholder="请输入您想要的宝贝" type="text">
       </div>
@@ -19,34 +21,7 @@
       </mt-swipe>
     </div>
     <!--  -->
-    <!-- <div class="box tc project_list">
-      <ul>
-        <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro1_121_121.png'" style="width:2.4rem;height:2.4rem;" alt="">
-          </div>
-          <p class="name">分类</p>
-        </li>
-          <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro2_111_111.png'" style="width:2.2rem;height:2.2rem;" alt="">
-          </div>
-          <p class="name">客服</p>
-        </li>
-          <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro3_128_110.png'" style="width:2.2rem;height:2.2rem;" alt="">
-          </div>
-          <p class="name">充值</p>
-        </li>
-          <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro4_120_120.png'" style="width:2.4rem;height:2.4rem;" alt="">
-          </div>
-          <p class="name">推广</p>
-        </li>
-      </ul>
-    </div> -->
+ 
 
     <div class="over box recommend jiexiaow">
       <router-link to="/announce">
@@ -126,36 +101,28 @@
     <div class="tab_posi">
       <TabBar :nth='0'></TabBar>
     </div>
-    <mt-popup class="seach_wrap" v-model="show" position="right">
-      <div class="search">
-        <div class="topti">
-          <div class="index_back" v-on:click="seaBack">
-            <img :src="baseImgUrl+'left_red_21_37.png'" style="width:.42rem;height:.74rem;" alt="" srcset="">
-          </div>
-          <div class="fillkey">
-            <img :src="baseImgUrl+'pop_sea_32_30.png'" style="width:.64rem;height:.60rem;" alt="" srcset="">
-            <input type="text" maxlength="11" placeholder="请输入你想要寻找的宝贝..." />
-            <span class="clear">
-              <img :src="baseImgUrl+'delete_32_32.png'" style="width:.64rem;height:.64rem;" alt="" srcset="">
+      <mt-popup v-model="visiable" position="right">
+     <div id="search" class="search" >
+        <!-- 顶部标题 -->
+        <div class="tc box rel flex js_between al_center top_title">
+            <span class="back"  v-on:click="closeProp">
             </span>
-            
-          </div>
-          <div class="seachbuttom">搜索</div>
-          
+            <div class="input-inner">
+                <i class="el-icon-search"></i>
+                <input type="text" v-model="searchName" placeholder="请输入你想要寻找的宝贝...">
+                <i class="el-icon-circle-close-outline" @click="deleTeName"></i>
+            </div>
+            <span class="exit" @click="setSearch()">搜索</span>
         </div>
-        <div class="hot_sea">
-          <p class="tit">热门搜索</p>
-          <div class="hot_keys">
-            <ul>
-              <li>口红</li>
-              <li>面包</li>
-              <li>罗小黑</li>
-              <li>罗小白</li>
-              <li>小米8 64GB 骁龙845</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <!-- 热门推荐 -->
+        <dl class="auto-commend">
+            <dt class="commend-label">热门搜索</dt>
+            <dd class="commend-list">
+                <span v-for="(item,index) in hotList" :key="index" @click="setSearch(item)">{{item}}</span>
+            </dd>
+        </dl>
+    </div>
+
     </mt-popup>
 
   </div>
@@ -166,6 +133,7 @@ import Vue from "vue";
 import axios from "axios";
 
 import { Swipe, SwipeItem } from "mint-ui";
+import { Indicator } from 'mint-ui';
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 
@@ -188,27 +156,42 @@ export default {
         {name:'jiexiao_02_ico_160_147.png'},
         {name:'jiexiao_03_ico_160_147.png'},
         {name:'jiexiao_04_ico_160_147.png'}
-      ]
+      ],
+      baseImgUrl: this.$store.state.baseImgUrl,
+      prodlist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],
+      proShow:false,
+      visiable:false,
+      searchName:null,
+      hotList:['口红','手机','耳机'],
+      showSlide: false
     };
+    
+    
   },
-  created: function() {    
-    // axios({
-    //   method: "POST",
-    //   url: "/apis/api/register",
-    //   data: {
-    //     phone: 18037472380,
-    //     password: "123"
-    //   },
-    //   header: {
-    //     "content-type": "application/json"
-    //   }
-    // })
-    //   .then(function(res) {
-    //     console.log(res);
-    //   })
-    //   .catch(function(ers) {
-    //     console.log(ers);
-    //   });
+  created: function() {  
+    console.log(1);
+    
+    axios({
+      method: "GET",
+      url: "/apis/index",
+      // url: "/apis/index",
+      data: {
+        phone: 18037472380,
+        password: "123",
+        // page:1,
+        // num:3
+      },
+
+      header: {
+        "content-type": "application/json"
+      }
+    })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function(ers) {
+        console.log(ers);
+      });
   },
   mounted(){
  
@@ -237,9 +220,34 @@ export default {
     },
     showSea:function(){
        this.show=true
+    },
+    handleSearch(name){
+      if(name){
+        this.visiable = false,
+        this.searchName= name
+      }
+    },
+    closeProp(){
+       this.visiable = false;
+    },
+    setSearch(prodname){
+        this.searchName = prodname ? prodname : this.searchName;
+        this.visiable = false;
+    },
+    deleTeName(){
+        this.searchName = ''
+    },
+
+    loadMore:function(){
+      // Indicator.open({
+      //   spinnerType:'fading-circle'
+      // })
     }
 
+  
+
   }
+  
 };
 </script>
 

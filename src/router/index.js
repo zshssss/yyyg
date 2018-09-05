@@ -256,20 +256,18 @@ export default new Router({
      {
       path: '/login/agreement',
       name: 'agreement',
-      component: Agreement
-    },
-<<<<<<< HEAD
+      component: Agreement},
+ 
     //搜索页
-    {
-      path: '/search',
-      name: 'search',
-      component: Search
-    },
+    // {
+    //   path: '/search',
+    //   name: 'search',
+    //   component: Search
+    // },
     {
       path: '*',
       redirect: { name: 'index' }
     },
-=======
->>>>>>> 4dc5f5b01f3abdb26977dfb385c0bab8b3e787ed
+ 
   ]
 })

@@ -82,3 +82,100 @@
       }
       
 }
+
+
+
+
+.tab_posi{
+    height: 2rem;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+  }
+
+
+  #search.search{
+    width: 100vw;
+    height: 100vh;
+  }
+  #search.search .top_title{
+      background-color: #fff;
+      height: 1.76rem;
+      line-height: 1.12rem;
+      font-size: 0.64rem;
+      padding: 0 0.4rem;
+  }
+  #search.search .top_title span.back {
+  display: inline-block;
+  position: relative;
+  width: 1.28rem;
+  height: 100%;
+  vertical-align: middle;
+  }
+  #search.search .top_title span.back::before{
+  
+      border: 2px solid transparent;
+      border-right: 0;
+      border-bottom: 0;
+      content: " ";
+      top: 0.6rem;
+      left: 0.6rem;
+      position: absolute;
+      width: 0.51rem;
+      height: 0.51rem;
+      border-color: #FB3812;
+      -webkit-transform: rotate(-45deg) scale(1);
+      transform: rotate(-45deg) scale(1);
+  }
+
+  #search.search .top_title  .input-inner{
+      display: flex;
+      position: relative;
+      justify-content: space-around;
+      flex: 1;
+      height: 1.76rem;
+      padding: 0.32rem 0.4rem;
+      box-sizing: border-box;
+      align-items: center;
+      font-size: .72rem;
+      vertical-align: middle;
+  }
+
+  #search.search .top_title  .input-inner i{
+       color: #666666;
+       
+  }    
+  #search.search .top_title  .input-inner input{
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      outline: 0;
+      margin: 0 .4rem;
+  }
+
+  #search.search .top_title span.exit {
+      width: 2rem;
+      color: #FB3812;
+  }
+  .auto-commend{
+      padding: .4rem .8rem;
+  }
+  .auto-commend .commend-label{
+      font-size: 12px;
+       color: #666666;
+       margin-bottom: 0.4rem;
+  }
+  .auto-commend .commend-list{
+      display: flex;
+      justify-content: space-around;
+      font-size: 0.64rem;
+      line-height: 0.8rem;
+      color: #FB3812;
+  }
