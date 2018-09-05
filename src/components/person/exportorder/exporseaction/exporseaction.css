@@ -50,15 +50,16 @@
   height: auto;
   width: 100%;
   overflow: hidden;
-  box-sizing: border-box;
-  padding: 0 0.4rem;
+  /* box-sizing: border-box; */
+  /* padding: 0 0.4rem; */
   margin: 0.4rem auto;
+  width: 14.2rem;
 }
 #exportorder.exportorder .addimg .addbu {
   height: 2.2rem;
-  width: 1.7rem;
+  width: 1.72rem;
   box-sizing: border-box;
-  margin-top: 0.2rem;
+  /* margin-top: 0.2rem; */
   border: 0.02rem solid #cccccc;
   background-color: #ffffff;
   text-align: center;

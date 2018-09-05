@@ -4,7 +4,7 @@
     <!-- 购物车内容 -->
     <div v-if="shopShow" class="shop_list">
       <ul>
-        <li  v-for="(cartItem, index) in shopCart" :key="index">
+        <li  v-for="(cartItem, index) in shopCart" :key="index" v-on:click="routerGo('prodetail')">
           <div class="flex js_center al_center shop_detail_ico">
             <img :src="baseImgUrl+cartItem.prodImg" style="width:3.74rem;height:4.7rem;" alt="">
           </div>
@@ -17,18 +17,18 @@
             
             <div class="flex js_between al_center box numschange">
               <p class="flex js_between al_center shop_numc">
-                <span @click="redProdCount(index)"></span>
+                <span @click.stop="redProdCount(index)"></span>
                 <span>{{haveBuy}}</span>
-                <span @click="addProdCount(index)"></span>
+                <span  @click.stop="addProdCount(index)"></span>
               </p>
-              <p class="flex js_center al_center shop_del" @click="handleDele(index)">
+              <p class="flex js_center al_center shop_del" @click.stop="handleDele(index)">
                 <img :src="baseImgUrl+'del-28_34.png'" style="width:.56rem;height:.68rem" alt="">
               </p>
             </div>
           </div>
         </li>  
       </ul>
-      <div class="tc topay" v-on:click="routeGo('paycenter')">立即支付</div>
+      <div class="tc topay" v-on:click="routerGo('paycenter')">立即支付</div>
     </div>
 
     <!-- 购物城为空 -->
@@ -38,7 +38,7 @@
         <img :src="baseImgUrl+'warm_114.png'" style="width:2.28rem;height:2.28rem;" alt="">
       </div>
       <p class="tip">抱歉，您的购物车没有商品记录！</p>
-      <p class="tc topay">马上去购物</p>
+      <p class="tc topay" v-on:click="routerGo('index')">马上去购物</p>
     </div>
      
 
@@ -77,7 +77,7 @@ export default {
   created: function() {},
   computed: {},
   methods: {
-    routeGo:function(pathName){
+    routerGo:function(pathName){
       this.$router.push({ name: pathName });
     },
     redProdCount(id){

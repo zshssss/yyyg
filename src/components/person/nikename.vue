@@ -14,7 +14,7 @@
             <img :src="baseImgUrl+'delete_32_32.png'" style="width:.64rem;height:.64rem" alt="">
         </span>
     </div>
-    <p class="complete">完成</p>
+    <p class="complete" v-on:click="back(1)">完成</p>
   </div>
 </template>
 

@@ -20,10 +20,12 @@
             <span class="pass_label">验证码：</span>
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="number" value=""  maxlength="11">
+                <input style="width:140px" type="number" value=""  maxlength="11">
             </p>
-            <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
-            <span class="btn_validefy" v-else> {{timercount}}s</span>
+           
+            <!-- <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
+            <span class="btn_validefy" v-else> {{timercount}}s</span> -->
+           <draw-code  v-on:rawRandomCode="createdCode"></draw-code>
         </div>
         <div class="pass_inner">
             <span class="pass_label">新密码：</span>
@@ -33,11 +35,16 @@
             </p>
         </div>
     </div>
-    <p class="login_button" >下一步</p>
+    <p class="login_button" @click="routerGo('login')">下一步</p>
   </div>
 </template>
 <script>
+import myCode from '../HelloWorld';
+import drawCode from './drawCode'
 export default {
+  components: {
+    'drawCode': drawCode,
+  },
   name: "forgot",
   data() {
     return {
@@ -45,39 +52,49 @@ export default {
       notvalided:true,
       timercount:'',
       timer:null,
-      code:''
+      codesraw:[],
+      code:'76s5V',
     };
   },
-  created: function() {},
+  mounted() {
+
+  },
   computed: {},
   methods: {
     back: function() {
       this.$router.back()
     },
-    // 生成随机码
-    createdCode(){
-    const TIME_COUNT = 60
-    if(!this.timer){
-      this.timercount = TIME_COUNT;
-      this.timer = setInterval(()=>{
-         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
-         this.timercount--;
-        } else {
-         this.notvalided = true;
-         clearInterval(this.timer);
-         this.timer = null;
-        }
-       }, 1000)
-    }
-    this.notvalided = false;
-    const parten = ['0','1','2','3','4','5','6','7','8','9'];
-    const code='';
-    this.code = code;
-    for(let i = 0;i<4;i++){
-      let ran = parseInt(Math.random()*parten.length);
-      this.code += parten[ran];
-    }
-  }
+     routerGo: function(path) {
+      this.$router.push({ name: path });
+    },
+      // 生成随机码
+    createdCode(code){
+        this.code = code;
+  },
+  //       // 生成随机码
+  //   createdCode(){
+  //   const TIME_COUNT = 60
+  //   if(!this.timer){
+  //     this.timercount = TIME_COUNT;
+  //     this.timer = setInterval(()=>{
+  //        if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
+  //        this.timercount--;
+  //       } else {
+  //        this.notvalided = true;
+  //        clearInterval(this.timer);
+  //        this.timer = null;
+  //       }
+  //      }, 1000)
+  //   }
+  //   this.notvalided = false;
+  //   const parten = ['0','1','2','3','4','5','6','7','8','9'];
+  //   const code='';
+  //   this.code = code;
+  //   for(let i = 0;i<6;i++){
+  //     let ran = parseInt(Math.random()*parten.length);
+  //     this.code += parten[ran];
+  //   }
+  // }
   }
 
 };

@@ -34,36 +34,63 @@ input:focus {
   float: right;
 }
 .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 .fd_clums {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 .js_center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 .js_between {
+  -webkit-justify-content: space-between;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 .js_start {
+  -webkit-justify-content: flex-start;
+  box-pack: start;
   justify-content: flex-start;
 }
 .js_end {
+  -webkit-justify-content: flex-end;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
 }
 .al_center {
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-box-align: center;
+  box-align: center;
 }
 .al_between {
   align-content: space-between;
 }
 .al_start {
+  -webkit-align-items: flex-start;
+  box-align: flex-start;
+  -webkit-box-align: flex-start;
   align-items: flex-start;
 }
 .al_end {
+  -webkit-align-items: flex-end;
+  box-align: flex-end;
+  -webkit-box-align: flex-end;
   align-items: flex-end;
 }
 .wrap {
+  -webkit-flex-wrap: wrap;
+  -webkit-box-lines: multiple;
+  -moz-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 .box {
@@ -370,6 +397,7 @@ input:focus {
 /*最近揭晓*/
 #announce {
   padding-bottom: 2.4rem;
+  background-color: #EFEFEF;
 }
 #announce .top_title {
   height: 1.76rem;
@@ -381,9 +409,10 @@ input:focus {
 #announce .currents {
   height: auto;
   width: 100%;
-  border-bottom: 0.4rem solid #EFEFEF;
+  margin-bottom: 0.4rem;
 }
 #announce .currents ul li {
+  background-color: #fff;
   box-sizing: border-box;
   padding: 0 0.4rem;
   height: 6rem;
@@ -391,7 +420,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #fb3812;
+  border: 1px solid #fb3812;
   position: relative;
 }
 #announce .currents ul li .cus_tip {
@@ -458,11 +487,27 @@ input:focus {
   border-bottom: none;
 }
 #announce .history ul li {
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 0 0.4rem;
   height: 6rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
   width: 100%;
   border-bottom: 1px solid #EFEFEF;
 }
 #announce .history ul li .creent_info {
+  width: 9.8rem;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  display: flex;
+  box-sizing: border-box;
+  padding-bottom: 0.6rem;
   padding-top: 0.7rem;
 }
 #announce .history ul li .creent_info .userinfo {
@@ -501,9 +546,14 @@ input:focus {
 #announce .history ul li .creent_info .take_info .take_time {
   font-size: 0.36rem;
 }
+#announce .history ul li .creent_ico {
+  height: 100%;
+  width: 4.4rem;
+}
 /* 分类**/
 #classify.classify {
-  padding-bottom: 3.2rem;
+  padding-bottom: 2.4rem;
+  background-color: #efefef;
 }
 #classify.classify .top_title {
   height: 1.76rem;
@@ -593,6 +643,9 @@ input:focus {
 }
 #classify.classify .sorttype .sorttypelist ul li.on {
   color: #FB3812;
+}
+#classify.classify .prolist {
+  background-color: #fff;
 }
 #classify.classify .prolist ul {
   display: flex;
@@ -684,7 +737,8 @@ input:focus {
 /*shop购物车*/
 .shop#shop {
   background-color: #EFEFEF;
-  padding-bottom: 3.2rem;
+  padding-bottom: 2.4rem;
+  min-height: 100vh;
   /*kong */
 }
 .shop#shop .top_title {
@@ -815,6 +869,7 @@ input:focus {
 /*个人中心*/
 .person#person {
   background-color: #EFEFEF;
+  padding-bottom: 2.4rem;
 }
 .person#person .top_title {
   height: 1.76rem;
@@ -873,7 +928,7 @@ input:focus {
   margin-right: 0.6rem;
 }
 .person#person .user_list {
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
   padding-top: 0.6rem;
 }
 .person#person .user_list ul li {
@@ -1537,11 +1592,27 @@ input:focus {
   border: 1px solid #DADADA;
   margin-right: 0.4rem;
 }
+.addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default span:nth-child(1):hover {
+  border-color: #FB3812;
+}
 .addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default.on {
   color: #FB3812;
 }
 .addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default.on span:nth-child(1) {
-  border: 1px solid #FB3812;
+  position: relative;
+  border: 0.04rem solid #FB3812;
+}
+.addrlist#addrlist .addrdetail_list ul li .addr_edit .addr_default.on span:nth-child(1)::after {
+  content: '';
+  position: absolute;
+  border-radius: 100%;
+  width: 0.16rem;
+  height: 0.16rem;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.15s ease-in;
 }
 .addrlist#addrlist .addrdetail_list ul li .addr_edit .bjin {
   font-size: 0.48rem;

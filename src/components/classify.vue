@@ -5,10 +5,13 @@
 
     <div class="flex js_start al_center sorttype">
       <ul class="flex js_start al_center sort_list">
-        <li class="on">人气</li>
-        <li>最新</li>
-        <li>价值</li>
-        <li>即将揭晓</li>
+        <li :class="[prodActiveIndex===index ? 'on':'']"  
+            v-for="(item, index) in prodlist" 
+            :key="index" 
+            v-on:click="handleProdlist(index)" >
+            {{item}}
+         </li>
+
       </ul>
       <div class="flex js_start al_center type_swich">
         <p v-on:click="proShow=!proShow">
@@ -22,7 +25,12 @@
       </div>
       <div class="sorttypelist" v-if="proShow">
         <ul>
-            <li v-for="(item, index) in prodlist" :class="[0===index ? 'on':'']" :key="index">{{item}}</li>
+            <li v-for="(item, index) in classifylist" 
+                :class="[classifyActiveIndex===index ? 'on':'']" 
+                :key="index" v-on:click="handleClassify(index)" 
+                >
+                {{item}}
+            </li>
         </ul>
       </div>
     </div>
@@ -30,10 +38,7 @@
 
     <div class="box prolist">
       <ul>
-        <template v-for="(item, index) in 10">
-          
-        
-        <li>
+        <li v-for="(item, index) in 10" :key="index" v-on:click="routerGo('prodetail')">
           <div class="pro_ico">
             <img :src="baseImgUrl+'ty_pro_ico_335_160.png'" style="width:6.7rem;height:3.2rem;" alt="">
           </div>
@@ -47,14 +52,12 @@
             <span>100</span>
           </p>
           <div class="takein flex js_start al_center">
-            <p class="box tc take"  @click="routerGo('prodetail')">立即抢购</p>
-            <p class="che_ico" @click="routerGo('shop')">
+            <p class="box tc take"  @click.stop="routerGo('paycenter')">立即抢购</p>
+            <p class="che_ico" @click.stop="routerGo('shop')">
               <img :src="baseImgUrl+'ty_che_32_30.png'" style="width:.64rem;height:.60rem;" alt="">
             </p>
           </div>
-        </li>
-         </template>
-         
+        </li>         
       </ul>
     </div>
 
@@ -97,7 +100,10 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
-      prodlist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],
+      prodActiveIndex:0,//类目列表默认激活id
+      prodlist:['人气','最新','价值','即将揭晓'],//prodlist 类目列表
+      classifyActiveIndex:0,//分类默认激活id
+      classifylist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],//classifylist 分类列表
       proShow:false,
       visiable:false,
       searchName:null,
@@ -124,6 +130,13 @@ export default {
     },
     deleTeName(){
         this.searchName = ''
+    },
+    handleClassify(prodindex){
+      this.proShow=!this.proShow;
+      this.classifyActiveIndex = prodindex;
+    },
+    handleProdlist(prodIndex){
+      this.prodActiveIndex = prodIndex;
     }
   }
 };

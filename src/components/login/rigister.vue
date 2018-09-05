@@ -11,21 +11,22 @@
         <div class="pass_inner">
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_tel_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="phone-icon">
-                <input type="number" value="" placeholder="请输入手机号" maxlength="11">
+                <input type="tel" value="" placeholder="请输入手机号" maxlength="11">
             </p>
         </div>
         <div class="pass_inner">
             <p class="user_tel" style="flex:1">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="number" value=""  placeholder="请输入验证码"  maxlength="11">
+                <input type="tel" value=""  placeholder="请输入验证码"  maxlength="11">
             </p>
-            <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
-            <span class="btn_validefy" v-else> {{timercount}}s</span>
+            <!-- <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
+            <span class="btn_validefy" v-else> {{timercount}}s</span> -->
+            <draw-code  v-on:rawRandomCode="createdCode"></draw-code>
         </div>
         <div class="pass_inner">
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="number" value=""  placeholder="请输入密码" maxlength="11">
+                <input type="tel" value=""  placeholder="请输入密码" maxlength="11">
             </p>
         </div>
         <div class="pass_inner">
@@ -37,7 +38,7 @@
                 </ul>
             </div>
         </div>
-        <p class="login_button" style="marginBottom:.4rem;">注册</p>
+        <p class="login_button" v-bind:class="{'disable':!isChecked}" style="marginBottom:.4rem;"  @click="handleRegister">注册</p>
         <div class="pass_inner">
             <span class="user_cheack" v-bind:class="{'checked':isChecked}" @click="handleChecked"></span>
             <span class="cheack_maind">我已经阅读并同意<a @click="routerGo($event,'agreement')">用户服务协议</a></span>
@@ -49,8 +50,12 @@
 </template>
 <script>
 import { MessageBox } from 'mint-ui';
+import drawCode from './drawCode'
 export default {
   name: "rigister",
+  components:{
+       'drawCode': drawCode,
+  },
   data(){
     return{
         baseImgUrl: this.$store.state.baseImgUrl,
@@ -61,10 +66,10 @@ export default {
         disInputs:[{value:''},{value:''},{value:''},{value:''},{value:''},{value:''}],
         realInput:'',
         isChecked:false,
-        notvalided:true,
+        // notvalided:true,
         timercount:'',
         timer:null,
-        code:''
+        code:[]
     }
   },
   mounted(){
@@ -74,9 +79,8 @@ export default {
     back: function() {
       this.$router.back()
     },
-    routerGo: function(e,path) {
-        e.preventDefault();
-        this.$router.push({ name: path });
+    routerGo: function(pathName, params) {
+        this.$router.push({ name: pathName });
     },
     getNum(){
         if(this.realInput.length ===6){
@@ -111,28 +115,13 @@ export default {
         this.isChecked = !cheack;
     },
     // 生成随机码
-    createdCode(){
-    const TIME_COUNT = 60
-    if(!this.timer){
-      this.timercount = TIME_COUNT;
-      this.timer = setInterval(()=>{
-         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
-         this.timercount--;
-        } else {
-         this.notvalided = true;
-         clearInterval(this.timer);
-         this.timer = null;
-        }
-       }, 1000)
-    }
-    this.notvalided = false;
-    const parten = ['0','1','2','3','4','5','6','7','8','9'];
-    const code='';
-    this.code = code;
-    for(let i = 0;i<6;i++){
-      let ran = parseInt(Math.random()*parten.length);
-      this.code += parten[ran];
-    }
+    createdCode(code){
+        this.code = code;
+  },
+  handleRegister(){
+      if(this.isChecked){
+          this.routerGo('login')
+      }
   }
   }
 };

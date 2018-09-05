@@ -41,7 +41,7 @@
       </ul>
     </div>
 
-    <p class="rechar_confirm" v-on:click="close_dig">确认充值</p>
+    <p class="rechar_confirm" v-on:click="routerGo('partrecord')">确认充值</p>
     
 
       <el-dialog class="conf_num" width="13rem" height="auto" center :visible.sync="edishow" title="确认支付" :show-close="false" top='0'>

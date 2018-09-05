@@ -11,29 +11,27 @@
     </div>
     <div class="export_list">
         <ul>
-            <template v-for="(item, index) in 3">
-                <li>
-                    <div class="export_ico">
-                        <img :src="baseImgUrl+'rxport_ico_66_66.png'" style="width:1.32rem;heigth:1.32rem;" alt="">
-                    </div>
-                    <div class="export_box">
-                        <p class="title">前几天还在跟同事吹我肯定要中一部手机...</p>
-                        <p class="tel">133****9533</p>
-                        <div class="flex js_start al_center order_detail">
-                            <div class="order_ico">
-                                <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="height:2.9rem;width:2.3rem;" alt="" srcset="">
-                            </div>
-                            <div class="order_inf">
-                                <p class="order_name">（第333期）Apple iPhone 8(A1863)64G移动 正在揭晓</p>
-                                <p class="price">
-                                    <span>价值：￥5800元</span>
-                                    <span>2018.08.08</span>                  
-                                </p>
-                            </div>
+            <li v-for="(item, index) in 3" :key="index"  @click="routerGo('prodetail')">
+                <div class="export_ico">
+                    <img :src="baseImgUrl+'rxport_ico_66_66.png'" style="width:1.32rem;heigth:1.32rem;" alt="">
+                </div>
+                <div class="export_box">
+                    <p class="title">前几天还在跟同事吹我肯定要中一部手机...</p>
+                    <p class="tel">133****9533</p>
+                    <div class="flex js_start al_center order_detail">
+                        <div class="order_ico">
+                            <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="height:2.9rem;width:2.3rem;" alt="" srcset="">
                         </div>
-                    </div> 
-                </li>
-            </template>
+                        <div class="order_inf">
+                            <p class="order_name">（第333期）Apple iPhone 8(A1863)64G移动 正在揭晓</p>
+                            <p class="price">
+                                <span>价值：￥5800元</span>
+                                <span>2018.08.08</span>                  
+                            </p>
+                        </div>
+                    </div>
+                </div> 
+            </li>
         </ul>
     </div>
  

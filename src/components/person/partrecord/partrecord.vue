@@ -11,7 +11,7 @@
 
     <div class="parrlist">
         <ul>
-          <li>
+          <li @click="routerGo('prodetail')">
             <div class="take_ico">
               <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem" alt="">
             </div>
@@ -31,7 +31,7 @@
     </div>
     <div class="part_kf">
       <p>
-        <span>客服</span>
+        <span @click="routerGo('customerservice')">客服</span>
       </p>
     </div>
   </div>

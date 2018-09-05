@@ -11,13 +11,11 @@
       </div>
     </div>
     <!-- 首页轮播 -->
-    <div class="index_banner">
+    <div class="index_banner" v-on:click="routerGo('prodetail')">
       <mt-swipe :auto="0">
-        <template v-for="(val, key, index) in banners"> 
-          <mt-swipe-item>
+          <mt-swipe-item  v-for="(val, key) in banners" :key="key">
             <img :src="baseImgUrl+'banner1.png'" style="width:15rem;height:6rem" alt="">
-          </mt-swipe-item>
-        </template>  
+          </mt-swipe-item> 
       </mt-swipe>
     </div>
     <!--  -->
@@ -63,7 +61,7 @@
               </div>
               
               <div class="recom_right">
-                <div class="flex js_start al_center recom_r_top" v-on:click="routerGo('prodetail')">
+                <div class="flex js_start al_center recom_r_top" >
                   <div class="ico">
                     <img :src="baseImgUrl+'recom_ico_36_39.png'" style="width:.72rem;height:.78rem;" alt="">
                   </div>
@@ -89,8 +87,8 @@
                   </div>
                 </div>
                 <div class="box flex js_center al_center take_in">
-                  <p class="tc buy" v-on:click="routerGo('paycenter')">￥1.00抢购</p>
-                  <p class="tc buy" v-on:click="routerGo('paycenter')">全包价买</p>
+                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">￥1.00抢购</p>
+                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">全包价买</p>
                 </div>
               </div>
             </li>
@@ -101,8 +99,14 @@
     <div class="tab_posi">
       <TabBar :nth='0'></TabBar>
     </div>
+<<<<<<< HEAD
       <mt-popup v-model="visiable" position="right">
      <div id="search" class="search" >
+=======
+    <mt-popup class="seach_wrap"  v-model="visiable" position="right">
+
+           <div id="search" class="search" >
+>>>>>>> 62e16b7ac66156355dae1a022add6f3b35793cbc
         <!-- 顶部标题 -->
         <div class="tc box rel flex js_between al_center top_title">
             <span class="back"  v-on:click="closeProp">
@@ -122,7 +126,10 @@
             </dd>
         </dl>
     </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 62e16b7ac66156355dae1a022add6f3b35793cbc
     </mt-popup>
 
   </div>
@@ -144,7 +151,6 @@ export default {
   name: "index",
   data() {
     return {
-      show: false,
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
       recom: [0, 0],
@@ -157,8 +163,12 @@ export default {
         {name:'jiexiao_03_ico_160_147.png'},
         {name:'jiexiao_04_ico_160_147.png'}
       ],
+<<<<<<< HEAD
       baseImgUrl: this.$store.state.baseImgUrl,
       prodlist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],
+=======
+       prodlist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],
+>>>>>>> 62e16b7ac66156355dae1a022add6f3b35793cbc
       proShow:false,
       visiable:false,
       searchName:null,
@@ -199,25 +209,43 @@ export default {
   },
   computed: {},
   methods: {
-    formatDate(formatStr,timep) {
+  formatDate(formatStr,timep) {
+     var leftTime =  3*60*60*1000
+      // var ho = '23:23:23'.split(':')[0];
+      // var min = '23:23:23'.split(':')[1];
+      // var ss = '23:23:23'.split(':')[2];
+      // leftTime =  parseInt(ho , 10) * 60 * 60 + parseInt(min , 10) * 60 + parseInt(ss , 10);
+      
      setInterval(()=>{
-       var endPoin= new Date('2018-09-01').getTime();
-      var leftTime = endPoin - new Date().getTime();
+      //  var endPoin= new Date('2018-09-01').getTime();
+      // var leftTime = endPoin - new Date().getTime();
+      leftTime =  leftTime - 1000
+     
       var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
       var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
       var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
       this.hour = (hours>9) ? hours :'0'+ hours;
       this.minu = (minutes>9) ? minutes :'0'+ minutes;
       this.second = (seconds>9) ? seconds :'0'+ seconds;
-
     },1000)
     },
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName });
     },
-    seaBack:function(){
-      this.show=false
+     handleSearch(name){
+      if(name){
+        this.visiable = false,
+        this.searchName= name
+      }
     },
+    closeProp(){
+       this.visiable = false;
+    },
+    setSearch(prodname){
+        this.searchName = prodname ? prodname : this.searchName;
+        this.visiable = false;
+    },
+<<<<<<< HEAD
     showSea:function(){
        this.show=true
     },
@@ -242,6 +270,10 @@ export default {
       // Indicator.open({
       //   spinnerType:'fading-circle'
       // })
+=======
+    deleTeName(){
+        this.searchName = ''
+>>>>>>> 62e16b7ac66156355dae1a022add6f3b35793cbc
     }
 
   

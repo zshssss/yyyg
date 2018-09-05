@@ -26,7 +26,7 @@
     </div>
     <div class="reflect_info">
       <p>可用佣金余额0.001元</p>
-      <p>全部转换</p>
+      <p @click="routerGo('balance')">全部转换</p>
     </div>
 
   </div>

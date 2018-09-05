@@ -3,7 +3,7 @@
     <div class="tc top_title">最近揭晓</div>
 
     <!-- 正在揭晓 -->
-    <div class="currents">
+    <div class="currents" v-on:click="routerGo('prodetail')">
       <ul>
         <li>
           <p class="cus_tip">正在揭晓</p>
@@ -25,9 +25,9 @@
     </div>
 
     <!-- 已经揭晓 -->
-    <div class="currents history">
+    <div class="history">
       <ul>
-        <li v-for="(item, index) in history" :key="index">
+        <li v-for="(item, index) in history" :key="index"  v-on:click="routerGo('prodetail')">
           <div class="flex js_center al_center creent_ico">
             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem" alt="">
           </div>
@@ -71,7 +71,11 @@ export default {
   },
   created: function() {},
   computed: {},
-  methods: {}
+  methods: {
+    routerGo: function(pathName, params) {
+      this.$router.push({ name: pathName });
+    },
+  }
 };
 </script>
 
