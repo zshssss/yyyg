@@ -1,6 +1,6 @@
 import tool from '../utils/tool'
 const state = {
-  token:null,
+  token: sessionStorage.getItem('user_token') || null,
 }
 const getters = {}
 
@@ -15,6 +15,7 @@ const actions = {
     .then((response)=>{
       const {code,msg,data} = response;
       console.log(code,msg,data);
+      sessionStorage.setItem('user_token', data)
       commit('userRegister', data)
     })
   }

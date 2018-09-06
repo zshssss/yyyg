@@ -13,15 +13,15 @@
         <div class="user_detail">
           <p class="flex js_start al_center nikename">
             <img :src="baseImgUrl+'nikename_ico_26_30.png'" style="width:.52rem;height:.60rem" alt="昵称">
-            <span class="content">罗小黑</span>
+            <span class="content">{{userInfo.nickname}}</span>
           </p>
           <p class="flex js_start al_center nikename usertel">
-            <img :src="baseImgUrl+'person_tel_ico_21_32.png'" style="width:.42rem;height:.64rem" alt="手机号">
-            <span class="content">12352454*****22</span>
+            <img :src="userInfo.headimg ? userInfo.headimg :baseImgUrl+'person_tel_ico_21_32.png'" style="width:.42rem;height:.64rem" alt="手机号">
+            <span class="content">{{userInfo.phone}}</span>
           </p>
           <p class="user_wallet">
-              <span>余额：0元</span>
-               <span>佣金：50元</span>
+              <span>余额：{{userInfo.money}}元</span>
+               <span>佣金：{{userInfo.virtual_money}}元</span>
           </p>
           
         </div>
@@ -129,11 +129,31 @@ export default {
   data() {
     return {
        baseImgUrl: this.$store.state.baseImgUrl,
+       userInfo:{}
     };
   },
-  created: function() {},
+  created: function() {
+    this.getUserInfo()
+  },
   computed: {},
   methods: {
+    getUserInfo(){
+            this.$ajax({ 
+            url: '/yyyg/myindex', 
+            method: 'get', 
+            headers:{'token':'425499bba00464e4567b7d9f0ec1556c'}
+            }).then((response)=>{
+               console.log(response.data)
+               if(response.data.code == 500){
+                   alert(response.data.msg)
+               }
+                if(response.data.code == 200){
+                    console.log(response.data.data)
+                    const userinfo = response.data.data
+                    this.userInfo = userinfo[0]
+                }
+            })
+    },
     routerGO:function(pathName){
       this.$router.push({name:pathName});
     }

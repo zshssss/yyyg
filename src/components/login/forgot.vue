@@ -75,55 +75,49 @@ export default {
     handleforgot(){
 
       // var formtypeData = this.formtypeData(this.phone,this.password,this.code);//生成formData对象
-      let formData = new FormData();
-      formData.append('phone', this.phone);
-      formData.append('password', this.password);
-      formData.append('code', this.code);
+      let urlParams = new URLSearchParams();
+      
+      urlParams.append('phone', this.phone);
+      urlParams.append('password', this.password);
+      urlParams.append('code', this.code);
 
        this.$ajax({ 
         url: '/yyyg/pwdfind', 
         method: 'POST', 
         headers:{'Content-Type': 'application/x-www-form-urlencoded'},
-        data:formData,
+        data:urlParams,
         }).then((response)=>{
           console.log(response)
-            // if(response.data.code == 500){
-            //     alert(response.data.msg)
-               
-            // }
-            
-            // if(response.data.code == 200){
-            //     this.routerGo('login')
-            // }
+            if(response.data.code == 500){
+                alert(response.data.msg)
+            }
+            if(response.data.code == 200){
+                this.routerGo('login')
+            }
         })
     },
     // 生成随机码
     createdCode(){
-    // const TIME_COUNT = 60
-    // if(!this.timer){
-    //   this.timercount = TIME_COUNT;
-    //   this.timer = setInterval(()=>{
-    //      if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
-    //      this.timercount--;
-    //     } else {
-    //      this.notvalided = true;
-    //      clearInterval(this.timer);
-    //      this.timer = null;
-    //     }
-    //    }, 1000)
-    // }
+    this.notvalided = false;
+    const TIME_COUNT = 60
+    if(!this.timer){
+      this.timercount = TIME_COUNT;
+      this.timer = setInterval(()=>{
+         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
+         this.timercount--;
+        } else {
+         this.notvalided = true;
+         clearInterval(this.timer);
+         this.timer = null;
+        }
+       }, 1000)
+    }
     this.$ajax({ 
             url: '/yyyg/code', 
             method: 'POST', 
             data:{key:'b6eadc5556915ae899995076e473212',phone:this.phone}
             }).then((response)=>{
-               if(response.code=== 200){
-                   alert(response.data);
-                    // this.code = response.data
-               }
-                if(response.code=== 500){
-                   alert(response.msg);
-               }
+              console.log(response)
             })
 
   }

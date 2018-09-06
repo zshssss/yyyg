@@ -16,12 +16,12 @@ export const fetch = function (url, params) {
 }
 
 export default {
-    handleUserLogin (params) {
-            // params {phone:int,password:string}
-        return fetch('/login', params)
-    },
-    handleUserRegister (params) {
+    handleUserLogin (url,params) {
         // params {phone:int,password:string}
-    return fetch('/register', params)
-    }
+        return fetch(url, params)
+    },
+    handleUserRegister (url,params) {
+        // params {phone:int,password:string}
+        return fetch(url, params)
+    },
 }
