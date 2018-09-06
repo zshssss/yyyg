@@ -17,13 +17,13 @@
             </div>
             <div class="take_info">
               <div>
-                <p class="pro_name">（第333期）{{part.desc}} </p>
-                <p class="Model">型号：{{part.goodsname}}</p>
+                <p class="pro_name">（第{{part.goodsphase}}期）{{part.desc}} </p>
+                <p class="Model">型号：{{part.goodsnum}}</p>
                 <p class="size">共{{part.goodsnum}}件</p>
               </div>
               <div class="pay_info">
                 <p>实付：￥{{part.goodsprice}}元（免运费）</p>
-                <p>{{part.addtime.slice(0,10)}}</p>
+                <p>{{part.addtime.slice(0,10).split('-').join('/')}}</p>
               </div>
             </div>
           </li>
@@ -52,7 +52,7 @@ export default {
   methods: {
     getpartCart(){
       this.$ajax({ 
-      url: '/yyyg/geninfo', 
+      url: '/yyyg/record', 
       method: 'get', 
       headers:{'token':'425499bba00464e4567b7d9f0ec1556c'}
       }).then((response)=>{

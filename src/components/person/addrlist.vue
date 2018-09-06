@@ -43,7 +43,7 @@
         </ul>
     </div>
 
-    <div class="addaddrs" v-on:click="showDialog=true">添加地址</div>
+    <div class="addaddrs" v-on:click="addAdress">添加地址</div>
 
 
 
@@ -52,10 +52,10 @@
       <p class="close" v-on:click="showDialog=false">
           <img :src="baseImgUrl+'close_56_56.png'" style="width:1.12rem;height:1.12rem;" alt="">
         </p>
-      <p class="addr_edit_title">编辑地址</p>
+      <p class="addr_edit_title">{{addAdressType ? '添加':'编辑'}}地址</p>
       <div class="cell">
-        <input type="text" placeholder="请输入密码" v-model="UserName" />
-        <input type="number" placeholder="请输入手机号" v-model="TelePhone" />
+        <input type="text" placeholder="请输入姓名" v-model="UserName" />
+        <input type="tel" placeholder="请输入手机号" v-model="TelePhone" />
       </div>
       <div class="cell" @click="showChose = !showChose">
         <!-- <div> 河南省 郑州市 管城区</div> -->
@@ -96,6 +96,7 @@
 </template>
 
   <script>
+  import fetch from '../../utils/tool'
 export default {
   name: 'myAddress',
   data () {
@@ -122,6 +123,7 @@ export default {
       ],
       // 添加
       activeLocationid:null,
+      addAdressType: true,
       showChose: false,
       showProvince: true,
       showCity: false,
@@ -135,9 +137,9 @@ export default {
       District: '管城区',
       Province: '河南省',
       City: '郑州市',
-      Depict: "黄河南路商都路",
-      TelePhone: 1752557577,
-      UserName:'张某某',
+      Depict: "黄河南路",
+      TelePhone: null,
+      UserName: null,
       // v-for循环判断是否为当前
       selected: false,
       info: [
@@ -3754,9 +3756,26 @@ export default {
       ]
     }
   },
+  created(){
+    //    let res = fetch('/yyyg/addressadd','POST',{});
+       console.log(fetch)
+    //    res.then(res=>{
+    //        console.log(res);
+           
+    //    })
+  },
   methods: {
      back: function(num) {
       this.$router.go(-1);
+    },
+    addAdress(){
+        this.showDialog = true;
+        this.addAdressType = true;
+       let res = fetch('/yyyg/addressadd','POST',{});
+       res.then(res=>{
+           console.log(res);
+           
+       })
     },
     routerGo: function(path) {
       this.$router.push({ name: path });
@@ -3768,7 +3787,7 @@ export default {
       this.showChose = false;
     },
     handleEditeLocation(id){
-      
+      this.addAdressType = false;
       const location = this.userLocationInfo[id].location;
       this.Province = location[0];
       this.City = location[1];

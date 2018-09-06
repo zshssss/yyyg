@@ -1,17 +1,26 @@
 
 import axios from 'axios'
+function fetch( url, method,params,tk='') {
+  return new Promise((resolve, reject) => {    
+      let obj={
+        method:method,
+        url:url,
+        headers:{
+          token:tk
+        }
+      };
 
-export const fetch = function (url, params) {
-  return new Promise((resolve, reject) => {
-    axios.post(url, params)
-      .then(response => {
-        resolve(response.data)
-      }, err => {
-        reject(err)
-      })
-      .catch((error) => {
-        reject(error)
-      })
+      if (method=='GET') {
+        obj.params=params
+      } else {
+        obj.data=params
+      }
+
+      axios(obj).then((response)=>{
+        resolve(response)
+        }).catch((error) => {
+          reject(error)
+        })
   })
 }
 
@@ -24,4 +33,8 @@ export default {
         // params {phone:int,password:string}
         return fetch(url, params)
     },
+    handleAddAdress(url,params){
+        return fetch(url, params)
+    },
+    fetch: fetch
 }
