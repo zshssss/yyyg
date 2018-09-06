@@ -10,26 +10,13 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-
-     
-
     // Various Dev Server settings
     // host: '192.168.1.105',// can be overwritten by process.env.HOST
-<<<<<<< HEAD
-    host: '192.168.1.143', 
-=======
- 
     host: '192.168.1.137', 
-    
->>>>>>> 670a542a5f2b78261cfa354413b50e98f470c830
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     proxyTable: {
       '/yyyg': {
-<<<<<<< HEAD
         target: 'http://192.168.1.189/yiyuan/index.php/api',//设置你调用的接口域名和端口号 别忘了加http
-=======
-        target: 'http://192.168.1.249/index.php/api',//设置你调用的接口域名和端口号 别忘了加http
->>>>>>> 670a542a5f2b78261cfa354413b50e98f470c830
         changeOrigin: true,
         pathRewrite: {
           '^/yyyg': ''//这里理解成用‘/api’代替target里面的地址，后面组件中我们掉接口时直接用api代替 比如我要调用'http://40.00.100.100:3002/user/add'，直接写‘/api/user/add’即可
