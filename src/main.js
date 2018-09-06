@@ -34,7 +34,7 @@ import style from './assets/css/style.css';
  
 // axios配置
 // axios.defaults.baseURL = "https://service.ruizhixue.cn/ht/ygsy/"
-Vue.prototype.HOST='/api'
+Vue.prototype.HOST='/apis'
  
 
 // 引入mintUI

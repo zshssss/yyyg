@@ -11,22 +11,22 @@
         <div class="pass_inner">
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_tel_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="phone-icon">
-                <input type="tel" value="" placeholder="请输入手机号" maxlength="11">
+                <input type="tel" v-model="phone" placeholder="请输入手机号" maxlength="11">
             </p>
         </div>
         <div class="pass_inner">
             <p class="user_tel" style="flex:1">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="tel" value=""  placeholder="请输入验证码"  maxlength="11">
+                <input type="tel" v-model="code" placeholder="请输入验证码"  length="6">
             </p>
-            <!-- <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
-            <span class="btn_validefy" v-else> {{timercount}}s</span> -->
-            <draw-code  v-on:rawRandomCode="createdCode"></draw-code>
+            <span class="btn_validefy" v-if="notvalided" @click="createdCode()">获取验证码</span>
+            <span class="btn_validefy" v-else> {{timercount}}s</span>
+            <!-- <draw-code  v-on:rawRandomCode="createdCode"></draw-code> -->
         </div>
         <div class="pass_inner">
             <p class="user_tel">
                 <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="valid-icon">
-                <input type="tel" value=""  placeholder="请输入密码" maxlength="11">
+                <input type="password" v-model="password"  placeholder="请输入密码" maxlength="11">
             </p>
         </div>
         <div class="pass_inner">
@@ -65,11 +65,15 @@ export default {
         ],
         disInputs:[{value:''},{value:''},{value:''},{value:''},{value:''},{value:''}],
         realInput:'',
+        phone:null,
+        password:null,
+        code:null,
+        varifcode:'',
         isChecked:false,
-        // notvalided:true,
+        notvalided:true,
         timercount:'',
         timer:null,
-        code:[]
+        
     }
   },
   mounted(){
@@ -115,13 +119,73 @@ export default {
         this.isChecked = !cheack;
     },
     // 生成随机码
-    createdCode(code){
-        this.code = code;
+      createdCode(){
+    // const TIME_COUNT = 60
+    // if(!this.timer){
+    //   this.timercount = TIME_COUNT;
+    //   this.timer = setInterval(()=>{
+    //      if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
+    //      this.timercount--;
+    //     } else {
+    //      this.notvalided = true;
+    //      clearInterval(this.timer);
+    //      this.timer = null;
+    //     }
+    //    }, 1000)
+    // }
+
+     this.$ajax({ 
+            url: '/yyyg/code', 
+            method: 'POST', 
+            data:{key:'b6eadc5556915ae899995076e473212',phone:18538579178}
+            }).then((response)=>{
+               if(response.code=== 200){
+                   alert(response.msg);
+                    this.varifcode = response.data
+               }
+                if(response.code=== 500){
+                   alert(response.msg);
+               }
+            })
   },
   handleRegister(){
-      if(this.isChecked){
-          this.routerGo('login')
-      }
+            // if(!this.isChecked){
+            //     alert('请勾选用户服务协议');
+            //     return ;
+            // }
+            // if(this.code==null){
+            //     alert('请填入验证码');
+            //     return ;
+            // }
+            //  if(!this.phone){
+            //     alert('请填入手机号');
+            //     return ;
+            // }
+            // if(!this.password){
+            //     alert('请填入密码');
+            //     return ;
+            // }
+
+            var params = new URLSearchParams();
+            params.append('phone', this.phone);
+            params.append('password', this.password);
+            params.append('code', this.code);
+            console.log(typeof this.code, this.phone,this.password)
+            this.$ajax({ 
+            url: '/yyyg/register', 
+            method: 'POST', 
+            data: params
+            }).then((response)=>{
+               console.log(response.data)
+               if(response.data.code == 500){
+                   alert(response.data.msg)
+               }
+               
+                if(response.data.code == 200){
+                     axios.defaults.headers.common['token'] = response.data.token;
+                    this.routerGo('login')
+                }
+            })
   }
   }
 };
