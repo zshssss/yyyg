@@ -39,6 +39,7 @@
 <script>
 import myCode from '../HelloWorld';
 import drawCode from './drawCode'
+import { Toast } from 'mint-ui';
 export default {
   components: {
     'drawCode': drawCode,
@@ -89,7 +90,10 @@ export default {
         }).then((response)=>{
           console.log(response)
             if(response.data.code == 500){
-                alert(response.data.msg)
+                 Toast({
+                    message: response.data.msg,
+                    duration: 2000
+                    });
             }
             if(response.data.code == 200){
                 this.routerGo('login')

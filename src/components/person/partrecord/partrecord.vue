@@ -37,6 +37,7 @@
   </div>
 </template>
 <script>
+  import { Toast } from 'mint-ui';
 export default {
   name: "partrecord",
   data() {
@@ -58,7 +59,10 @@ export default {
       }).then((response)=>{
           console.log(response.data)
           if(response.data.code == 500){
-              alert(response.data.msg)
+              Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
           }
           if(response.data.code == 200){
               console.log(response.data.data)

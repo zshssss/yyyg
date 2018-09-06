@@ -37,7 +37,7 @@
                        <span></span>
                        <span>设为默认</span>
                    </p>
-                   <p class="bjin" v-on:click="handleEditeLocation(index)">编辑</p>
+                   <p class="bjin" v-on:click="handleEditeLocation(index,location.id)">编辑</p>
                </div>
             </li>
         </ul>
@@ -50,8 +50,8 @@
     <div class="n_dailog_box" v-show="showDialog">
       <div class="n_dailog">
       <p class="close" v-on:click="showDialog=false">
-          <img :src="baseImgUrl+'close_56_56.png'" style="width:1.12rem;height:1.12rem;" alt="">
-        </p>
+        <img :src="baseImgUrl+'close_56_56.png'" style="width:1.12rem;height:1.12rem;" alt="">
+      </p>
       <p class="addr_edit_title">{{addAdressType ? '添加':'编辑'}}地址</p>
       <div class="cell">
         <input type="text" placeholder="请输入姓名" v-model="UserName" />
@@ -65,9 +65,13 @@
       <div class="cell">
         <input type="text" v-model="Depict"  placeholder="**路**路**号" />
       </div>
-      <p class="n_btn" @click="handleSave()">保存</p>
+      <p class="n_btn" v-if="addAdressType" @click.prevent="handleSave()">保存</p>
+      <p class="n_btn" v-else @click.prevent="handleEdit">保存</p>
       </div>
     </div>
+
+
+
    <div class="myAddress">
     <section class="showChose" v-show="showChose">
       <section class="address">
@@ -96,7 +100,8 @@
 </template>
 
   <script>
-  import fetch from '../../utils/tool'
+  import api from '../../utils/tool'
+  import { Toast } from 'mint-ui';
 export default {
   name: 'myAddress',
   data () {
@@ -104,6 +109,7 @@ export default {
       baseImgUrl: this.$store.state.baseImgUrl,
       showDialog:false,
       activeIndex:0,
+      adressId:null,
       userLocationInfo:[
         {
           name:'张某某',
@@ -3756,13 +3762,8 @@ export default {
       ]
     }
   },
-  created(){
-    //    let res = fetch('/yyyg/addressadd','POST',{});
-       console.log(fetch)
-    //    res.then(res=>{
-    //        console.log(res);
-           
-    //    })
+  mounted(){
+    this.getAddress()
   },
   methods: {
      back: function(num) {
@@ -3771,11 +3772,84 @@ export default {
     addAdress(){
         this.showDialog = true;
         this.addAdressType = true;
-       let res = fetch('/yyyg/addressadd','POST',{});
-       res.then(res=>{
-           console.log(res);
+      
+    },
+    handleSave(){
+        
+          let formdata = new FormData();
+          let userid = this.$store.state.userId;
+          let token = this.$store.state.token
+            formdata.append('userid', userid);
+            formdata.append('phone', this.TelePhone);
+            formdata.append('name', this.UserName);
+            formdata.append('address',  this.Depict);
+            formdata.append('city_id',this.Province + ' ' + this.City + ' ' + this.District );
+         this.$nextTick(()=>{
+             api.fetch('/yyyg/addressadd','POST',formdata,{token:token,'Content-Type':'multipart/form-data'}).then(response=>{
+        //    console.log(response)
+           if(response.data.code === 200){
+               this.showDialog = false;
+               Toast({
+                    message: response.data.msg,
+                    duration: 2000
+                    });
+               
+           }
+           if(response.data.code === 501){
+              Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
+           }
+        })
+         })
+        
+    },
+    handleEdit(){
+    let formdata = new FormData();
+          let token = this.$store.state.token
+            formdata.append('a_id', +this.adressId);
+            formdata.append('phone', +this.TelePhone);
+            formdata.append('name', this.UserName);
+            formdata.append('address',  this.Depict);
+            
+            formdata.append('city_id',this.Province + ' ' + this.City + ' ' + this.District );
+             console.log(this.adressId, this.TelePhone, this.UserName,  this.Depict,this.Province + ' ' + this.City + ' ' + this.District ) 
+      api.fetch('/yyyg/addressedit','POST',formdata,{token:token,'Content-Type':'multipart/form-data'}).then(response=>{
            
-       })
+             if(response.data.code === 200){
+               this.showDialog = false;
+            Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
+           }
+           if(response.data.code === 501){
+              Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
+           }
+                
+            })
+    },
+    getAddress(){
+        const toke = this.$store.state.token
+         api.fetch('/yyyg/address','GET',{},{token:toke}).then(response=>{
+           
+             response.data.data.map(element => {
+                  var locationInfo = {}
+                let {id,name,phone,city_id,address} = element;
+                locationInfo.name = name;
+                locationInfo.id = id;
+                locationInfo.phone = phone;
+                locationInfo.location = city_id.split(' ');
+                   locationInfo.location.push(address);
+                this.userLocationInfo.push(locationInfo)
+             });
+             
+                
+            })
     },
     routerGo: function(path) {
       this.$router.push({ name: path });
@@ -3786,8 +3860,9 @@ export default {
     closeAdd: function() {
       this.showChose = false;
     },
-    handleEditeLocation(id){
+    handleEditeLocation(id,a_id){
       this.addAdressType = false;
+      this.showDialog=true;
       const location = this.userLocationInfo[id].location;
       this.Province = location[0];
       this.City = location[1];
@@ -3796,16 +3871,8 @@ export default {
       this.activeLocationid = id;
       this.TelePhone= this.userLocationInfo[id].phone;
       this.UserName= this.userLocationInfo[id].name;
-      // console.log(this.Depict)
-      this.showDialog=true;
-    },
-    handleSave(){
-      //  console.log(this.activeLocationid)
-      if(this.activeLocationid === null) return;
-      const moddifyLocation = {name:this.UserName,phone:this.TelePhone,location:[this.Province,this.City,this.District,this.Depict]}
-      this.userLocationInfo[this.activeLocationid] = moddifyLocation;
-      // console.log(this.userLocationInfo)
-      this.showDialog=false;
+      this.adressId = a_id;
+      
     },
 
     _filter(add,name,code) {

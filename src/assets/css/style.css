@@ -1528,7 +1528,8 @@ input:focus {
   padding-top: 0.4rem;
 }
 .addrlist#addrlist .addrdetail_list ul {
-  overflow: hidden;
+  overflow: auto;
+  max-height: 560px;
 }
 .addrlist#addrlist .addrdetail_list ul li {
   height: 3.94rem;

@@ -30,6 +30,7 @@
 </template>
 <script>
 import {handleUserLogin} from '../../utils/tool'
+import { Toast } from 'mint-ui';
  import {
     mapGetters,
     mapMutations,
@@ -67,8 +68,10 @@ export default {
             }).then((response)=>{
                console.log(response.data)
                if(response.data.code == 500){
-                   alert(response.data.msg)
-                   
+                   Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
                }
                 if(response.data.code == 200){
                   sessionStorage.setItem('user_token', response.data.data)
