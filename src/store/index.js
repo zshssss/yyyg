@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         token:'',
-        baseImgUrl:"http://service.ruizhixue.cn/ceshi/video/yi/"
+        baseImgUrl:"http://service.ruizhixue.cn/ceshi/video/yi/",
+        // 接口请求图片前缀
+        apiImgUrl:'http://192.168.1.189/yiyuan'
         //  baseImgUrl:"http://192.168.1.108/yi/"
     },
     mutations:{

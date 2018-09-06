@@ -12,7 +12,7 @@
     <div class="index_banner" v-on:click="routerGo('prodetail')">
       <mt-swipe :auto="0">
           <mt-swipe-item  v-for="(val, key) in banners" :key="key">
-            <img :src="baseImgUrl+'banner1.png'" style="width:15rem;height:6rem" alt="">
+            <img :src="$store.state.apiImgUrl+val.cover" style="width:15rem;height:6rem" alt="">
           </mt-swipe-item> 
       </mt-swipe>
     </div>
@@ -139,7 +139,7 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
-      banners: [0, 0, 0],
+      banners: null,
       recom: [0, 0],
       hour: null,
       minu: null,
@@ -173,27 +173,29 @@ export default {
     };
   },
   created: function() {
+    this.getGoods();
+    
     // console.log(1);
-console.log(this.$store.state.token)
-    axios({
-      method: "POST",
-      url: "/yyyg/register",
-      // url: "/apis/index",
-      data: {
-        phone: 18037472380,
-        password: 123
-      },
+// console.log(this.$store.state.token)
+    // axios({
+    //   method: "GET",
+    //   url: "/yyyg/index",
+    //   // url: "/apis/index",
+    //   params: {
+    //     page: 1,
+    //     num: 5
+    //   },
 
-      header: {
-        "content-type": "application/json"
-      }
-    })
-      .then(function(res) {
-        console.log(res);
-      })
-      .catch(function(ers) {
-        console.log(ers);
-      });
+    //   header: {
+    //     "content-type": "application/json"
+    //   }
+    // })
+    //   .then(function(res) {
+    //     console.log(res);
+    //   })
+    //   .catch(function(ers) {
+    //     console.log(ers);
+    //   });
   },
   mounted() {
     this.formatDate();
@@ -211,7 +213,6 @@ console.log(this.$store.state.token)
         //  var endPoin= new Date('2018-09-01').getTime();
         // var leftTime = endPoin - new Date().getTime();
         leftTime = leftTime - 1000;
-
         var hours = parseInt((leftTime / 1000 / 60 / 60) % 24, 10); //计算剩余的小时
         var minutes = parseInt((leftTime / 1000 / 60) % 60, 10); //计算剩余的分钟
         var seconds = parseInt((leftTime / 1000) % 60, 10); //计算剩余的秒数
@@ -237,6 +238,36 @@ console.log(this.$store.state.token)
     },
     deleTeName() {
       this.searchName = "";
+    },
+
+    // 请求商品
+    getGoods(){
+      let that = this;    
+      axios({
+      method: "GET",
+      url: "/yyyg/index",
+      // url: "/apis/index",
+      params: {
+        page: 1,
+        num: 5
+      },
+
+      header: {
+        "content-type": "application/json"
+      }
+    })
+      .then(function(res) {
+        if (res.data.code==200) {
+          console.log(res);
+          that.banners=res.data.data.img;
+        } else {
+          console.log('s');
+        }
+         
+      })
+      .catch(function(ers) {
+        console.log(ers);
+      });
     }
   }
 };

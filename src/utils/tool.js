@@ -1,11 +1,15 @@
 
 import axios from 'axios'
-function fetch( url, method,params,tk='') {
+function fetch( url, method,params,header={
+  "content-type": "application/json",
+  "token":''
+}) {
   return new Promise((resolve, reject) => {    
       let obj={
         method:method,
         url:url,
         headers:{
+          "content-type": "application/json",
           token:tk
         }
       };
