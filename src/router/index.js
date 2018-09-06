@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import store from '../store/index'
 // 首页
 import Index from '@/components/index'
 // 揭晓
@@ -105,7 +106,10 @@ const router = new Router({
     {
       path: '/shop',
       name: 'shop',
-      component: Shop
+      component: Shop,
+      meta: {
+        Auth: true,
+      },
     },
 
     // 登录
@@ -142,73 +146,109 @@ const router = new Router({
     {
       path: '/person',
       name: 'person',
-      component: Person
+      component: Person,
+      meta: {
+        Auth: true,
+      },
     },
 
     // 余额
     {
       path: '/person/balance',
       name: 'balance',
-      component: Balance
+      component: Balance,
+      meta: {
+        Auth: true,
+      },
     },
     // 充值
     {
       path: '/person/recharge',
       name: 'recharge',
-      component: Recharge
+      component: Recharge,
+      meta: {
+        Auth: true,
+      },
     },
     // 佣金转余额||提现
     {
       path: '/person/reflect',
       name: 'reflect',
-      component: Reflect
+      component: Reflect,
+      meta: {
+        Auth: true,
+      },
     },
     // 参与记录
     {
       path: '/person/partrecord',
       name: 'partrecord',
-      component: Partrecord
+      component: Partrecord,
+      meta: {
+        Auth: true,
+      },
     },
     // 推广
     {
       path: '/person/extension',
       name: 'extension',
-      component: Extension
+      component: Extension,
+      meta: {
+        Auth: true,
+      },
     },
     // 我的推广人
     {
       path: '/person/extension/myextension',
       name: 'myextension',
-      component: MyExtension
+      component: MyExtension,
+      meta: {
+        Auth: true,
+      },
     },
     // 推广明细
     {
       path: '/person/extension/extensiondetail',
       name: 'extensiondetail',
-      component: ExtensionDetail
+      component: ExtensionDetail,
+      meta: {
+        Auth: true,
+      },
     },
     // 客服中心
     {
       path: '/person/customerservice',
       name: 'customerservice',
-      component: CustomerService
+      component: CustomerService,
+      meta: {
+        Auth: true,
+      },
     },
     // 我的晒单
     {
       path: '/person/myexportorder',
       name: 'myexportorder',
-      component: Myexportorder
+      component: Myexportorder,
+      meta: {
+        Auth: true,
+      },
     },
     // 晒单
     {
       path: '/person/exportorder/exporseaction',
       name: 'exporseaction',
-      component: Exporseaction
+      component: Exporseaction,
+      meta: {
+        Auth: true,
+      },
     },
     {
       path: '/person/exportorder/exportrecord',
       name: 'exportrecord',
-      component: Exportrecord
+      component: Exportrecord,
+      meta: {
+        Auth: true,
+      },
     },
 
 
@@ -216,38 +256,54 @@ const router = new Router({
     {
       path: '/person/userInfo',
       name: 'userInfo',
-      component: UserInfo
+      component: UserInfo,
+      meta: {
+        Auth: true,
+      },
     },
     // 修改昵称
     {
       path: '/person/nikename',
       name: 'nikename',
-      component: Nikename
+      component: Nikename,
+      meta: {
+        Auth: true,
+      },
     },
     // 修改s手机号
     {
       path: '/person/telchange',
       name: 'telchange',
-      component: Telchange
+      component: Telchange,
+      meta: {
+        Auth: true,
+      },
     },
     // 修改密码
     {
       path: '/person/passchange',
       name: 'passchange',
-      component: Passchange
+      component: Passchange,
+      meta: {
+        Auth: true,
+      },
     },
 
     // 地址列表
     {
       path: '/addrlist',
       name: 'addrlist',
-      component: Addrlist
+      component: Addrlist,
+      meta: {
+        Auth: true,
+      },
     },
     // 商品列表
     {
       path: '/prolist',
       name: 'prolist',
-      component: Prolist
+      component: Prolist,
+      
     },
     // 商品详情
     {
@@ -259,7 +315,10 @@ const router = new Router({
     {
       path: '/pay',
       name: 'paycenter',
-      component: Paycenter
+      component: Paycenter,
+      meta: {
+        Auth: true,
+      },
     },
      //用户协议
      {
@@ -281,21 +340,42 @@ const router = new Router({
   ]
 })
 
-router.beforeEach(({
-  meta,
-  path
-}, before, next) => {
-  var {
-    Auth = true
-  } = meta
-  var isLogin = Boolean(false);
-  if (Auth && isLogin && path !== '/login') {
-    return next({
-      path: '/login'
-    })
+// router.beforeEach(({
+//   meta,
+//   path
+// }, before, next) => {
+//   var {
+//     Auth = true
+//   } = meta
+//   var isLogin = Boolean(false);
+//   if (Auth && isLogin && path !== '/login') {
+//     return next({
+//       path: '/login'
+//     })
+//   } else {
+//     next()
+//   }
+// })
+
+
+// 路由登录守卫
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects
+  store.state.token=sessionStorage.getItem("token");
+  // 判断该页面是否需要登录权限才能查看  
+  if (to.meta.Auth) {
+    if (store.state.token) {
+      next();   
+    } else {
+      next({
+        path:'/login'
+      });
+    }
+    
   } else {
-    next()
-  }
+    next();
+  }  
 })
+
 
 export default router;
