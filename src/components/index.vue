@@ -17,34 +17,7 @@
       </mt-swipe>
     </div>
     <!--  -->
-    <!-- <div class="box tc project_list">
-      <ul>
-        <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro1_121_121.png'" style="width:2.4rem;height:2.4rem;" alt="">
-          </div>
-          <p class="name">分类</p>
-        </li>
-          <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro2_111_111.png'" style="width:2.2rem;height:2.2rem;" alt="">
-          </div>
-          <p class="name">客服</p>
-        </li>
-          <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro3_128_110.png'" style="width:2.2rem;height:2.2rem;" alt="">
-          </div>
-          <p class="name">充值</p>
-        </li>
-          <li>
-          <div class="project_ico">
-            <img :src="baseImgUrl+'index_pro4_120_120.png'" style="width:2.4rem;height:2.4rem;" alt="">
-          </div>
-          <p class="name">推广</p>
-        </li>
-      </ul>
-    </div> -->
+ 
 
     <div class="over box recommend jiexiaow">
       <router-link to="/announce">
@@ -125,7 +98,6 @@
       <TabBar :nth='0'></TabBar>
     </div>
     <mt-popup class="seach_wrap"  v-model="visiable" position="right">
-
            <div id="search" class="search" >
         <!-- 顶部标题 -->
         <div class="tc box rel flex js_between al_center top_title">
@@ -147,7 +119,6 @@
         </dl>
     </div>
     </mt-popup>
-
   </div>
 </template>
 
@@ -156,6 +127,7 @@ import Vue from "vue";
 import axios from "axios";
 
 import { Swipe, SwipeItem } from "mint-ui";
+import { Indicator } from "mint-ui";
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 
@@ -169,88 +141,103 @@ export default {
       baseImgUrl: this.$store.state.baseImgUrl,
       banners: [0, 0, 0],
       recom: [0, 0],
-      hour:null,
-      minu:null,
-      second:null,
-      comeSoon:[
-        {name:'jiexiao_01_ico_160_147.png'},
-        {name:'jiexiao_02_ico_160_147.png'},
-        {name:'jiexiao_03_ico_160_147.png'},
-        {name:'jiexiao_04_ico_160_147.png'}
+      hour: null,
+      minu: null,
+      second: null,
+      comeSoon: [
+        { name: "jiexiao_01_ico_160_147.png" },
+        { name: "jiexiao_02_ico_160_147.png" },
+        { name: "jiexiao_03_ico_160_147.png" },
+        { name: "jiexiao_04_ico_160_147.png" }
       ],
-       prodlist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],
-      proShow:false,
-      visiable:false,
-      searchName:null,
-      hotList:['口红','手机','耳机'],
+
+      prodlist: [
+        "全部商品",
+        "科技数码",
+        "手机电脑",
+        "珠宝首饰",
+        "奢饰品区",
+        "金银投资",
+        "名表专区",
+        "茶酒专区",
+        "食品饮料",
+        "家用电器",
+        "生活百货",
+        "妇婴用品"
+      ],
+      proShow: false,
+      visiable: false,
+      searchName: null,
+      hotList: ["口红", "手机", "耳机"],
       showSlide: false
     };
   },
-  created: function() {    
-    // axios({
-    //   method: "POST",
-    //   url: "/apis/api/register",
-    //   data: {
-    //     phone: 18037472380,
-    //     password: "123"
-    //   },
-    //   header: {
-    //     "content-type": "application/json"
-    //   }
-    // })
-    //   .then(function(res) {
-    //     console.log(res);
-    //   })
-    //   .catch(function(ers) {
-    //     console.log(ers);
-    //   });
+  created: function() {
+    console.log(1);
+
+    axios({
+      method: "POST",
+      url: "/yyyg/register",
+      // url: "/apis/index",
+      data: {
+        phone: 18037472380,
+        password: 123
+      },
+
+      header: {
+        "content-type": "application/json"
+      }
+    })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function(ers) {
+        console.log(ers);
+      });
   },
-  mounted(){
- 
-    this.formatDate()
+  mounted() {
+    this.formatDate();
   },
   computed: {},
   methods: {
-  formatDate(formatStr,timep) {
-     var leftTime =  3*60*60*1000
+    formatDate(formatStr, timep) {
+      var leftTime = 3 * 60 * 60 * 1000;
       // var ho = '23:23:23'.split(':')[0];
       // var min = '23:23:23'.split(':')[1];
       // var ss = '23:23:23'.split(':')[2];
       // leftTime =  parseInt(ho , 10) * 60 * 60 + parseInt(min , 10) * 60 + parseInt(ss , 10);
-      
-     setInterval(()=>{
-      //  var endPoin= new Date('2018-09-01').getTime();
-      // var leftTime = endPoin - new Date().getTime();
-      leftTime =  leftTime - 1000
-     
-      var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
-      var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
-      var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
-      this.hour = (hours>9) ? hours :'0'+ hours;
-      this.minu = (minutes>9) ? minutes :'0'+ minutes;
-      this.second = (seconds>9) ? seconds :'0'+ seconds;
-    },1000)
+
+      setInterval(() => {
+        //  var endPoin= new Date('2018-09-01').getTime();
+        // var leftTime = endPoin - new Date().getTime();
+        leftTime = leftTime - 1000;
+
+        var hours = parseInt((leftTime / 1000 / 60 / 60) % 24, 10); //计算剩余的小时
+        var minutes = parseInt((leftTime / 1000 / 60) % 60, 10); //计算剩余的分钟
+        var seconds = parseInt((leftTime / 1000) % 60, 10); //计算剩余的秒数
+        this.hour = hours > 9 ? hours : "0" + hours;
+        this.minu = minutes > 9 ? minutes : "0" + minutes;
+        this.second = seconds > 9 ? seconds : "0" + seconds;
+      }, 1000);
     },
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName });
     },
-     handleSearch(name){
-      if(name){
-        this.visiable = false,
-        this.searchName= name
+    handleSearch(name) {
+      if (name) {
+        (this.visiable = false), (this.searchName = name);
       }
     },
-    closeProp(){
-       this.visiable = false;
+    closeProp() {
+      this.visiable = false;
     },
-    setSearch(prodname){
-        this.searchName = prodname ? prodname : this.searchName;
-        this.visiable = false;
+    setSearch(prodname) {
+      this.searchName = prodname ? prodname : this.searchName;
+      this.visiable = false;
     },
-    deleTeName(){
-        this.searchName = ''
+    deleTeName() {
+      this.searchName = "";
     }
-
   }
 };
 </script>
