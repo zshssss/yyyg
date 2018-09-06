@@ -31,6 +31,8 @@ import moduleName from './assets/iconfont/iconfont.css';
 import style from './assets/css/style.css';
 
 
+
+
  
 // axios配置
 // axios.defaults.baseURL = "https://service.ruizhixue.cn/ht/ygsy/"

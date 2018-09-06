@@ -30,6 +30,11 @@
 </template>
 <script>
 import {handleUserLogin} from '../../utils/tool'
+ import {
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from "vuex";
 export default {
   name: "exportorder",
   data() {
@@ -50,6 +55,7 @@ export default {
       this.$router.push({ name: path });
     },
     handleLogin(){
+
             let formData = new FormData();
             formData.append('phone', this.phone);
             formData.append('password', this.password);
@@ -62,9 +68,13 @@ export default {
                console.log(response.data)
                if(response.data.code == 500){
                    alert(response.data.msg)
+                   
                }
                 if(response.data.code == 200){
                   sessionStorage.setItem('user_token', response.data.data)
+
+                  this.$store.commit("saveToken", response.data.data);
+                  console.log(this.$store.state.token)
                     this.routerGo('index')
                 }
             })

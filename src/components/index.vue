@@ -173,8 +173,8 @@ export default {
     };
   },
   created: function() {
-    console.log(1);
-
+    // console.log(1);
+console.log(this.$store.state.token)
     axios({
       method: "POST",
       url: "/yyyg/register",
