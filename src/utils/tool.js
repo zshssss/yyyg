@@ -8,10 +8,7 @@ function fetch( url, method,params,header={
       let obj={
         method:method,
         url:url,
-        headers:{
-          "content-type": "application/json",
-          token:tk
-        }
+        headers:header
       };
 
       if (method=='GET') {

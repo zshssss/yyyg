@@ -12,7 +12,7 @@
     <div class="index_banner" v-on:click="routerGo('prodetail')">
       <mt-swipe :auto="0">
           <mt-swipe-item  v-for="(val, key) in banners" :key="key">
-            <img :src="$store.state.apiImgUrl+val.cover" style="width:15rem;height:6rem" alt="">
+            <img :src="apiImgUrl+val.cover" style="width:15rem;height:6rem" alt="">
           </mt-swipe-item> 
       </mt-swipe>
     </div>
@@ -125,9 +125,13 @@
 <script>
 import Vue from "vue";
 import axios from "axios";
+import tool from "../utils/tool"
 
 import { Swipe, SwipeItem } from "mint-ui";
 import { Indicator } from "mint-ui";
+import { Loadmore } from 'mint-ui';
+Vue.component(Loadmore.name, Loadmore);
+
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 
@@ -139,6 +143,8 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
+      apiImgUrl:this.$store.state.apiImgUrl,
+      // 轮播
       banners: null,
       recom: [0, 0],
       hour: null,
@@ -174,28 +180,6 @@ export default {
   },
   created: function() {
     this.getGoods();
-    
-    // console.log(1);
-// console.log(this.$store.state.token)
-    // axios({
-    //   method: "GET",
-    //   url: "/yyyg/index",
-    //   // url: "/apis/index",
-    //   params: {
-    //     page: 1,
-    //     num: 5
-    //   },
-
-    //   header: {
-    //     "content-type": "application/json"
-    //   }
-    // })
-    //   .then(function(res) {
-    //     console.log(res);
-    //   })
-    //   .catch(function(ers) {
-    //     console.log(ers);
-    //   });
   },
   mounted() {
     this.formatDate();
@@ -243,31 +227,19 @@ export default {
     // 请求商品
     getGoods(){
       let that = this;    
-      axios({
-      method: "GET",
-      url: "/yyyg/index",
-      // url: "/apis/index",
-      params: {
-        page: 1,
-        num: 5
-      },
-
-      header: {
-        "content-type": "application/json"
-      }
-    })
-      .then(function(res) {
-        if (res.data.code==200) {
-          console.log(res);
-          that.banners=res.data.data.img;
-        } else {
-          console.log('s');
-        }
-         
+      let goods = tool.fetch('/yyyg/index','GET',{
+        page:1,
+        num:3
       })
-      .catch(function(ers) {
-        console.log(ers);
-      });
+      goods.then(function(res){
+        console.log(res);
+        if (res.data.code==200) {
+          that.banners=res.data.data.img
+        } else {
+          
+        }
+        
+      })
     }
   }
 };
