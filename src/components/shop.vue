@@ -52,7 +52,7 @@
 <script>
 import Vue from "vue";
 import TabBar from "./publicfile/tabbar";
-
+  import { Toast } from 'mint-ui';
 export default {
   components: { TabBar },
   name: "shop",
@@ -82,7 +82,10 @@ export default {
     },
     redProdCount(id){
       if(this.haveBuy<=1){
-        alert('不得小于1')
+        Toast({
+              message: '不得小于1',
+              duration: 5000
+            });
         return;
       }
       this.haveBuy --;
@@ -90,7 +93,10 @@ export default {
     },
     addProdCount(id){
        if(this.haveBuy>=5){
-        alert('不得多于5 ');
+        Toast({
+              message: '不得多于5 ',
+              duration: 5000
+            });
         return;
       }
       this.haveBuy ++;

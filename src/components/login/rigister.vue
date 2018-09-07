@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import { MessageBox } from 'mint-ui';
+import { Toast } from 'mint-ui';
   import {
     mapGetters,
     mapMutations,
@@ -146,29 +146,47 @@ export default {
             data:{key:'b6eadc5556915ae899995076e473212',phone:this.phone}
             }).then((response)=>{
                if(response.code=== 200){
-                   alert(response.msg);
+                     Toast({
+                        message: response.msg,
+                        duration: 2000
+                    });
                     this.varifcode = response.data
                }
                 if(response.code=== 500){
-                   alert(response.msg);
+                    Toast({
+                        message: response.msg,
+                        duration: 2000
+                    });
                }
             })
   },
   handleRegister(){
             if(!this.isChecked){
-                alert('请勾选用户服务协议');
+                Toast({
+                        message: '请勾选用户服务协议',
+                        duration: 5000
+                    });
                 return ;
             }
             if(this.code==null){
-                alert('请填入验证码');
+                 Toast({
+                        message: '请填入验证码',
+                        duration: 5000
+                    });
                 return ;
             }
              if(!this.phone){
-                alert('请填入手机号');
+                 Toast({
+                        message: '请填入手机号',
+                        duration: 5000
+                    });
                 return ;
             }
             if(!this.password){
-                alert('请填入密码');
+                Toast({
+                        message: '请填入密码',
+                        duration: 5000
+                    });
                 return ;
             }
             let formData = new FormData();
@@ -177,7 +195,7 @@ export default {
             formData.append('code', this.code);
 
             console.log(typeof this.code, this.phone,this.password)
-            userRegister
+
             this.$ajax({ 
             url: '/yyyg/register', 
             method: 'POST', 
@@ -186,12 +204,16 @@ export default {
             }).then((response)=>{
                console.log(response.data)
                if(response.data.code == 500){
-                   alert(response.data.msg)
+                    Toast({
+                        message: response.data.msg,
+                        duration: 5000
+                    });
                }
                
                 if(response.data.code == 200){
                     this.$store.commit('userRegister', response.data.token);
-                     sessionStorage.setItem('user_token', response.data.token)
+
+
                     this.routerGo('login')
                 }
             })

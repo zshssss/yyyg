@@ -121,6 +121,12 @@
 
 <script>
 import Vue from "vue";
+  import { Toast } from 'mint-ui';
+  import {
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from "vuex";
 import TabBar from "./publicfile/tabbar";
 
 export default {
@@ -138,18 +144,23 @@ export default {
   computed: {},
   methods: {
     getUserInfo(){
+      const token = this.$store.state.token
             this.$ajax({ 
             url: '/yyyg/myindex', 
             method: 'get', 
-            headers:{'token':'425499bba00464e4567b7d9f0ec1556c'}
+            headers:{'token':token}
             }).then((response)=>{
                console.log(response.data)
                if(response.data.code == 500){
-                   alert(response.data.msg)
+                   Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
                }
                 if(response.data.code == 200){
                     console.log(response.data.data)
                     const userinfo = response.data.data
+                     this.$store.commit('saveUserId', userinfo[0].id);
                     this.userInfo = userinfo[0]
                 }
             })
