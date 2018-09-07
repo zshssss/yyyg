@@ -133,8 +133,8 @@ input:focus {
   width: 20%;
   height: 100%;
   font-size: 0.36rem;
-  background-color: #fb3812;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #fb3812;
   line-height: 100%;
 }
 .tabbar .item .tab_ico_box {
@@ -144,8 +144,8 @@ input:focus {
   padding-top: 0.3rem;
 }
 .tabbar .item.on {
-  background-color: #ffffff;
-  color: #fb3812;
+  background-color: #fb3812;
+  color: #ffffff;
 }
 /*index首页*/
 .index {
@@ -577,9 +577,10 @@ input:focus {
   box-sizing: border-box;
   padding-left: 0.4rem;
   padding-top: 0.2rem;
+  justify-content: space-between;
 }
 #classify.classify .sorttype .sort_list li {
-  padding: 0 0.3rem;
+  padding: 0 0.2rem;
 }
 #classify.classify .sorttype .sort_list li.on {
   color: #fb3812;
