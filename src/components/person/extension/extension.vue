@@ -12,7 +12,7 @@
     <div class="extension_info">
       <p class="extension_num">
         <span>我的推广码</span>
-        <span>1234</span>
+        <span>{{this.$store.state.usergeneralize}}</span>
       </p>
       <section class="extension_detail">
         <p class="title">推广明细</p>

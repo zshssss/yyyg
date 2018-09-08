@@ -32,7 +32,8 @@ export default {
       yzm: ""
     };
   },
-  created: function() {},
+  created: function() {
+  },
   computed: {},
   methods: {
     back: function(num) {

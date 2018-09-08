@@ -6,22 +6,23 @@
       <ul>
         <li  v-for="(cartItem, index) in shopCart" :key="index" v-on:click="routerGo('prodetail')">
           <div class="flex js_center al_center shop_detail_ico">
-            <img :src="baseImgUrl+cartItem.prodImg" style="width:3.74rem;height:4.7rem;" alt="">
+            <img :src="apiImgUrl+cartItem.cover" style="width:3.74rem;height:4.7rem;" alt="">
           </div>
           <div class="shop_detail_r">
             <p class="shop_name">
               <!-- （第333期）Apple iPhone 8(A1863)64G移动  -->
-              {{cartItem.prodKeyword}}
-              剩余 <span>{{cartItem.restcount}}</span> 人次</p>
-            <p class="shop_nums">总共抢购:<span>{{cartItem.haveWrap}}</span>人次</p>
+              （第{{cartItem.gnum}}期）{{cartItem.name}} {{cartItem.desc}}
+              剩余 <span>{{parseInt(cartItem.participation)}}{{cartItem.already}}</span> 人次</p>
+            <p class="shop_nums">总共抢购:<span>{{cartItem.already}}</span>人次</p>
             
             <div class="flex js_between al_center box numschange">
               <p class="flex js_between al_center shop_numc">
-                <span @click.stop="redProdCount(index)"></span>
-                <span>{{haveBuy}}</span>
-                <span  @click.stop="addProdCount(index)"></span>
+                <span @click.stop="changeProdCount(cartItem.id,type=2)"></span>
+                
+                <span>{{cartItem.num}}</span>
+                <span  @click.stop="changeProdCount(cartItem.id,type=1)"></span>
               </p>
-              <p class="flex js_center al_center shop_del" @click.stop="handleDele(index)">
+              <p class="flex js_center al_center shop_del" @click.stop="handleDele(cartItem.id)">
                 <img :src="baseImgUrl+'del-28_34.png'" style="width:.56rem;height:.68rem" alt="">
               </p>
             </div>
@@ -52,59 +53,80 @@
 <script>
 import Vue from "vue";
 import TabBar from "./publicfile/tabbar";
-  import { Toast } from 'mint-ui';
+import api from '../utils/tool'
+import { Toast } from 'mint-ui';
 export default {
   components: { TabBar },
   name: "shop",
 
   data() {
     return {
-      baseImgUrl: this.$store.state.baseImgUrl,
+      apiImgUrl: this.$store.state.apiImgUrl,
+      baseImgUrl: this.$store.state.baseImgUrl, 
       limit:5,
       haveBuy:1,
-      shopCart:[
-        {
-          prodImg:'jiexiao_ico_187_235.png',
-          prodKeyword:'（第122期）Apple iPhone 8 Plus 64GB红色 特别版 移动联通电信4G手机',
-          restcount:120,
-          haveWrap:5
-        }
-      ],
+      shopCart:[],
       shopShow:true
     };
   },
 
-  created: function() {},
+  created: function() {
+    this.getlist()
+  },
   computed: {},
   methods: {
     routerGo:function(pathName){
       this.$router.push({ name: pathName });
     },
-    redProdCount(id){
-      if(this.haveBuy<=1){
-        Toast({
-              message: '不得小于1',
-              duration: 5000
-            });
-        return;
-      }
-      this.haveBuy --;
-      this.shopCart[id].restcount ++
+    getlist(){
+      api.fetch('/yyyg/cart','get',{},{token:this.$store.state.token}).then((response)=>{
+        let { code , msg, data } = response.data;
+        // console.log(data)
+        if(code === 200){
+          this.shopCart =this.formatData(data)
+        }else{
+          this.shopShow = false;
+          Toast({
+            message: response.data.msg,
+            duration: 2000
+          })
+          
+        }
+        
+      })
     },
-    addProdCount(id){
-       if(this.haveBuy>=5){
-        Toast({
-              message: '不得多于5 ',
-              duration: 5000
-            });
-        return;
-      }
-      this.haveBuy ++;
-      this.shopCart[id].restcount --
+    formatData(cartList){
+      console.log(cartList)
+      return  cartList.map((cart)=>{
+        return cart;
+        // let{id,gid,gnum,name,desc,already,participation,cover,num} = cart;
+        // return{
+        //   id,
+        //   gid,
+        //   gnum,
+        //   name,
+        //   desc,
+        //   already,
+        //   participation,
+        //   cover,
+        //   num
+        // }
+      })
+      
+    },
+    changeProdCount(id,type){
+      console.log(id,type)
+       api.fetch('/yyyg/cartItem?orderid='+id+'&str='+type,'GET',{},{token:this.$store.state.token}).then((response)=>{
+         console.log(response)
+         this.getlist()
+      })
+
     },
     handleDele(id){
-      this.shopShow = false;
-      this.shopCart.splice(id,1);
+      api.fetch('/yyyg/cartdel?id='+id,'GET',{},{token:this.$store.state.token}).then((response)=>{
+        this.getlist()
+      
+      })
     }
   }
 };
