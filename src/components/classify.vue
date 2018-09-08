@@ -137,6 +137,9 @@ export default {
     },
     handleProdlist(prodIndex){
       this.prodActiveIndex = prodIndex;
+      if (prodIndex==3) {
+        this.routerGo('announce')
+      }
     }
   }
 };

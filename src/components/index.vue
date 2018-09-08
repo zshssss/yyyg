@@ -1,5 +1,7 @@
 <template>
-  <div class="index">
+  <div class="index" v-infinite-scroll="loadMore"
+  infinite-scroll-disabled="isScroll"
+  infinite-scroll-distance="0">
 
     <!-- 头部搜索 -->
     <div class="flex js_center al_center topsea">
@@ -49,13 +51,15 @@
             <img :src="baseImgUrl+'right.png'" style="width:.42rem;height:.74rem;" alt="">
         </div>
       </router-link>
+
       <div class="recommend_list">
         <ul>
+
           <!-- <template v-for="(item, index) in recom" :key="index"> -->
             <li  v-for="(val, index) in recom" :key="index">
               
               <div class="recom_left" v-on:click="routerGo('prodetail')">
-                <img :src="baseImgUrl+'recom_300_240.png'" style="width:6rem;height:4.8rem;" alt="">
+                <img :src="apiImgUrl+val.cover" style="width:6rem;height:4.8rem;" alt="">
               </div>
               
               <div class="recom_right">
@@ -63,36 +67,40 @@
                   <div class="ico">
                     <img :src="baseImgUrl+'recom_ico_36_39.png'" style="width:.72rem;height:.78rem;" alt="">
                   </div>
-                  <p class="recom_name">荣耀10 GT游戏加速AIS手持夜景6GB+64GB  幻夜黑全网通移动..</p>
+                  <p class="recom_name">{{val.name}} {{val.desc}}</p>
                 </div>
 
-                <p class="box price">价值：￥2399.00（1.00抢购/人次）</p>
+                <p class="box price">价值：￥{{val.price}}（{{val.qingprice}}抢购/人次）</p>
                 <div class="range">
                   <p class="rangesize" style="width:30%;"></p>
                 </div>
                 <div class="box flex js_between al_center take_info">
                   <div class="toke_item tc">
-                    <p class="num">120</p>
+                    <p class="num">{{val.already}}</p>
                     <p class="status">已参与</p>
                   </div>
                   <div class="toke_item tc">
-                    <p class="num">500</p>
+                    <p class="num">{{val.participation}}</p>
                     <p class="status">总需人次</p>
                   </div>
                   <div class="toke_item tc">
-                    <p class="num">380</p>
+                    <p class="num">{{val.participation-val.already}}</p>
                     <p class="status">剩余</p>
                   </div>
                 </div>
                 <div class="box flex js_center al_center take_in">
-                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">￥1.00抢购</p>
+                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">￥{{val.qingprice}}抢购</p>
                   <p class="tc buy" v-on:click.stop="routerGo('paycenter')">全包价买</p>
                 </div>
               </div>
             </li>
+            
         </ul>
       </div>
     </div>
+
+    <mt-spinner v-show="loading" type="fading-circle" class="indexloadmore"></mt-spinner>
+    <p class="showmoreinfo">{{loadingTitle}}</p>
     <!-- tabbar -->
     <div class="tab_posi">
       <TabBar :nth='0'></TabBar>
@@ -129,11 +137,12 @@ import tool from "../utils/tool"
 
 import { Swipe, SwipeItem } from "mint-ui";
 import { Indicator } from "mint-ui";
-import { Loadmore } from 'mint-ui';
-Vue.component(Loadmore.name, Loadmore);
-
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
+// 等待效果
+import { Spinner } from 'mint-ui';
+Vue.component(Spinner.name, Spinner);
+
 
 // 底部tabbar
 import TabBar from "./publicfile/tabbar";
@@ -146,7 +155,13 @@ export default {
       apiImgUrl:this.$store.state.apiImgUrl,
       // 轮播
       banners: null,
-      recom: [0, 0],
+      // 没有更多了
+      isScroll:true,
+      loading:false,
+      loadingTitle:'上拉加载更多',
+      page:0,
+
+      recom: [],
       hour: null,
       minu: null,
       second: null,
@@ -180,12 +195,19 @@ export default {
   },
   created: function() {
     this.getGoods();
+
   },
   mounted() {
     this.formatDate();
   },
   computed: {},
   methods: {
+    // 请求更多数据
+    loadMore:function(){
+      this.loading=true;
+      this.loadingTitle='正在拼命加载';
+      this.getGoods();
+    },
     formatDate(formatStr, timep) {
       var leftTime = 3 * 60 * 60 * 1000;
       // var ho = '23:23:23'.split(':')[0];
@@ -228,15 +250,29 @@ export default {
     getGoods(){
       let that = this;    
       let goods = tool.fetch('/yyyg/index','GET',{
-        page:1,
-        num:3
+        page:that.page,
+        num:5
       })
       goods.then(function(res){
         console.log(res);
         if (res.data.code==200) {
-          that.banners=res.data.data.img
-        } else {
+
+          if (res.data.data.goods.length!=0) {
+            that.page++;
+            that.isScroll=false;
+            that.loading=false;
+            that.loadingTitle='上拉加载更多';
+            that.banners=res.data.data.img;
+            that.recom=that.recom.concat(res.data.data.goods);
+          }else{
+            that.isScroll=true;
+            that.loading=false;
+            that.loadingTitle='没有更多商品了,敬请期待';
+          }
           
+
+        } else {
+          console.log('没有更多数据了');
         }
         
       })
