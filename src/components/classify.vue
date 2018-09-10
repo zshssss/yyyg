@@ -1,6 +1,8 @@
 <template>
-  <div class="classify" id="classify">
-    <!-- 顶部标题 -->
+  <div class="classify" id="classify" style="overflow:scroll;box-sizing:border-box;padding-bottom:2.4rem;height:100vh;">
+    <!-- load组件 -->
+    <mt-loadmore :bottomMethod="loadMore" :autoFill="false" ref="loadmore">
+      <!-- 顶部标题 -->
     <div class="tc top_title">分类</div>
 
     <div class="flex js_start al_center sorttype">
@@ -8,8 +10,8 @@
         <li :class="[prodActiveIndex===index ? 'on':'']"  
             v-for="(item, index) in prodlist" 
             :key="index" 
-            v-on:click="handleProdlist(index)" >
-            {{item}}
+            v-on:click="handleProdlist(index,item.key)" >
+            {{item.name}}
          </li>
 
       </ul>
@@ -27,29 +29,29 @@
         <ul>
             <li v-for="(item, index) in classifylist" 
                 :class="[classifyActiveIndex===index ? 'on':'']" 
-                :key="index" v-on:click="handleClassify(index)" 
+                :key="index" v-on:click="handleClassify(index,item.id)" 
                 >
-                {{item}}
+                {{item.name}}
             </li>
         </ul>
       </div>
     </div>
     <!-- 商品列表 -->
-
-    <div class="box prolist">
+   
+    <div class="box prolist" style="overflow:scroll;box-sizing:border-box;">
       <ul>
-        <li v-for="(item, index) in 10" :key="index" v-on:click="routerGo('prodetail')">
+        <li v-for="(item, index) in goodsList" :key="index" v-on:click="routerGo('prodetail')">
           <div class="pro_ico">
-            <img :src="baseImgUrl+'ty_pro_ico_335_160.png'" style="width:6.7rem;height:3.2rem;" alt="">
+            <img :src="apiImgUrl+item.cover" style="width:6.7rem;height:3.2rem;" alt="">
           </div>
-          <div class="tc box pro_name">荣耀MagicBook荣耀MagicBook荣耀MagicBook 14英寸...</div>
+          <div class="tc box pro_name">{{item.name}}{{item.desc}}</div>
           <p class="pro_range">
-            <span class="range_detail" style="width:33%;"></span>
+            <span class="range_detail" :style="{width: item.already/item.participation +'%'}"></span>
           </p>
           <p class="box flex js_between al_center nums">
-            <span>31</span>
-            <span>20</span>
-            <span>100</span>
+            <span>{{item.already}}</span>
+            <span>{{item.participation-item.already}}</span>
+            <span>{{item.participation}}</span>
           </p>
           <div class="takein flex js_start al_center">
             <p class="box tc take"  @click.stop="routerGo('paycenter')">立即抢购</p>
@@ -59,7 +61,11 @@
           </div>
         </li>         
       </ul>
+      
     </div>
+     </mt-loadmore> 
+  
+    <!-- 商品列表end -->
 
     <!-- 搜索页 -->
     <mt-popup v-model="visiable" position="right">
@@ -73,17 +79,16 @@
                 <input type="text" v-model="searchName" placeholder="请输入你想要寻找的宝贝...">
                 <i class="el-icon-circle-close-outline" @click="deleTeName"></i>
             </div>
-            <span class="exit" @click="setSearch()">搜索</span>
+            <span class="exit" @click="setSearch(searchName)">搜索</span>
         </div>
         <!-- 热门推荐 -->
         <dl class="auto-commend">
             <dt class="commend-label">热门搜索</dt>
             <dd class="commend-list">
-                <span v-for="(item,index) in hotList" :key="index" @click="setSearch(item)">{{item}}</span>
+                <span v-for="(item,index) in hotList" :key="index" @click="setSearch(item.title)">{{item.title}}</span>
             </dd>
         </dl>
     </div>
-
     </mt-popup>
     <!-- 底部导航 -->
     <div class="tab_posi">
@@ -93,24 +98,67 @@
 </template>
 
 <script>
+
 import TabBar from './publicfile/tabbar'
+import tool from "../utils/tool"
+import { Toast } from 'mint-ui';
+
+// import { Loadmore } from 'mint-ui';
+// Vue.component(Loadmore.name, Loadmore);
+
 export default {
   components : {TabBar},
   name: "classify",
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
+      apiImgUrl:this.$store.state.apiImgUrl,
       prodActiveIndex:0,//类目列表默认激活id
-      prodlist:['人气','最新','价值','即将揭晓'],//prodlist 类目列表
+
+      prodlist:[
+          {name:'人气',key:'popu'},
+          {name:'最新',key:'new'},
+          {name:'价值',key:'money'},
+          {name:'即将揭晓',key:'false'}
+        ],
+
+      //prodlist 类目列表
       classifyActiveIndex:0,//分类默认激活id
-      classifylist:['全部商品','科技数码','手机电脑','珠宝首饰','奢饰品区','金银投资','名表专区','茶酒专区','食品饮料','家用电器','生活百货','妇婴用品'],//classifylist 分类列表
+      classifylist:null,//classifylist 分类列表
       proShow:false,
       visiable:false,
-      searchName:null,
-      hotList:['口红','手机','耳机'],
-      showSlide: false
+      searchName:'',
+      // 热门搜索
+      hotList:null,
+      showSlide: false,
+
+      // 页面请求data
+      pageInfo:{
+        page:0,
+        num:5,
+        title:'',
+        key:'popu'
+      },
+      // 页面展示数据
+      goodsList:[]
     };
   },
+
+  created() {
+    // 初始化页面数据
+    let key = this.$route.params.hotKey?this.$route.params.hotKey:'';
+    this.pageInfo.title=key;
+    // 获取商品信息
+    this.getGoodsInfo();
+    // 获取分类列表
+    this.classList();
+    // 获取搜索热词
+    this.getHotKey();
+    // this.Toast('提示信息');
+     
+
+  },
+
   methods:{
     routerGo: function(path) {
       this.$router.push({ name: path });
@@ -124,22 +172,136 @@ export default {
     closeProp(){
        this.visiable = false;
     },
+    // 
     setSearch(prodname){
+
+        console.log(prodname);
+        if (prodname.replace(/(^\s+)|(\s+$)/g, "")=='') {
+          alert('请先输入您要搜索的商品');
+          return false;
+        }
         this.searchName = prodname ? prodname : this.searchName;
         this.visiable = false;
+        this.pageInfo.page=0;
+        this.pageInfo.title=this.searchName;
+        this.pageInfo.key='';
+        this.getGoodsInfo(2);
+
+
     },
     deleTeName(){
         this.searchName = ''
     },
-    handleClassify(prodindex){
+
+    // 分类搜索
+    handleClassify(prodindex,id){
+      // 请求参数重新赋值
       this.proShow=!this.proShow;
       this.classifyActiveIndex = prodindex;
+      this.pageInfo.page=0;
+      this.pageInfo.title='';
+      this.pageInfo.key=id;
+      // 请求数据
+      this.getGoodsInfo(2);
+
     },
-    handleProdlist(prodIndex){
+
+    // 排序搜索
+    handleProdlist(prodIndex,key){
       this.prodActiveIndex = prodIndex;
+      this.pageInfo.title='';
+      this.pageInfo.page=0;
+      this.pageInfo.key=key;
       if (prodIndex==3) {
-        this.routerGo('announce')
+        this.routerGo('announce');
+        return false;
+      }else{
+        this.getGoodsInfo(2);
       }
+      
+    },
+    // 滚动加载
+    loadMore:function(){
+      this.getGoodsInfo(1);     
+    },
+    // 
+    // 初始化页面数据&&上拉加载&&分类请求&&排序请求&&函数
+    // type:1 ==>上拉加载
+    // type:2 ==>分类加载
+    // 
+    getGoodsInfo(type){
+      let that =this;
+      let getGoodsInfo = tool.fetch('/yyyg/classify','GET',that.pageInfo);
+
+      getGoodsInfo.then(res=>{
+        console.log(res);
+        if (res.data.code==200) {
+
+          if (res.data.data!=0) {
+            
+            if(type==2){
+              // 分类请求,清除原来数据
+              that.goodsList.length=0;
+            }
+            if(type==1){
+              // 滚动请求,关闭加载状态
+              that.$refs.loadmore.onBottomLoaded();  
+            }
+  
+            that.goodsList=that.goodsList.concat(res.data.data);
+            that.pageInfo.page++;
+
+          } else {
+            that.$refs.loadmore.onBottomLoaded();
+            Toast('没有更多数据了');
+          }
+
+        } else {
+          // 数据异常
+        }        
+      })
+      .catch(err=>{
+        // 网络异常,请求失败
+      })
+    },
+
+    // 请求分类列表
+    // 无参数
+    classList(){
+      let that = this;
+      let classList = tool.fetch('/yyyg/classlist','GET');
+      classList.then(res=>{
+        console.log(res);
+        if (res.data.code==200) {
+          that.classifylist=res.data.data;
+        } else {
+          // 失败
+        }
+        
+      }).catch(err=>{
+        console.log('请求失败');
+        
+      })
+    },
+    // 获取搜索关键词
+    // hotKey
+    getHotKey(){
+      let that = this;
+      let hotKey = tool.fetch('/yyyg/hotsearch','GET');
+      hotKey.then(res=>{
+         
+        if (res.data.code==200) {
+// console.log(res.data.data);
+          that.hotList=res.data.data;
+        } else {
+          
+        }
+        
+      }).catch(err=>{
+        // 请求错误
+        console.log(err);
+        
+      })
     }
   }
 };
@@ -235,9 +397,13 @@ export default {
     }
     .auto-commend .commend-list{
         display: flex;
-        justify-content: space-around;
+        justify-content: flex-start;
         font-size: 0.64rem;
+        flex-wrap: wrap;
         line-height: 0.8rem;
         color: #FB3812;
+    }
+    .auto-commend .commend-list span{
+      padding: 0 .5rem;
     }
 </style>

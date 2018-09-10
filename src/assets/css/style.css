@@ -359,15 +359,18 @@ input:focus {
   padding: 0.2rem 0;
 }
 .index .jiexiaow .jiexiao_list ul {
-  height: 100%;
   box-sizing: border-box;
   padding: 0 0.4rem;
   display: flex;
-  justify-content: flex-start;
+  overflow-x: scroll;
+  display: -webkit-box;
+  overflow-x: auto;
+  /*适应苹果*/
+  -webkit-overflow-scrolling: touch;
 }
 .index .jiexiaow .jiexiao_list ul li {
   height: 100%;
-  width: 25%;
+  width: 3.54rem;
   box-sizing: border-box;
   border: 1px solid #D2D2D2;
   background-color: #fff;
@@ -393,6 +396,9 @@ input:focus {
   padding: 0 0.12rem;
   font-size: 0.32rem;
   color: #FB3812;
+}
+.index .jiexiaow .jiexiao_list ul::-webkit-scrollbar {
+  display: none;
 }
 /*最近揭晓*/
 #announce {
