@@ -11,10 +11,10 @@
       </div>
     </div>
     <!-- 首页轮播 -->
-    <div class="index_banner" v-on:click="routerGo('prodetail')">
+    <div class="index_banner">
       <mt-swipe :auto="0">
           <mt-swipe-item  v-for="(val, key) in banners" :key="key">
-            <img :src="apiImgUrl+val.cover" style="width:15rem;height:6rem" alt="">
+            <img :src="apiImgUrl+val.cover" style="width:15rem;height:6rem" v-on:click="routerGo('prodetail',val.id)" alt="">
           </mt-swipe-item> 
       </mt-swipe>
     </div>
@@ -30,7 +30,7 @@
       </router-link>
       <div class="jiexiao_list">
         <ul>
-            <li  v-for="(item, index) in comeSoon" :key="index" v-on:click="routerGo('prodetail')">
+            <li  v-for="(item, index) in comeSoon" :key="index" v-on:click="routerGo('prodetail',item.id)">
               <img :src="apiImgUrl+item.cover" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
@@ -58,7 +58,7 @@
           <!-- <template v-for="(item, index) in recom" :key="index"> -->
             <li  v-for="(val, index) in recom" :key="index">
               
-              <div class="recom_left" v-on:click="routerGo('prodetail')">
+              <div class="recom_left" v-on:click="routerGo('prodetail',val.id)">
                 <img :src="apiImgUrl+val.cover" style="width:6rem;height:4.8rem;" alt="">
               </div>
               
@@ -72,7 +72,7 @@
 
                 <p class="box price">价值：￥{{val.price}}（{{val.qingprice}}抢购/人次）</p>
                 <div class="range">
-                  <p class="rangesize" :style="{width:val.already/val.participation+'%'}"></p>
+                  <p class="rangesize" :style="{width:val.already/val.participation*100+'%'}"></p>
                 </div>
                 <div class="box flex js_between al_center take_info">
                   <div class="toke_item tc">
@@ -89,8 +89,9 @@
                   </div>
                 </div>
                 <div class="box flex js_center al_center take_in">
-                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">￥{{val.qingprice}}抢购</p>
-                  <p class="tc buy" v-on:click.stop="routerGo('paycenter')">全包价买</p>
+                  <p class="tc buy" v-on:click.stop="buyCurr(val.id)">￥{{val.qingprice}}抢购</p>
+                  <!-- <p class="tc buy" v-on:click.stop="routerGo('paycenter')">全包价买</p> -->
+                  <p class="tc buy">全包价买</p>
                 </div>
               </div>
             </li>
@@ -142,6 +143,7 @@ Vue.component(SwipeItem.name, SwipeItem);
 // 等待效果
 import { Spinner } from 'mint-ui';
 Vue.component(Spinner.name, Spinner);
+import { MessageBox } from 'mint-ui';
 
 
 // 底部tabbar
@@ -221,8 +223,41 @@ export default {
         this.second = seconds > 9 ? seconds : "0" + seconds;
       }, 1000);
     },
-    routerGo: function(pathName, params) {
-      this.$router.push({ name: pathName,params:params });
+    routerGo: function(pathName,id, params) {      
+      this.$router.push({ name: pathName,params:params,query:{id:id} });
+
+    },
+
+
+    // 立即请购
+    buyCurr:function(id){
+      let that=this;
+      let token = this.$store.state.token;
+      if (!that.tokenPass(token)) {
+        return false;
+      }
+      Indicator.open({
+        text:'抢购中...',
+        spinnerType:'fading-circle'
+      });
+      
+       let pays = tool.fetch('/yyyg/directPurchase','GET',{id:id},{
+        "content-type": "application/json",
+        "token":token
+      });
+
+      pays.then(res=>{
+        Indicator.close();
+        if (res.data.code==200) {
+          that.$router.push({ name: 'paycenter',params:{id:res.data.data},query:{id:res.data.data} });  
+        } else {          
+          Toast('网络异常,请重试!');
+        }
+      }).catch(err=>{
+        // 网络错误
+        Indicator.close();
+        Toast('网络异常,请重试!');
+      })
     },
 
     // 
@@ -294,6 +329,9 @@ export default {
             that.banners=res.data.data.img;
             that.recom=that.recom.concat(res.data.data.goods);
             that.comeSoon=res.data.data.jie_xiao;
+
+            console.log(that.recom);
+            
           }else{
             that.isScroll=true;
             that.loading=false;
@@ -304,6 +342,28 @@ export default {
         }
         
       })
+    },
+     // 登录token验证
+    tokenPass:function(token){
+      if (!token) {
+        MessageBox({
+          showCancelButton:true,
+          title:'您还没登录',
+          message:'是否现在登录?',
+          confirmButtonText:'现在登录',
+          cancelButtonText:'再看看'
+
+        }).then(action => {
+          if (action=='confirm') {
+            this.$router.push({path:'/login'});
+          } else {
+            return false
+          }   
+        });
+        return false;
+      }else{
+        return true;
+      }
     }
   }
 };

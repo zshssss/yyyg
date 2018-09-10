@@ -1413,6 +1413,7 @@ input:focus {
 .paycenter#paycenter .paymethod {
   height: auto;
   margin-top: 1.4rem;
+  padding-bottom: 3rem;
 }
 .paycenter#paycenter .paymethod ul li {
   height: 1.6rem;
