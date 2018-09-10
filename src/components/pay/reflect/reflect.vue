@@ -25,14 +25,16 @@
       </p>
     </div>
     <div class="reflect_info">
-      <p>可用佣金余额 <span style="color:#fb3812;fontSize:0.72rem">{{totalCount?totalCount:' 0'}}</span>元</p>
-      <p @click="routerGo('balance')">全部转换</p>
+      <p>可用佣金余额 <span style="color:#fb3812;fontSize:0.72rem">{{totalCount}}</span>元</p>
+      <p @click="transferAll">全部转换</p>
     </div>
 
   </div>
 </template>
 
 <script>
+import api from '../../../utils/tool'
+import { Toast } from 'mint-ui';
 export default {
   name: "product",
   data() {
@@ -43,24 +45,41 @@ export default {
     };
   },
   created: function() {
-    this.totalCount = this.$store.state.userHire;
+    console.log(typeof this.$store.state.userHire,null)
+    if(this.$store.state.userHire===null||this.$store.state.userHire==='null'){
+      this.totalCount='0'
+    }else{
+      this.totalCount = this.$store.state.userHire;
+    }
   },
   computed: {},
   methods: {
     back: function(num) {
       this.$router.go(-1);
     },
-    routerGo: function(path) {
-      this.$router.push({ name: path });
-    },
-    swichPayStyle: function(index) {
-      this.payNth = index;
-    },
-    changeNum: function(index) {
-      this.numNth = index;
-    },
-    close_dig:function(){
-      this.edishow=!this.edishow;
+ 
+    transferAll(){
+      if(this.totalCount=='0'){
+        
+        Toast({
+          message:'余额不足不能转换'
+        })
+
+        return;
+      }
+      const token = this.$store.state.token;
+
+      api.fetch('/yyyg/hire','GET',{str:this.totalCount},{token:token}).then((response)=>{
+        
+        Toast({
+          message:response.data.msg
+        })
+
+        if(response.data.code === 200){
+           this.back()
+        }
+        
+      })
     }
   }
 };

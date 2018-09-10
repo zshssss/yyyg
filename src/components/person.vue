@@ -21,7 +21,7 @@
           </p>
           <p class="user_wallet">
               <span>余额：{{userInfo.money}}元</span>
-               <span>佣金：{{userInfo.virtual_money}}元</span>
+               <span>佣金：{{userInfo.virtual_money? userInfo.virtual_money :' 0'}}元</span>
           </p>
           
         </div>
