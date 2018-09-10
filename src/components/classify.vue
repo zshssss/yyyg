@@ -40,13 +40,13 @@
    
     <div class="box prolist" style="overflow:scroll;box-sizing:border-box;">
       <ul>
-        <li v-for="(item, index) in goodsList" :key="index" v-on:click="routerGo('prodetail')">
+        <li v-for="(item, index) in goodsList" :key="index" v-on:click="routerGo('prodetail',item.id)">
           <div class="pro_ico">
             <img :src="apiImgUrl+item.cover" style="width:6.7rem;height:3.2rem;" alt="">
           </div>
           <div class="tc box pro_name">{{item.name}}{{item.desc}}</div>
           <p class="pro_range">
-            <span class="range_detail" :style="{width: item.already/item.participation +'%'}"></span>
+            <span class="range_detail" :style="{width: item.already/item.participation*100 +'%'}"></span>
           </p>
           <p class="box flex js_between al_center nums">
             <span>{{item.already}}</span>
@@ -54,8 +54,9 @@
             <span>{{item.participation}}</span>
           </p>
           <div class="takein flex js_start al_center">
-            <p class="box tc take"  @click.stop="routerGo('paycenter')">立即抢购</p>
-            <p class="che_ico" @click.stop="routerGo('shop')">
+            <!-- <p class="box tc take"  @click.stop="routerGo('paycenter')">立即抢购</p> -->
+            <p class="box tc take"  @click.stop="buyCurr(item.id)">立即抢购</p>
+            <p class="che_ico" @click.stop="addCard(item.id)">
               <img :src="baseImgUrl+'ty_che_32_30.png'" style="width:.64rem;height:.60rem;" alt="">
             </p>
           </div>
@@ -102,6 +103,8 @@
 import TabBar from './publicfile/tabbar'
 import tool from "../utils/tool"
 import { Toast } from 'mint-ui';
+import { Indicator } from 'mint-ui';
+import { MessageBox } from 'mint-ui';
 
 // import { Loadmore } from 'mint-ui';
 // Vue.component(Loadmore.name, Loadmore);
@@ -160,8 +163,76 @@ export default {
   },
 
   methods:{
-    routerGo: function(path) {
-      this.$router.push({ name: path });
+    // 页面跳转
+    routerGo: function(path,params) {
+      this.$router.push({ name: path,params:{id:params},query:{id:params} });
+    },
+    // 立即抢购
+    buyCurr:function(id){
+      let that=this;
+      let token = this.$store.state.token;
+      if (!that.tokenPass(token)) {
+        return false;
+      }
+
+      Indicator.open({
+        text:'抢购中...',
+        spinnerType:'fading-circle'
+      });
+      
+       let pays = tool.fetch('/yyyg/directPurchase','GET',{id:id},{
+        "content-type": "application/json",
+        "token":token
+      });
+
+      pays.then(res=>{
+        Indicator.close();
+        if (res.data.code==200) {
+          that.$router.push({ name: 'paycenter',params:{id:res.data.data},query:{id:res.data.data} });  
+        } else {          
+          Toast('网络异常,请重试!');
+        }
+      }).catch(err=>{
+        // 网络错误
+        Indicator.close();
+        Toast('网络异常,请重试!');
+      })
+    },
+    // 加入购物车
+    addCard:function(id){
+      let that=this;
+      let token = this.$store.state.token;
+      // 验证登录
+       
+      if (!that.tokenPass(token)) {
+        return false;
+      }
+      Indicator.open({
+        text:'正在为您添加',
+        spinnerType:'fading-circle'
+      });
+       
+      
+      let addC = tool.fetch('/yyyg/addcart','GET',{gid:id},{
+        "content-type": "application/json",
+        "token":token
+      });
+      addC.then(res=>{
+        Indicator.close();
+        if (res.data.code==200) {
+          Toast('恭喜,添加成功');
+          // console.log(res);
+          that.routerGo('shop');
+
+        } else {
+          // 请求异常
+          that.Toast('添加失败,稍后重试');
+        }
+      }).catch(err=>{
+          Indicator.close();
+          Toast('网络异常,请稍后重试');
+      })
+      
     },
     handleSearch(name){
       if(name){
@@ -175,7 +246,6 @@ export default {
     // 
     setSearch(prodname){
 
-        console.log(prodname);
         if (prodname.replace(/(^\s+)|(\s+$)/g, "")=='') {
           alert('请先输入您要搜索的商品');
           return false;
@@ -234,14 +304,16 @@ export default {
       let getGoodsInfo = tool.fetch('/yyyg/classify','GET',that.pageInfo);
 
       getGoodsInfo.then(res=>{
-        console.log(res);
+        // console.log(res);
         if (res.data.code==200) {
 
-          if (res.data.data!=0) {
+          if (res.data.data.length!=0) {
+            // console.log(type);
             
             if(type==2){
               // 分类请求,清除原来数据
               that.goodsList.length=0;
+                     
             }
             if(type==1){
               // 滚动请求,关闭加载状态
@@ -252,6 +324,7 @@ export default {
             that.pageInfo.page++;
 
           } else {
+
             that.$refs.loadmore.onBottomLoaded();
             Toast('没有更多数据了');
           }
@@ -271,7 +344,7 @@ export default {
       let that = this;
       let classList = tool.fetch('/yyyg/classlist','GET');
       classList.then(res=>{
-        console.log(res);
+        // console.log(res);
         if (res.data.code==200) {
           that.classifylist=res.data.data;
         } else {
@@ -295,13 +368,35 @@ export default {
           that.hotList=res.data.data;
         } else {
           
-        }
-        
+        }        
       }).catch(err=>{
         // 请求错误
         console.log(err);
         
       })
+    },
+
+    // 登录token验证
+    tokenPass:function(token){
+      if (!token) {
+        MessageBox({
+          showCancelButton:true,
+          title:'您还没登录',
+          message:'是否现在登录?',
+          confirmButtonText:'现在登录',
+          cancelButtonText:'再看看'
+
+        }).then(action => {
+          if (action=='confirm') {
+            this.$router.push({path:'/login'});
+          } else {
+            return false
+          }   
+        });
+        return false;
+      }else{
+        return true;
+      }
     }
   }
 };

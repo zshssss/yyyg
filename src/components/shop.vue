@@ -29,7 +29,7 @@
           </div>
         </li>  
       </ul>
-      <div class="tc topay" v-on:click="routerGo('paycenter')">立即支付</div>
+      <div class="tc topay" v-on:click="totPay()">立即支付</div>
     </div>
 
     <!-- 购物城为空 -->
@@ -55,6 +55,8 @@ import Vue from "vue";
 import TabBar from "./publicfile/tabbar";
 import api from '../utils/tool'
 import { Toast } from 'mint-ui';
+import { Indicator } from 'mint-ui';
+
 export default {
   components: { TabBar },
   name: "shop",
@@ -126,6 +128,31 @@ export default {
       api.fetch('/yyyg/cartdel?id='+id,'GET',{},{token:this.$store.state.token}).then((response)=>{
         this.getlist()
       
+      })
+    },
+
+    // 购物车结算
+    totPay:function(){
+      Indicator.open({
+        text:'努力生成订单中...',
+        spinnerType:'fading-circle'
+      });
+      let that = this;
+      let token = this.$store.state.token;
+      let totP= api.fetch('/yyyg/cartpay','GET',{},{
+        "content-type": "application/json",
+        "token":token
+      });
+      totP.then(res=>{
+        Indicator.close();
+        if (res.data.code==200) {
+          that.$router.push({ name: 'paycenter',params:{id:res.data.data},query:{id:res.data.data} });  
+        } else {
+           Toast('网络异常,请重试!');
+        }
+                 
+      }).catch(err=>{
+          Toast('网络错误,请重试!');
       })
     }
   }

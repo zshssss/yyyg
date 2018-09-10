@@ -16,10 +16,10 @@
         </div>
         <div class="addr_detail">
           <p>
-            <span class="name">张某某</span> 
-            <span class="tel">176****1234</span>
+            <span class="name">{{orderList.name}}</span> 
+            <span class="tel">{{orderList.phone}}</span>
           </p>
-          <p class="addrd">河南省 郑州市 管城区 **路**号</p>
+          <p class="addrd">{{orderList.city_id}} {{orderList.address}}</p>
         </div>
       </div>
 
@@ -31,18 +31,18 @@
 
     <div class="pay_proinfo">
       <ul>
-        <li v-on:click="routerGo('prodetail')">
+        <li v-for="(item, index) in orderList.detail" :key="index" v-on:click="routerGo('prodetail',item.goodsid)">
           <div class="pro_ico">
-            <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="" alt="">
+            <img :src="apiImgUrl+item.goodscover" style="" alt="">
           </div>
           <div class="pro_info">
-            <p class="des">（第333期）Apple iPhone 8(A1863)64G移动hone 8(A1863)64G移动hone 8(A1863)64G移动 </p>
+            <p class="des">（第{{item.goodsphase}}期）{{item.goodsname}}{{item.goodsdesc}} </p>
             <p class="model">型号：A1863</p>
-            <p class="nums">共1件</p>
+            <p class="nums">共{{item.goodsnum}}件</p>
             <p class="flex js_start al_center numchange">
-                <span @click.stop.prevent="redProdCount()" style="background-image"></span>
-                <span>{{haveBuy}}</span>
-                <span @click.stop.prevent="addProdCount()"></span>
+                <span @click.stop.prevent="redProdCount(index)" style="background-image"></span>
+                <span>{{item.goodsnum}}</span>
+                <span @click.stop.prevent="addProdCount(index)"></span>
             </p>
           </div>
         </li>
@@ -64,11 +64,13 @@
 
   <!-- 发起支付 -->
   <div class="topay">
+
     <p>
       <span>实付款：</span>
-      <span>￥1（免运费）</span>
+      <span>￥{{orderList.totalprice}}（免运费）</span>
     </p>
     <p @click="ToPayOrder()">立即支付</p>
+
   </div>
 
   <!-- 弹窗 -->
@@ -91,13 +93,16 @@
 
 <script>
   import { Toast } from 'mint-ui';
+  import tool from "../../utils/tool"
 export default {
   name: "product",
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
+      apiImgUrl:this.$store.state.apiImgUrl,
       haveBuy:1,
       showDialog:false,
+
       payMethod: [
         {
           name: "余额",
@@ -112,48 +117,138 @@ export default {
           ico: "pay_center_wechat_42_36.png"
         }
       ],
-      payNth: 0
+      // 订单商品信息
+      orderList:{},
+      payNth: 0,
+      orderId:null
     };
   },
-  created: function() {},
+  created: function() {
+    // 请求支付商品信息
+    let that = this;
+    let id = this.$route.query.id;
+    this.orderId=id;
+    let token = this.$store.state.token;
+
+    this.getGoodInfo(id,token);
+
+  },
   computed: {},
   methods: {
     back: function(num) {
       this.$router.go(-1);
     },
-    routerGo: function(path) {
-      this.$router.push({ name: path });
+    routerGo: function(path,id='') {
+      this.$router.push({ name: path,query:{id:id} });
     },
+    // 请求商品信息
+
+    getGoodInfo:function(id,token){
+      let that = this;
+      let orderInfo = tool.fetch('/yyyg/pay','GET',{orderid:id},{
+        "content-type": "application/json",
+        "token":token
+      });
+
+      orderInfo.then(res=>{
+
+        console.log(res);
+        if (res.data.code==200) {
+          that.orderList=res.data.data[0];    
+        } else {
+          // 
+        }
+        
+        
+        
+      }).catch(err=>{
+        console.log(err);  
+      })
+    },
+
+    // 
+
+
+
+
+
     swichPayStyle: function(index) {
       this.payNth = index;
     },
-    redProdCount(){
-      if(this.haveBuy<=1){
+
+
+    // 商品数量减1
+    redProdCount(index){
+       
+      let that = this;
+      let token = that.$store.state.token;
+      
+      if(this.orderList.detail[index].goodsnum<=1){
         Toast({
           message: '不得小于1',
           duration: 5000
         });
         return;
+      }else{
+        that.numChange(orderId,token,2,index)
       }
-      this.haveBuy --;
+      // this.orderList.detail[index].goodsnum --;
     },
-    addProdCount(){
-       if(this.haveBuy>=5){
+
+    // 商品数量加一
+    addProdCount(index){
+      let that = this;
+      let token = that.$store.state.token;
+      let orderId = that.orderId;
+
+       if(this.orderList.detail[index].goodsnum>=5){
          Toast({
           message: '不得多于5',
           duration: 5000
         });
         return;
+      }else{
+        that.numChange(orderId,token,1,index)
       }
-      this.haveBuy ++;
+      //
+
+
+      // this.orderList.detail[index].goodsnum ++;
     },
+    // 商品数量加减
+    numChange(id,token,str,index){
+
+      let that = this;
+      let orderInfo = tool.fetch('/yyyg/detailitem','GET',{orderid:id,str:str},{
+        "content-type": "application/json",
+        "token":token
+      });
+      orderInfo.then(res=>{
+        console.log(res);
+          if (res.data.code==200) {
+            if (str==1) {
+            that.orderList.detail[index].goodsnum ++;
+          } else {
+            that.orderList.detail[index].goodsnum --;
+          }
+        }else{
+          // 
+          Toast('修改失败')
+        }
+        
+        
+      }).catch(err=>{
+        console.log(err);
+        
+      })
+    },
+    // 
     ToPayOrder(){
       this.showDialog = true
     }
   }
 };
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
