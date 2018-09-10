@@ -21,11 +21,11 @@
     <div class="swich_nums">
       <p class="left_tit">￥</p>
       <p class="fill_nums">
-        <input type="number" placeholder="1">
+        <input type="number" v-model="transferCount" placeholder="输入金额">
       </p>
     </div>
     <div class="reflect_info">
-      <p>可用佣金余额0.001元</p>
+      <p>可用佣金余额 <span style="color:#fb3812;fontSize:0.72rem">{{totalCount?totalCount:' 0'}}</span>元</p>
       <p @click="routerGo('balance')">全部转换</p>
     </div>
 
@@ -38,10 +38,13 @@ export default {
   data() {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
-
+      transferCount:'',
+      totalCount:''
     };
   },
-  created: function() {},
+  created: function() {
+    this.totalCount = this.$store.state.userHire;
+  },
   computed: {},
   methods: {
     back: function(num) {

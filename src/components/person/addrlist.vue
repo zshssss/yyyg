@@ -28,12 +28,12 @@
                            {{location.location.join(' ')}}
                        </p>
                    </section>
-                   <section class="tc chose" :class="[index==activeIndex?'on':'']" @click="activeIndex = index">
+                   <section class="tc chose" :class="[location.id==activeIndex?'on':'']" @click="setdefaultAdress(location.id)">
                     使用
                    </section>
                </div> 
                <div class="addr_edit">
-                   <p class="addr_default" :class="[index==activeIndex?'on':'']">
+                   <p class="addr_default" :class="[location.id==activeIndex?'on':'']">
                        <span></span>
                        <span>设为默认</span>
                    </p>
@@ -108,7 +108,7 @@ export default {
     return {
       baseImgUrl: this.$store.state.baseImgUrl,
       showDialog:false,
-      activeIndex:0,
+      activeIndex:null,
       adressId:null,
       userLocationInfo:[
         {
@@ -3772,7 +3772,27 @@ export default {
     addAdress(){
         this.showDialog = true;
         this.addAdressType = true;
-      
+    },
+    setdefaultAdress(id){
+ let token = this.$store.state.token
+     api.fetch('/yyyg/defultaddr','GET',{addrid: id},{token:token,'Content-Type':'application/x-www-form-urlencoded'}).then(response=>{
+           
+             if(response.data.code === 200){
+                 this.activeIndex = id
+               Toast({
+                    message: response.data.msg,
+                    duration: 2000
+                    });
+               
+           }
+           if(response.data.code === 501){
+              Toast({
+                    message: response.data.msg,
+                    duration: 5000
+                  });
+           }
+                
+            })
     },
     handleSave(){
         

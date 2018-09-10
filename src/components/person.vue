@@ -16,7 +16,7 @@
             <span class="content">{{userInfo.nickname}}</span>
           </p>
           <p class="flex js_start al_center nikename usertel">
-            <img :src="userInfo.headimg ? userInfo.headimg :baseImgUrl+'person_tel_ico_21_32.png'" style="width:.42rem;height:.64rem" alt="手机号">
+            <img :src="baseImgUrl+'person_tel_ico_21_32.png'" style="width:.42rem;height:.64rem" alt="手机号">
             <span class="content">{{userInfo.phone}}</span>
           </p>
           <p class="user_wallet">
@@ -160,7 +160,10 @@ export default {
                 if(response.data.code == 200){
                     console.log(response.data.data)
                     const userinfo = response.data.data
-                     this.$store.commit('saveUserId', userinfo[0].id);
+                    this.$store.commit('saveUserId', userinfo[0].id);
+                    this.$store.commit('saveUserPhone', userinfo[0].phone);
+                    this.$store.commit('saveUserHire',userinfo[0].hire)
+                    this.$store.commit('saveUsergeneralize',userinfo[0].generalize)
                     this.userInfo = userinfo[0]
                 }
             })
