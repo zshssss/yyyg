@@ -211,11 +211,11 @@ export default {
       if(time<=0){
           return '结束'
       }else{
-          dd = Math.floor(time / 60 / 60 / 24);
+          // dd = Math.floor(time / 60 / 60 / 24);
           hh = Math.floor((time / 60 / 60) % 24);
           mm = Math.floor((time / 60) % 60);
-          ss = Math.floor(time  % 60);
-          var str = dd+"天"+hh+"小时"+mm+"分"+ss+"秒";
+          // ss = Math.floor(time  % 60);
+          var str = hh+":"+mm;
           return str;
       }
     },
