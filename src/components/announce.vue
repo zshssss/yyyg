@@ -11,7 +11,7 @@
             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem" alt="">
           </div>
           <div class="flex creent_info">
-            <p class="title">第{{item.num}}期）{{item.name}} {{item.desc}} 正在揭晓</p>
+            <p class="title">第（{{item.num}}）期 {{item.name}} {{item.desc}} 正在揭晓</p>
             <p class="price">价值：￥{{item.price}}元</p>
             <p class="flex js_start al_center box time">
               <img :src="baseImgUrl+'time_28_28.png'" style="height:.56rem;width:.56rem;" alt="">
@@ -69,7 +69,9 @@ export default {
       baseImgUrl: this.$store.state.baseImgUrl,
       apiImgUrl:  this.$store.state.apiImgUrl,
       history:[],
-      process:[]
+      process:[],
+      timer:null,
+      displaytime:null
     };
   },
   created: function() {
@@ -77,29 +79,8 @@ export default {
       console.log(response)
       const { already, process} =  response.data.data;
       this.history = already;
-      this.process =  [
-                    {
-                           "id": 20,
-                           "name": "苹果7",
-                           "cover": "/upload/20180831/d3ad44519372d0d965e272b5b95184b2.jpg",
-                           "pimg": "/upload/20180831/09570f0056124685006857ff128eb509.jpg,/upload/20180831/92a86c826e96e5ff550b846b0105bace.jpg,/upload/20180831/7bd1cc1d9d155d00c8c66e6cec82b066.jpg",
-                           "typeid": 3,
-                           "price": "100.00",
-                           "qingprice": "1.00",
-                           "sale": 0,
-                           "participation": 50,
-                           "desc": "128G 红色",
-                           "sort": 101,
-                           "commend": 1,
-                           "status": 1,
-                           "addtime": "1534930068",
-                           "updatetime": "1535700405",
-                           "del": "1",
-                           "num": 1,
-                           "already": 0,
-                           "qing_time": 1536343680
-                    }
-             ];
+      this.process =  process;
+      this.displaytime = process[0].qing_time;
     })
   },
   computed: {},

@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import {handleUserLogin} from '../../utils/tool'
+import api from '../../utils/tool'
 import { Toast } from 'mint-ui';
  import {
     mapGetters,
@@ -60,13 +60,7 @@ export default {
             let formData = new FormData();
             formData.append('phone', this.phone);
             formData.append('password', this.password);
-            this.$ajax({ 
-            url: '/yyyg/login', 
-            method: 'POST', 
-            headers:{'Content-Type': 'multipart/form-data'},
-            data: formData
-            }).then((response)=>{
-               console.log(response.data)
+            api.fetch('/yyyg/login','post',formData, {header:{'Content-Type': 'multipart/form-data'}}).then((response)=>{
                if(response.data.code == 500){
                    Toast({
                     message: response.data.msg,
@@ -77,7 +71,6 @@ export default {
                   sessionStorage.setItem('user_token', response.data.data)
 
                   this.$store.commit("saveToken", response.data.data);
-                  console.log(this.$store.state.token)
                     this.routerGo('index')
                 }
             })

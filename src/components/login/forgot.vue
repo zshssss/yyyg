@@ -39,6 +39,7 @@
 <script>
 import myCode from '../HelloWorld';
 import drawCode from './drawCode'
+import api from '../../utils/tool'
 import { Toast } from 'mint-ui';
 export default {
   components: {
@@ -82,12 +83,7 @@ export default {
       urlParams.append('password', this.password);
       urlParams.append('code', this.code);
 
-       this.$ajax({ 
-        url: '/yyyg/pwdfind', 
-        method: 'POST', 
-        headers:{'Content-Type': 'application/x-www-form-urlencoded'},
-        data:urlParams,
-        }).then((response)=>{
+       api.fetch('/yyyg/pwdfind','POST',urlParams,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then((response)=>{
           console.log(response)
             if(response.data.code == 500){
                  Toast({
@@ -116,12 +112,8 @@ export default {
         }
        }, 1000)
     }
-    this.$ajax({ 
-            url: '/yyyg/code', 
-            method: 'POST', 
-            data:{key:'b6eadc5556915ae899995076e473212',phone:this.phone}
-            }).then((response)=>{
-              console.log(response)
+    api.fetch('/yyyg/code','POST', {key:'b6eadc5556915ae899995076e473212',phone:this.phone},{}).then((response)=>{
+              (response.data.code = 200)
             })
 
   }

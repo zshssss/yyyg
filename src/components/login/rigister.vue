@@ -50,11 +50,7 @@
 </template>
 <script>
 import { Toast } from 'mint-ui';
-  import {
-    mapGetters,
-    mapMutations,
-    mapActions
-  } from "vuex";
+import api from '../../utils/tool'
 import drawCode from './drawCode'
 export default {
   name: "rigister",
@@ -140,11 +136,7 @@ export default {
        }, 1000)
     }
 
-     this.$ajax({ 
-            url: '/yyyg/code', 
-            method: 'POST', 
-            data:{key:'b6eadc5556915ae899995076e473212',phone:this.phone}
-            }).then((response)=>{
+     api.fetch('/yyyg/code','POST',{key:'b6eadc5556915ae899995076e473212',phone:this.phone},{}).then((response)=>{
                if(response.code=== 200){
                      Toast({
                         message: response.msg,
@@ -164,28 +156,28 @@ export default {
             if(!this.isChecked){
                 Toast({
                         message: '请勾选用户服务协议',
-                        duration: 5000
+                        duration: 2000
                     });
                 return ;
             }
             if(this.code==null){
                  Toast({
                         message: '请填入验证码',
-                        duration: 5000
+                        duration: 2000
                     });
                 return ;
             }
              if(!this.phone){
                  Toast({
                         message: '请填入手机号',
-                        duration: 5000
+                        duration: 2000
                     });
                 return ;
             }
             if(!this.password){
                 Toast({
                         message: '请填入密码',
-                        duration: 5000
+                        duration: 2000
                     });
                 return ;
             }
@@ -193,20 +185,12 @@ export default {
             formData.append('phone', this.phone);
             formData.append('password', this.password);
             formData.append('code', this.code);
-
-            console.log(typeof this.code, this.phone,this.password)
-
-            this.$ajax({ 
-            url: '/yyyg/register', 
-            method: 'POST', 
-            headers:{'Content-Type': 'multipart/form-data'},
-            data: formData
-            }).then((response)=>{
+            api.fetch('/yyyg/register','POST',formData,{header:{'Content-Type': 'multipart/form-data'}}).then((response)=>{
                console.log(response.data)
                if(response.data.code == 500){
                     Toast({
                         message: response.data.msg,
-                        duration: 5000
+                        duration: 2000
                     });
                }
                

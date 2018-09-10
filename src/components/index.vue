@@ -34,9 +34,9 @@
               <img :src="apiImgUrl+item.cover" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
-                <span>{{hour}}:</span>
-                <span>{{minu}}:</span>
-                <span>{{second}}</span>
+                <span>{{item.djs}}</span>
+                <!-- <span>{{minu}}:</span>
+                <span>{{second}}</span> -->
               </p>
             </li>
           </ul>
@@ -191,7 +191,7 @@ export default {
 
   },
   mounted() {
-    this.formatDate();
+    // this.formatDate();
   },
   computed: {},
   methods: {
@@ -202,24 +202,20 @@ export default {
       this.loadingTitle='正在拼命加载';
       this.getGoods();
     },
-    formatDate(formatStr, timep) {
-      var leftTime = 3 * 60 * 60 * 1000;
-      // var ho = '23:23:23'.split(':')[0];
-      // var min = '23:23:23'.split(':')[1];
-      // var ss = '23:23:23'.split(':')[2];
-      // leftTime =  parseInt(ho , 10) * 60 * 60 + parseInt(min , 10) * 60 + parseInt(ss , 10);
-
-      setInterval(() => {
-        //  var endPoin= new Date('2018-09-01').getTime();
-        // var leftTime = endPoin - new Date().getTime();
-        leftTime = leftTime - 1000;
-        var hours = parseInt((leftTime / 1000 / 60 / 60) % 24, 10); //计算剩余的小时
-        var minutes = parseInt((leftTime / 1000 / 60) % 60, 10); //计算剩余的分钟
-        var seconds = parseInt((leftTime / 1000) % 60, 10); //计算剩余的秒数
-        this.hour = hours > 9 ? hours : "0" + hours;
-        this.minu = minutes > 9 ? minutes : "0" + minutes;
-        this.second = seconds > 9 ? seconds : "0" + seconds;
-      }, 1000);
+    formatDate(endtime) {
+      var dd,hh,mm,ss = null;
+      var time = parseInt(endtime) - new Date().getTime()/1000;
+      console.log(endtime)
+      if(time<=0){
+          return '结束'
+      }else{
+          dd = Math.floor(time / 60 / 60 / 24);
+          hh = Math.floor((time / 60 / 60) % 24);
+          mm = Math.floor((time / 60) % 60);
+          ss = Math.floor(time  % 60);
+          var str = dd+"天"+hh+"小时"+mm+"分"+ss+"秒";
+          return str;
+      }
     },
     routerGo: function(pathName, params) {
       this.$router.push({ name: pathName,params:params });
@@ -293,6 +289,11 @@ export default {
             that.loadingTitle='上拉加载更多';
             that.banners=res.data.data.img;
             that.recom=that.recom.concat(res.data.data.goods);
+            res.data.data.jie_xiao.map((obj,index)=>{
+              that.$set(
+                  obj,"djs",that.formatDate(obj.qing_time)
+              );
+            })
             that.comeSoon=res.data.data.jie_xiao;
           }else{
             that.isScroll=true;
