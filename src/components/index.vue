@@ -5,7 +5,7 @@
 
     <!-- 头部搜索 -->
     <div class="flex js_center al_center topsea">
-      <div class="box flex js_start al_center seach" v-on:click="visiable = !visiable">
+      <div class="box flex js_start al_center seach" v-on:click="showPop">
         <img :src="baseImgUrl+'index_sea_32_30.png'" style="width:.64rem;height:.6rem;" alt="">
         <input class="seakey" disabled placeholder="请输入您想要的宝贝" type="text">
       </div>
@@ -31,7 +31,7 @@
       <div class="jiexiao_list">
         <ul>
             <li  v-for="(item, index) in comeSoon" :key="index" v-on:click="routerGo('prodetail')">
-              <img :src="baseImgUrl+item.name" style="width:3.2rem;height:2.94rem" alt="">
+              <img :src="apiImgUrl+item.cover" style="width:3.2rem;height:2.94rem" alt="">
               <p class="name tc">倒计时</p>
               <p class="time">
                 <span>{{hour}}:</span>
@@ -72,7 +72,7 @@
 
                 <p class="box price">价值：￥{{val.price}}（{{val.qingprice}}抢购/人次）</p>
                 <div class="range">
-                  <p class="rangesize" style="width:30%;"></p>
+                  <p class="rangesize" :style="{width:val.already/val.participation+'%'}"></p>
                 </div>
                 <div class="box flex js_between al_center take_info">
                   <div class="toke_item tc">
@@ -122,7 +122,7 @@
         <dl class="auto-commend">
             <dt class="commend-label">热门搜索</dt>
             <dd class="commend-list">
-                <span v-for="(item,index) in hotList" :key="index" @click="setSearch(item)">{{item}}</span>
+                <span v-for="(item,index) in hotList" :key="index" @click="setSearch(item.title)">{{item.title}}</span>
             </dd>
         </dl>
     </div>
@@ -146,6 +146,8 @@ Vue.component(Spinner.name, Spinner);
 
 // 底部tabbar
 import TabBar from "./publicfile/tabbar";
+// 弹窗组件
+import { Toast } from 'mint-ui';
 export default {
   components: { TabBar },
   name: "index",
@@ -159,41 +161,32 @@ export default {
       isScroll:true,
       loading:false,
       loadingTitle:'上拉加载更多',
+      
+      // 一展示页数
       page:0,
 
+      // 新品推荐
       recom: [],
+
       hour: null,
       minu: null,
       second: null,
-      comeSoon: [
-        { name: "jiexiao_01_ico_160_147.png" },
-        { name: "jiexiao_02_ico_160_147.png" },
-        { name: "jiexiao_03_ico_160_147.png" },
-        { name: "jiexiao_04_ico_160_147.png" }
-      ],
 
-      prodlist: [
-        "全部商品",
-        "科技数码",
-        "手机电脑",
-        "珠宝首饰",
-        "奢饰品区",
-        "金银投资",
-        "名表专区",
-        "茶酒专区",
-        "食品饮料",
-        "家用电器",
-        "生活百货",
-        "妇婴用品"
-      ],
-      proShow: false,
+      // 最新揭晓
+      comeSoon: [],
+
       visiable: false,
+      // 搜索关键词
       searchName: null,
-      hotList: ["口红", "手机", "耳机"],
-      showSlide: false
+
+      // 搜索关键词列表
+      hotList: [],
+     
     };
   },
   created: function() {
+
+    // 页面数据初始化
     this.getGoods();
 
   },
@@ -202,7 +195,8 @@ export default {
   },
   computed: {},
   methods: {
-    // 请求更多数据
+
+    // 上拉请求更多数据
     loadMore:function(){
       this.loading=true;
       this.loadingTitle='正在拼命加载';
@@ -228,20 +222,55 @@ export default {
       }, 1000);
     },
     routerGo: function(pathName, params) {
-      this.$router.push({ name: pathName });
+      this.$router.push({ name: pathName,params:params });
     },
-    handleSearch(name) {
-      if (name) {
-        (this.visiable = false), (this.searchName = name);
-      }
+
+    // 
+    
+
+    // 打开搜索界面
+    showPop(){
+      let that = this;  
+      that.visiable=!that.visiable;
+      // 请求关键词
+      let hotKeys = tool.fetch('/yyyg/hotsearch','GET',{})
+      hotKeys.then(res=>{
+        if (res.data.code==200) {
+          console.log(res);
+          that.hotList = res.data.data;
+        } else {
+          
+        }           
+      })
+      .catch(err=>{
+        console.log(err);
+        
+      })
+
+
     },
+
+    // 关闭搜索界面
     closeProp() {
       this.visiable = false;
     },
+
+    // 搜索
     setSearch(prodname) {
       this.searchName = prodname ? prodname : this.searchName;
-      this.visiable = false;
+      
+      if (this.searchName) {
+        this.visiable = false;
+        this.routerGo('classify',{'hotKey':this.searchName});
+      } else {
+         
+       alert('请先输入您要搜索的商品名称');
+        
+      }
+      
     },
+
+    // 清除搜索关键词
     deleTeName() {
       this.searchName = "";
     },
@@ -264,13 +293,12 @@ export default {
             that.loadingTitle='上拉加载更多';
             that.banners=res.data.data.img;
             that.recom=that.recom.concat(res.data.data.goods);
+            that.comeSoon=res.data.data.jie_xiao;
           }else{
             that.isScroll=true;
             that.loading=false;
             that.loadingTitle='没有更多商品了,敬请期待';
           }
-          
-
         } else {
           console.log('没有更多数据了');
         }
