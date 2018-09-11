@@ -37,7 +37,8 @@
   </div>
 </template>
 <script>
-  import { Toast } from 'mint-ui';
+import { Toast } from 'mint-ui';
+import api from '../../../utils/tool'
 export default {
   name: "partrecord",
   data() {
@@ -52,12 +53,9 @@ export default {
   computed: {},
   methods: {
     getpartCart(){
-      this.$ajax({ 
-      url: '/yyyg/record', 
-      method: 'get', 
-      headers:{'token':'425499bba00464e4567b7d9f0ec1556c'}
-      }).then((response)=>{
-          console.log(response.data)
+      const token = this.$store.state.token;
+      api.fetch('/yyyg/record','get',{ header:{'token': token }}).then((response)=>{
+          // console.log(response.data)
           if(response.data.code == 500){
               Toast({
                     message: response.data.msg,
@@ -65,7 +63,7 @@ export default {
                   });
           }
           if(response.data.code == 200){
-              console.log(response.data.data)
+              // console.log(response.data.data)
               const partcart = response.data.data
               this.partCart = partcart
           }
