@@ -11,22 +11,22 @@
     </div>
     <div class="export_list">
         <ul>
-            <li v-for="(item, index) in 3" :key="index"  @click="routerGo('prodetail')">
+            <li v-for="(item, index) in exportList" :key="index"  @click="routerGo('prodetail',item.id)">
                 <div class="export_ico">
                     <img :src="baseImgUrl+'rxport_ico_66_66.png'" style="width:1.32rem;heigth:1.32rem;" alt="">
                 </div>
                 <div class="export_box">
-                    <p class="title">前几天还在跟同事吹我肯定要中一部手机...</p>
-                    <p class="tel">133****9533</p>
+                    <p class="title">{{item.title}}</p>
+                    <p class="tel">{{item.phone}}</p>
                     <div class="flex js_start al_center order_detail">
                         <div class="order_ico">
                             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="height:2.9rem;width:2.3rem;" alt="" srcset="">
                         </div>
                         <div class="order_inf">
-                            <p class="order_name">（第333期）Apple iPhone 8(A1863)64G移动 正在揭晓</p>
+                            <p class="order_name">（第{{item.goodsphase}}期）{{item.name}}{{item.desc}} 正在揭晓</p>
                             <p class="price">
-                                <span>价值：￥5800元</span>
-                                <span>2018.08.08</span>                  
+                                <span>价值：￥{{item.price}}元</span>
+                                <span>{{item.addtime}}</span>                  
                             </p>
                         </div>
                     </div>
@@ -37,22 +37,52 @@
  
   </div>
 </template>
+
 <script>
+import tool from "../../../../utils/tool"
+
 export default {
+
   name: "exportorder",
   data() {
     return {
-      baseImgUrl: this.$store.state.baseImgUrl
+      baseImgUrl: this.$store.state.baseImgUrl,
+      apiImgUrl:this.$store.state.apiImgUrl,
+      exportList:null
     };
   },
-  created: function() {},
+  created: function() {
+      let that=this;
+      let token = this.$store.state.token;
+      this.getEx(token);
+
+  },
   computed: {},
   methods: {
     back: function(num) {
       this.$router.go(-1);
     },
-    routerGo: function(path) {
-      this.$router.push({ name: path });
+    routerGo: function(path,id) {
+      this.$router.push({ name: path,query:{id:id} });
+    },
+    getEx:function(token){
+        let that = this;
+        let getEx = tool.fetch('/yyyg/evaluate','GET',{type:1},{token:token})
+        getEx.then(res=>{
+            console.log(res);
+            if (res.data.code==200) {
+                // console.log(1);
+                
+                that.exportList=res.data.data
+            } else {
+                // 请求异常
+            }
+            
+        }).catch(err=>{
+            // 网络错误
+            // console.log(err);
+            
+        })
     }
   }
 };

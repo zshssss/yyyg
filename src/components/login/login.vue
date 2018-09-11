@@ -10,12 +10,12 @@
     </div>
     <div class="userins">
         <p class="user_tel">
-            <img :src="baseImgUrl+'login_tel_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="tel">
-            <input type="tel" v-model="phone" placeholder="请输入手机号" maxlength="11">
+            <img :src="baseImgUrl+'login_tel_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="tel" />
+            <input type="tel" v-model="phone" placeholder="请输入手机号" style="width:100%" maxlength="11" />
         </p>
         <p class="user_tel bn">
-            <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="password">
-            <input type="password" v-model="password" placeholder="请输入密码">
+            <img :src="baseImgUrl+'login_pass_80_80.png'" style="width:1.6rem;height:1.6rem;" alt="password" />
+            <input type="password" v-model="password" placeholder="请输入密码" style="width:100%" />
         </p>
     </div>
     
