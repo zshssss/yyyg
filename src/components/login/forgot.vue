@@ -68,53 +68,55 @@ export default {
     },
      routerGo: function(path) {
       this.$router.push({ name: path });
-    },
-    // formtypeData(parms1,parms2,parms3){
-     
-    //   return urlSearchParams;
-    // },
-    
+    },    
     handleforgot(){
-
-      // var formtypeData = this.formtypeData(this.phone,this.password,this.code);//生成formData对象
-      let urlParams = new URLSearchParams();
-      
-      urlParams.append('phone', this.phone);
-      urlParams.append('password', this.password);
-      urlParams.append('code', this.code);
-
+      let urlParams = {'phone':this.phone,'password':this.password,'code':this.code};
        api.fetch('/yyyg/pwdfind','POST',urlParams,{headers:{'Content-Type': 'application/x-www-form-urlencoded'}}).then((response)=>{
-          console.log(response)
-            if(response.data.code == 500){
-                 Toast({
+            if(response.data.code == 200){
+              Toast({
                     message: response.data.msg,
                     duration: 2000
                     });
-            }
-            if(response.data.code == 200){
                 this.routerGo('login')
+            }else{
+              Toast({
+                message: response.data.msg,
+                duration: 2000
+                });
             }
         })
     },
     // 生成随机码
     createdCode(){
-    this.notvalided = false;
-    const TIME_COUNT = 60
-    if(!this.timer){
-      this.timercount = TIME_COUNT;
-      this.timer = setInterval(()=>{
-         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
-         this.timercount--;
-        } else {
-         this.notvalided = true;
-         clearInterval(this.timer);
-         this.timer = null;
+      if(this.phone){
+        let token = this.$store.state.token;
+        this.notvalided = false;
+        const TIME_COUNT = 60
+        if(!this.timer){
+          this.timercount = TIME_COUNT;
+          this.timer = setInterval(()=>{
+            if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
+            this.timercount--;
+            } else {
+            this.notvalided = true;
+            clearInterval(this.timer);
+            this.timer = null;
+            }
+          }, 1000)
         }
-       }, 1000)
-    }
-    api.fetch('/yyyg/code','POST', {key:'b6eadc5556915ae899995076e473212',phone:this.phone},{}).then((response)=>{
-              (response.data.code = 200)
-            })
+        
+           api.fetch('/yyyg/code','POST',{phone:this.phone,key:"b6eadc5556915ae899995076e473212"}).then((response)=>{
+                 if(response.data.code = 200){
+                Toast({
+                  message:'验证码已发送'
+                })
+              }else{
+                Toast({
+                  message:'未知错误'
+                })
+              }
+          })
+        }
 
   }
   }

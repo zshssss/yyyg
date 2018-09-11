@@ -54,7 +54,7 @@ export default {
   methods: {
     getpartCart(){
       const token = this.$store.state.token;
-      api.fetch('/yyyg/record','get',{ header:{'token': token }}).then((response)=>{
+      api.fetch('/yyyg/record','get',{},{'token': token }).then((response)=>{
           // console.log(response.data)
           if(response.data.code == 500){
               Toast({

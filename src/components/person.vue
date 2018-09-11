@@ -2,7 +2,7 @@
   <div class="person" id="person">
     <div class="tc top_title">
         <span>个人中心</span>
-        <span v-on:click="routerGO('login')" class="exit">安全退出</span>
+        <span v-on:click="handleExit" class="exit">安全退出</span>
     </div>
 
     <div class="userinfos" :style="{background: 'url('+ baseImgUrl + 'person_bg_750_300.png' +')',backgroundSize:'cover' }">
@@ -141,24 +141,30 @@ export default {
   methods: {
     getUserInfo(){
       const token = this.$store.state.token
-            api.fetch('/yyyg/myindex','get',{},{header:{'token':token}}).then((response)=>{
-              //  console.log(response.data)
-               if(response.data.code == 500){
-                   Toast({
-                    message: response.data.msg,
-                    duration: 5000
-                  });
-               }
-                if(response.data.code == 200){
-                    // console.log(response.data.data)
-                    const userinfo = response.data.data
-                    this.$store.commit('saveUserId', userinfo[0].id);
-                    this.$store.commit('saveUserPhone', userinfo[0].phone);
-                    this.$store.commit('saveUserHire',userinfo[0].hire)
-                    this.$store.commit('saveUsergeneralize',userinfo[0].generalize)
-                    this.userInfo = userinfo[0]
-                }
-            })
+      api.fetch('/yyyg/myindex','GET',{},{token:token}).then((response)=>{
+        //  console.log(response.data)
+          if(response.data.code == 500){
+              Toast({
+              message: response.data.msg,
+              duration: 5000
+            });
+          }
+          if(response.data.code == 200){
+              // console.log(response.data.data)
+              const userinfo = response.data.data
+              this.$store.commit('saveUserId', userinfo[0].id);
+              this.$store.commit('saveUserPhone', userinfo[0].phone);
+              this.$store.commit('saveUserHire',userinfo[0].hire)
+              this.$store.commit('saveUsergeneralize',userinfo[0].generalize)
+              this.userInfo = userinfo[0]
+          }
+      })
+    },
+    handleExit(){
+      this.$store.commit('removeToken','')
+      this.$nextTick(()=>{
+        this.routerGO('index')
+      })
     },
     routerGO:function(pathName){
       this.$router.push({name:pathName});

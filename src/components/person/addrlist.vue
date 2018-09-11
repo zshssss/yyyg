@@ -3834,8 +3834,8 @@ export default {
             formdata.append('address',  this.Depict);
             
             formdata.append('city_id',this.Province + ' ' + this.City + ' ' + this.District );
-             console.log(this.adressId, this.TelePhone, this.UserName,  this.Depict,this.Province + ' ' + this.City + ' ' + this.District ) 
-      api.fetch('/yyyg/addressedit','POST',formdata,{token:token,'Content-Type':'multipart/form-data'}).then(response=>{
+
+            api.fetch('/yyyg/addressedit','POST',formdata,{token:token,'Content-Type':'multipart/form-data'}).then(response=>{
            
              if(response.data.code === 200){
                this.showDialog = false;

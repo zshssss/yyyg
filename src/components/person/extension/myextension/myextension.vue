@@ -38,7 +38,8 @@ export default {
     };
   },
   created: function() {
-    api.fetch('/yyyg/generalize','get',{token:this.$store.state.token},{token:this.$store.state.token}).then((response)=>{
+    const token = this.$store.state.token;
+    api.fetch('/yyyg/generalize','get',{token:token},{token:token}).then((response)=>{
       
             if(response.data.code == 200){
                 this.extensionList = this.formatData(response.data.data)

@@ -80,35 +80,51 @@ export default {
         }
         
            api.fetch('/yyyg/code','POST',{phone:this.newPhone,key:"b6eadc5556915ae899995076e473212"}).then((response)=>{
-              Toast({
+             if(response.data.code){
+               Toast({
+                    message: '验证码已发送',
+                    duration: 2000
+                    });
+             }else{
+               Toast({
                     message: response.data.msg,
                     duration: 2000
                     });
+             }
+              
           })
-        }
+        }else{
+            Toast({
+                  message: '点击当前手机号填写手机号',
+                  duration: 2000
+                  });
+          }
      
   },
     editePhone(){
         let code = +this.code;
         if(code && !this.showPhone){
             // let phone = this.newPhone;
-             let formData = new FormData();
-            formData.append('phone', this.newPhone);
-            formData.append('code', this.code);
-            // let token = this.$store.state.token;
+            let formData ={'phone': this.newPhone,'code': this.code}
          
-            api.fetch('/yyyg/phone','POST',formData,{token:this.$store.state.token,'Content-Type': 'multipart/form-data'}).then((response)=>{
-              Toast({
+            api.fetch('/yyyg/phone','POST',formData,{token:this.$store.state.token}).then((response)=>{
+              
+              if(response.data.code === 200){
+                Toast({
                     message: response.data.msg,
                     duration: 2000
                     });
-              if(response.data.code === 200){
                   this.$router.go(-1)
+              }else{
+                Toast({
+                    message: response.data.msg,
+                    duration: 2000
+                    });
               }
           })
           }else{
             Toast({
-                  message: '请填写信息',
+                  message: '填写验证码',
                   duration: 2000
                   });
           }

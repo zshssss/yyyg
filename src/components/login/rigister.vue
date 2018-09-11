@@ -69,7 +69,7 @@ export default {
         phone:null,
         password:null,
         code:null,
-        varifcode:'',
+        // varifcode:'',
         isChecked:false,
         notvalided:true,
         timercount:'',
@@ -122,31 +122,29 @@ export default {
     // 生成随机码
       createdCode(){
           this.notvalided = false;
-    const TIME_COUNT = 60
-    if(!this.timer){
-      this.timercount = TIME_COUNT;
-      this.timer = setInterval(()=>{
-         if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
-         this.timercount--;
-        } else {
-         this.notvalided = true;
-         clearInterval(this.timer);
-         this.timer = null;
+        const TIME_COUNT = 60
+        if(!this.timer){
+        this.timercount = TIME_COUNT;
+        this.timer = setInterval(()=>{
+            if (this.timercount > 0 && this.timercount <= TIME_COUNT) {
+            this.timercount--;
+            } else {
+            this.notvalided = true;
+            clearInterval(this.timer);
+            this.timer = null;
+            }
+        }, 1000)
         }
-       }, 1000)
-    }
 
      api.fetch('/yyyg/code','POST',{key:'b6eadc5556915ae899995076e473212',phone:this.phone},{}).then((response)=>{
-               if(response.code=== 200){
+               if(response.data.code=== 200){
                      Toast({
-                        message: response.msg,
+                        message: response.data.msg,
                         duration: 2000
                     });
-                    this.varifcode = response.data
-               }
-                if(response.code=== 500){
+               }else{
                     Toast({
-                        message: response.msg,
+                        message: response.data.msg,
                         duration: 2000
                     });
                }
@@ -181,12 +179,9 @@ export default {
                     });
                 return ;
             }
-            let formData = new FormData();
-            formData.append('phone', this.phone);
-            formData.append('password', this.password);
-            formData.append('code', this.code);
-            api.fetch('/yyyg/register','POST',formData,{header:{'Content-Type': 'multipart/form-data'}}).then((response)=>{
-               console.log(response.data)
+            let formData = {'phone': this.phone,'password': this.password,'code':this.code};
+            api.fetch('/yyyg/register','POST',formData,{}).then((response)=>{
+            //    console.log(response.data)
                if(response.data.code == 500){
                     Toast({
                         message: response.data.msg,

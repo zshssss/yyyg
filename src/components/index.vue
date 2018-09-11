@@ -205,15 +205,13 @@ export default {
       this.getGoods();
     },
     formatDate(endtime) {
-      var dd,hh,mm,ss = null;
       var time = parseInt(endtime) - new Date().getTime()/1000;
-      console.log(endtime)
       if(time<=0){
           return '结束'
       }else{
           // dd = Math.floor(time / 60 / 60 / 24);
-          hh = Math.floor((time / 60 / 60) % 24);
-          mm = Math.floor((time / 60) % 60);
+          let hh = Math.floor((time / 60 / 60) % 24);
+          let mm = Math.floor((time / 60) % 60);
           // ss = Math.floor(time  % 60);
           var str = hh+":"+mm;
           return str;
@@ -314,7 +312,7 @@ export default {
         num:5
       })
       goods.then(function(res){
-        console.log(res);
+
         if (res.data.code==200) {
 
           if (res.data.data.goods.length!=0) {
@@ -324,15 +322,19 @@ export default {
             that.loadingTitle='上拉加载更多';
             that.banners=res.data.data.img;
             that.recom=that.recom.concat(res.data.data.goods);
+            that.comeSoon=res.data.data.jie_xiao;
             res.data.data.jie_xiao.map((obj,index)=>{
               that.$set(
                   obj,"djs",that.formatDate(obj.qing_time)
               );
             })
-            that.comeSoon=res.data.data.jie_xiao;
-
-            console.log(that.recom);
-            
+           
+            setInterval( ()=> {
+                for (var key in that.comeSoon) {
+                    var endtime = parseInt( that.comeSoon[key]["qing_time"] );
+                    that.comeSoon[key]["djs"] = that.formatDate(endtime);;
+                }
+            }, 1000);
           }else{
             that.isScroll=true;
             that.loading=false;

@@ -57,23 +57,19 @@ export default {
     },
     handleLogin(){
 
-            let formData = new FormData();
-            formData.append('phone', this.phone);
-            formData.append('password', this.password);
-            api.fetch('/yyyg/login','post',formData, {header:{'Content-Type': 'multipart/form-data'}}).then((response)=>{
-               if(response.data.code == 500){
-                   Toast({
-                    message: response.data.msg,
-                    duration: 5000
-                  });
-               }
-                if(response.data.code == 200){
-                  sessionStorage.setItem('user_token', response.data.data)
+      let formData = {'phone':this.phone,'password':this.password}
 
-                  this.$store.commit("saveToken", response.data.data);
-                    this.routerGo('index')
-                }
-            })
+      api.fetch('/yyyg/login','post',formData,{}).then((response)=>{ 
+          if(response.data.code == 200){
+            this.$store.commit("saveToken", response.data.data);
+              this.routerGo('index')
+          }else{
+              Toast({
+              message: response.data.msg,
+              duration: 5000
+            });
+          }    
+       })
       // this.routerGo('index')
     }
   }
