@@ -301,10 +301,17 @@ export default {
     // 
     getGoodsInfo(type){
       let that =this;
+        if (type==2) {
+          Indicator.open({
+          text:'正在为您添加',
+          spinnerType:'fading-circle'
+        });
+      }
       let getGoodsInfo = tool.fetch('/yyyg/classify','GET',that.pageInfo);
 
       getGoodsInfo.then(res=>{
         // console.log(res);
+        Indicator.close();
         if (res.data.code==200) {
 
           if (res.data.data.length!=0) {

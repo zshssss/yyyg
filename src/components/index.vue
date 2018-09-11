@@ -271,7 +271,7 @@ export default {
       let hotKeys = tool.fetch('/yyyg/hotsearch','GET',{})
       hotKeys.then(res=>{
         if (res.data.code==200) {
-          console.log(res);
+          // console.log(res);
           that.hotList = res.data.data;
         } else {
           
@@ -318,7 +318,7 @@ export default {
         num:5
       })
       goods.then(function(res){
-        console.log(res);
+        // console.log(res);
         if (res.data.code==200) {
 
           if (res.data.data.goods.length!=0) {
@@ -330,7 +330,7 @@ export default {
             that.recom=that.recom.concat(res.data.data.goods);
             that.comeSoon=res.data.data.jie_xiao;
 
-            console.log(that.recom);
+            // console.log(that.recom);
             
           }else{
             that.isScroll=true;

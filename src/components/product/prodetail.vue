@@ -107,7 +107,7 @@ export default {
   },
   created: function() {
      let id = this.$route.query.id;
-     console.log(id);
+    //  console.log(id);
     // 请求商品详情
      this.getGoodInfo(id);
 
@@ -196,7 +196,7 @@ export default {
       goodInfo.then(res=>{
         if (res.data.code==200) {
           that.goodIn=res.data.data;
-          console.log(res);
+          // console.log(res);
         } else {
           // 请求失败
         }
@@ -217,7 +217,7 @@ export default {
           cancelButtonText:'再看看'
 
         }).then(action => {
-          console.log(action);
+          // console.log(action);
           
           if (action=='confirm') {
 

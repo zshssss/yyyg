@@ -3,9 +3,9 @@
     <div class="tc top_title">最近揭晓</div>
 
     <!-- 正在揭晓 -->
-    <div class="currents" v-on:click="routerGo('prodetail')">
+    <div class="currents">
       <ul>
-        <li v-for="item in process" :key="item.id">
+        <li v-for="item in process" :key="item.id" v-on:click="routerGo('prodetail',item.id)">
           <p class="cus_tip">正在揭晓</p>
           <div class="flex js_center al_center creent_ico">
             <img :src="baseImgUrl+'jiexiao_ico_187_235.png'" style="width:3.74rem;height:4.7rem" alt="">
@@ -27,7 +27,7 @@
     <!-- 已经揭晓 -->
     <div class="history">
       <ul>
-        <li v-for="item in history" :key="item.id"  v-on:click="routerGo('prodetail')">
+        <li v-for="item in history" :key="item.id"  v-on:click="routerGo('prodetail',item.id)">
           <div class="flex js_center al_center creent_ico">
             <img :src="item.cover?apiImgUrl+item.cover:baseImgUrl+'jiexiao_ico_187_235.png'"  style="width:3.74rem;height:4.7rem" alt="">
           </div>
@@ -105,7 +105,9 @@ export default {
   computed: {},
   methods: {
     routerGo: function(pathName, params) {
-      this.$router.push({ name: pathName });
+      // console.log(params);
+      
+      this.$router.push({ name: pathName,query:{id:params} });
     },
     formatDate(second) {
 
@@ -113,10 +115,10 @@ export default {
       var leftTime = Math.abs(endPoin - new Date().getTime());
       var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
       var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
-       console.log( hours,minutes)
+      //  console.log( hours,minutes)
       hours = (hours>9) ? hours :'0'+ hours;
       minutes = (minutes>9) ? minutes :'0'+ minutes;
-      console.log( hours,minutes)
+      // console.log( hours,minutes)
       return hours+': '+minutes
     },
   }

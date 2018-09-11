@@ -141,6 +141,7 @@ export default {
     routerGo: function(path,id='') {
       this.$router.push({ name: path,query:{id:id} });
     },
+
     // 请求商品信息
 
     getGoodInfo:function(id,token){
@@ -153,6 +154,7 @@ export default {
       orderInfo.then(res=>{
 
         console.log(res);
+        
         if (res.data.code==200) {
           that.orderList=res.data.data[0];    
         } else {
@@ -182,6 +184,7 @@ export default {
        
       let that = this;
       let token = that.$store.state.token;
+      let orderId = that.orderId;
       
       if(this.orderList.detail[index].goodsnum<=1){
         Toast({
@@ -208,7 +211,7 @@ export default {
         });
         return;
       }else{
-        that.numChange(orderId,token,1,index)
+        that.numChange(orderId,token,1,index);
       }
       //
 
@@ -217,10 +220,10 @@ export default {
     },
     // 商品数量加减
     numChange(id,token,str,index){
-
       let that = this;
       let orderInfo = tool.fetch('/yyyg/detailitem','GET',{orderid:id,str:str},{
         "content-type": "application/json",
+
         "token":token
       });
       orderInfo.then(res=>{
